@@ -1,0 +1,65 @@
+.id_form,
+.sp_form {
+  width: 100%;
+  display: flex;
+  margin-block: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.id_form input {
+  display: block;
+  appearance: none;
+  border-style: solid;
+  padding: .5rem 1rem;
+  border-radius: 3rem;
+  font-size: 1.2rem;
+  width: 90%;
+  border-color: gray;
+  transition-property: color background-color border-color text-decoration-color fill stroke;
+  transition-duration: .15s;
+}
+
+.sp_form textarea {
+  display: block;
+  min-height: 10rem;
+  appearance: none;
+  border-style: solid;
+  padding: .5rem 1rem;
+  border-radius: .3rem;
+  font-size: 1.2rem;
+  width: 100%;
+  border-color: gray;
+  transition-property: color background-color border-color text-decoration-color fill stroke;
+  transition-duration: .15s;
+}
+
+.id_form input:hover,
+.id_form input:focus,
+.sp_form textarea:hover,
+.sp_form textarea:focus {
+  outline: none;
+  border-color: #2dd3d0;
+}
+
+.sp_form #sp_submit_button {
+  appearance: none;
+  border-style: solid;
+  border-width: 2px;
+  padding: .3rem 1.5rem;
+  background-color: #2dd3d0;
+  border-color: #2dd3d0;
+  border-color: #269b99;
+  border-radius: 3rem;
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
+  transition-property: color background-color border-color text-decoration-color fill stroke;
+  transition-duration: .15s;
+}
+
+.sp_form #sp_submit_button:hover {
+  background-color: #269b99;
+}
