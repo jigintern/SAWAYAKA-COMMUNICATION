@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+}
+
+header {
+    height: 40px;
+    background-color: red;
+}
+
+footer {
+    height: 60px;
+    background-color: blue;
+}
+
+#fotter-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.fotter-item {
+    background-color: yellow;
+}
