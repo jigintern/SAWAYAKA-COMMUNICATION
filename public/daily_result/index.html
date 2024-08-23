@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link href="https://use.fontawesome.com/releases/v62.0/css/all.css" rel="stylesheet">
+
+  <title>daily_result</title>
+</head>
+
+<body>
+  <div id="header"></div>
+  <main>
+    <ul>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+      <li>list1</li>
+    </ul>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    fetch("/components/header.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#header").innerHTML = data);
+    fetch("/components/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+    document.getElementById('Search_id_submit_button').addEventListener('click', () => {
+      const rawid = document.getElementById("Search_id_Input_form");
+
+    });
+  </script>
+</body>
+
+</html>
