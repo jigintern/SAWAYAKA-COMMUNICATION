@@ -20,7 +20,11 @@ header {
 }
 
 main {
-    min-height: calc(100vh - 7.5rem)
+    padding-block-start: 0;
+    padding-block-end: 4rem;
+    height: calc(100vh - 7.5rem);
+    overflow-y: scroll;
+    scrollbar-width: thin;
 }
 
 footer {
@@ -55,7 +59,7 @@ footer {
     color: white;
     border-color: transparent;
     transition-property: color background-color border-color text-decoration-color fill stroke;
-    transition-duration: .15s
+    transition-duration: .15s;
 }
 
 .footer-item:hover,
