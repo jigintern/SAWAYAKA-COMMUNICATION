@@ -11,13 +11,7 @@
 </head>
 
 <body>
-  <header>
-    <div id="header-container">
-      <div class="header-item" id="hed-center-content">
-        <img src="/icons/house-solid.svg">
-      </div>
-    </div>
-  </header>
+  <div id="header"></div>
   <main>
     <ul>
       <li>list1</li>
@@ -54,19 +48,21 @@
       <li>list1</li>
     </ul>
   </main>
-  <footer>
-    <div id="footer-container">
-      <div class="footer-item" id="fot-left-content">
-        <img src="/icons/handshake-angle-solid.svg">
-      </div>
-      <div class="footer-item" id="fot-center-content">
-        <img src="/icons/leaf-solid.svg">
-      </div>
-      <div class="footer-item" id="fot-right-content">
-        <img src="/icons/user-solid.svg">
-      </div>
-    </div>
-  </footer>
+
+  <div id="footer"></div>
+
+  <script>
+    fetch("/components/header.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#header").innerHTML = data);
+    fetch("/components/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+    document.getElementById('Search_id_submit_button').addEventListener('click', () => {
+      const rawid = document.getElementById("Search_id_Input_form");
+
+    });
+  </script>
 </body>
 
 </html>
