@@ -1,0 +1,17 @@
+{
+  "name": "さわコミュ",
+  "short_name": "さわコミュ",
+  "description": "さわやかコミュニケーション",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fff",
+  "theme_color": "#fff",
+  "icons": [
+    {
+      "src": "/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

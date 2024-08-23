@@ -1,0 +1,34 @@
+{
+  "imports": {
+    "http/": "https://deno.land/std@0.194.0/http/"
+  },
+  "tasks": {
+    "start": "deno run --watch --allow-net --allow-read server.deno.js"
+  },
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window"]
+  },
+  "lint": {
+    "include": ["./**/*.js"],
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"],
+      "exclude": ["no-unused-vars"]
+    }
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": false,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "include": ["./**/*.js"]
+  },
+  "test": {
+    "include": [
+      "./**/*.test.js"
+    ]
+  }
+}
