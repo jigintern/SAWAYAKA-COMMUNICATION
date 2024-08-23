@@ -20,9 +20,66 @@
     </style>
     <script type="module">
       const message = await fetch("/welcome-message")
-      document.querySelector("body").innerHTML = `<h1>${await message.text()}</h1>`
+      //document.querySelector("body").innerHTML = `<h1>${await message.text()}</h1>`
     </script>
   </head>
   <body>
+    <!--- 送信用フォーム --->
+    <p></p>
+    <input id="userID">　送信先ユーザーID</input>
+    <p></p>
+    <textarea rows="10" cols="50" name="comment" id="mainTextI">ここに初期テキストを入力できます(オプション)</textarea>
+    <p></p>
+    <button id="test_button">SP送信</button>
+  
+    <!--- 受信したときのテキスト --->
+    <p id="user">送信先ユーザー名が表示されます。</p>
+    <p id="time">送信時間が表示されます。</p>
+    <p id="mainText">送信したテキストが表示されます。</p>
+  
+    <!--- JSスクリプト --->
+    <script type="module">
+      document.getElementById("test_button").onclick = async () => {
+        // inputタグを取得
+        const nextWordInput = document.querySelector("#userID");
+        // inputの中身を取得
+        const sendId = nextWordInput.value;
+        // inputタグを取得
+        const sendmese = document.querySelector("#mainTextI");
+        // inputの中身を取得
+        const sendText = sendmese.value;
+  
+        const response = await fetch("/add_DB_SP",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sendId,"time" : getCurrentDateTime() , sendText})
+  
+          });
+        
+        //何を送信しようとしたかUIでかくにんするコード三つ。
+        document.getElementById("user").innerText = sendId;//await response.text();
+        document.getElementById("time").innerText = getCurrentDateTime();
+        document.getElementById("mainText").innerText = sendText;
+      };
+  
+      const now = new Date(); // 現在の日付と時刻を取得
+      const hours = now.getHours(); // 時間を取得
+      const minutes = now.getMinutes(); // 分を取得
+      const seconds = now.getSeconds(); // 秒を取得
+  
+      function getCurrentDateTime() {
+        const now = new Date();
+  
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+  
+        return `${year}${month}${day}${hours}${minutes}${seconds}`;
+      }
+    </script>
   </body>
 </html>
