@@ -26,6 +26,9 @@ async function sendSP() {
   if (response.status === 200) {
     setTimeout(appearDoneText, 500);
     setTimeout(transToProfile, 1500);
+  } else {
+    document.getElementById("comp_check").innerText = "Error Occurred";
+    setTimeout(appearDoneText, 500);
   }
 
   function getCurrentDateTime() {
