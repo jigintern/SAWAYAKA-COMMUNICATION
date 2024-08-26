@@ -1,6 +1,18 @@
+function appearDoneText() {
+  document.getElementById("comp_check").classList.add("done");
+}
+
+function transToProfile() {
+  window.location.href = '/profile';
+}
+
 async function sendSP() {
   const id = document.querySelector("#id_input_form").value;
   const sp = document.querySelector("#sp_input_form").value;
+
+  await fetch("/components/up_leaf.html")
+    .then((response) => response.text())
+    .then((data) => document.querySelector("#leaf").innerHTML = data);
 
   const response = await fetch("/add_DB_SP",
     {
@@ -10,6 +22,11 @@ async function sendSP() {
     });
 
   console.log(response)
+
+  if (response.status === 200) {
+    setTimeout(appearDoneText, 500);
+    setTimeout(transToProfile, 1500);
+  }
 
   function getCurrentDateTime() {
     const now = new Date();
