@@ -35,7 +35,7 @@ footer {
   border-color: lightgray;
   height: 4rem;
   background-color: white;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   width: 100%;
   user-select: none;
