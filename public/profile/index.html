@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
   <link rel="stylesheet" href="/styles/components.css">
-  <link rel="stylesheet" href="/profile/profile_style.css">
+  <link rel="stylesheet" href="/styles/profile.css">
   <link href="https://use.fontawesome.com/releases/v62.0/css/all.css" rel="stylesheet">
 
   <title>profile_page</title>
@@ -17,33 +17,38 @@
     <!--ユーザー情報表示カード-->
     <div id="user_content_card">
       <div id="user_header_area">
-        <div id="user_icon">
-          <img src="/icons/lemon.svg" id="user_icon_img" alt="user_icon_img">
-        </div>
         <div id="user_name">
-          <h3 id="user_nick_name">User_NIck_Name</h3>
+          <p id="user_nick_name">User_Nick_Name</p>
         </div>
       </div>
-      <div id="user_info_area">
-        <h4 id="user_id">User_ID</h4>
-        <h3 id="user_QR_code"><img src="/icons/QR-code.svg" alt=""></h3>
+      <div class="user_data">
+        <div id="user_icon_wrapper">
+          <div id="user_icon">
+            <div id="user_tmp_img"></div>
+            <!-- <img src="/icons/lemon.svg" id="user_icon_img" alt="user_icon_img"> -->
+          </div>
+        </div>
+        <div id="SPoint">
+          <p><b>500 SP</b></p>
+        </div>
+        <div id="user_info_area">
+          <span id="user_id">ID:123456</span>
+          <span id="user_QR_code"><img src="/icons/QR-code.svg" alt=""></span>
+        </div>
       </div>
-    </div>
-    <!--ユーザー趣味表示部分-->
-    <div id="user_hobby_card">
-      <div id="hobyy_category">
-        <h3>カテゴリー</h3>
-      </div>
-      <div id="hobby_content">
-        <h2>ランニング</h2>
+      <!--ユーザー趣味表示部分-->
+      <div id="user_hobby_card">
+        <div id="hobby_category">
+          <p>カテゴリー「音楽」</p>
+        </div>
+        <div id="hobby_content">
+          <p>君が代</p>
+        </div>
       </div>
     </div>
     <!--さわやかポイント表示部分-->
     <!--さわやかポイントはSPointと省略しています-->
     <div id="Show_SPoint">
-      <div id="SPoint">
-        <h3>500 Point</h3>
-      </div>
     </div>
   </main>
   <div id="footer"></div>
