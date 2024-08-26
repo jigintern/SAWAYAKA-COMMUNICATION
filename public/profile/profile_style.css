@@ -1,0 +1,52 @@
+/* 各divタグのheightはautoにしているのでいい感じの設定に変えてください　*/
+/* font-colorも見やすいように#whiteにしていたりするのでさわやかな感じに変えてください 　*/
+
+#user_content_card {
+    height: auto;
+    width: 100%;
+    background-color: blue;
+}
+
+#user_header_area {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    border: solid;
+    /* 以下の画像はプレビュー用テスト用画像なのでいらなくなったら、cssコードを削除してください　*/
+    background-image: url("/profile/test_header_img.jpg");
+}
+
+#user_info_area {
+    background-color: yellow;
+    height: auto;
+}
+
+#user_nick_name {
+    color: white;
+}
+
+#user_icon_img {
+    height: 80px;
+    width: auto;
+    border-radius: 100%;
+    padding: 10px; 
+    border: solid white;
+    background-color: transparent;
+}
+
+#user_QR_code {
+    width: 30px;
+    height: auto;
+}
+
+#user_hobby_card {
+    width: 100%;
+    height: auto;
+    background-color: red;
+}
+
+#Show_SPoint {
+    width: 100%;
+    height: auto;
+    background-color: green;
+}
