@@ -14,14 +14,17 @@ async function sendSP() {
     .then((response) => response.text())
     .then((data) => document.querySelector("#leaf").innerHTML = data);
 
-  const response = await fetch("/add_DB_SP",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sendId: id, "time": getCurrentDateTime(), sendText: sp })
-    });
+  const response = await fetch("/add_DB_SP", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      sendId: id,
+      "time": getCurrentDateTime(),
+      sendText: sp,
+    }),
+  });
 
-  console.log(response)
+  console.log(response);
 
   if (response.status === 200) {
     setTimeout(appearDoneText, 500);
@@ -35,11 +38,11 @@ async function sendSP() {
     const now = new Date();
 
     const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
 
     return `${year}${month}${day}${hours}${minutes}${seconds}`;
   }

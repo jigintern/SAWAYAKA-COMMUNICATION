@@ -27,12 +27,18 @@
   <body>
     <!--- 送信用フォーム --->
     <p></p>
-    <input id="userID">　送信先ユーザーID</input>
+    <input id="fromID">　コメ主ID</input>
+    <p></p>
+    <input id="spNO">　コメント番号(連番)</input>
+    <!---ここは後でスクリプトから決定するようにする。DBに連番を保存して+1を入れる--->
+    <p></p>
+    <input id="userID">　送信先ユーザーID(コメ主ID)</input>
     <p></p>
     <textarea rows="10" cols="50" name="comment" id="mainTextI">ここに初期テキストを入力できます(オプション)</textarea>
     <p></p>
-    <button id="test_button">SP送信</button>
+    <button id="sp_send_button">SP送信</button>
     <button id="sp_delete_button">SP削除</button>
+    <button id="sp_getall_button">SP全件取得</button>
   
     <!--- 受信したときのテキスト --->
     <p id="user">送信先ユーザー名が表示されます。</p>
@@ -41,22 +47,27 @@
   
     <!--- JSスクリプト --->
     <script type="module">
-      document.getElementById("test_button").onclick = async () => {
-        // inputタグを取得
-        const nextWordInput = document.querySelector("#userID");
-        // inputの中身を取得
-        const sendId = nextWordInput.value;
-        // inputタグを取得
-        const sendmese = document.querySelector("#mainTextI");
-        // inputの中身を取得
-        const sendText = sendmese.value;
+      document.getElementById("sp_send_button").onclick = async () => {
+        // inputタグを取得.中身を取得
+        const fromID = document.querySelector("#fromID").value;
+        // inputタグを取得.中身を取得
+        const spNO = document.querySelector("#spNO").value;
+        // inputタグを取得.中身を取得
+        const sendId = document.querySelector("#userID").value;
+        // inputタグを取得.中身を取得
+        const sendText = document.querySelector("#mainTextI").value;
   
         const response = await fetch("/add_DB_SP",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ sendId,"time" : getCurrentDateTime() , sendText})
-  
+            body: JSON.stringify({ 
+              fromID,
+              spNO,
+              sendId,
+              "time" : getCurrentDateTime(),
+              sendText
+            })
           });
         
         //何を送信しようとしたかUIでかくにんするコード三つ。
@@ -84,6 +95,20 @@
         document.getElementById("mainText").innerText = "SPの削除を試みました";
       };
   
+      document.getElementById("sp_getall_button").onclick = async () => {
+        const response = await fetch("/getAll_DB_SP",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            //body: JSON.stringify({ deleteId　})
+          });
+        
+        //何を送信しようとしたかUIでかくにんするコード三つ。
+        document.getElementById("user").innerText = deleteId;//await response.text();
+        document.getElementById("time").innerText = getCurrentDateTime();
+        document.getElementById("mainText").innerText = "SPの全件取得を試みました";
+      };
+
       function getCurrentDateTime() {
         const now = new Date();
   
