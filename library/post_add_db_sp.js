@@ -38,3 +38,5 @@ async function POST_add_DB_SP(req) {
   const result = "送ろうとしました";
   return new Response(result);
 }
+
+export { POST_add_DB_SP };
