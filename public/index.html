@@ -32,6 +32,7 @@
     <textarea rows="10" cols="50" name="comment" id="mainTextI">ここに初期テキストを入力できます(オプション)</textarea>
     <p></p>
     <button id="test_button">SP送信</button>
+    <button id="sp_delete_button">SP削除</button>
   
     <!--- 受信したときのテキスト --->
     <p id="user">送信先ユーザー名が表示されます。</p>
@@ -63,11 +64,25 @@
         document.getElementById("time").innerText = getCurrentDateTime();
         document.getElementById("mainText").innerText = sendText;
       };
+
+      //削除ボタンが押されたら
+      document.getElementById("sp_delete_button").onclick = async () => {
+        // inputタグを取得、中身を取得
+        const deleteId = document.querySelector("#userID").value;
   
-      const now = new Date(); // 現在の日付と時刻を取得
-      const hours = now.getHours(); // 時間を取得
-      const minutes = now.getMinutes(); // 分を取得
-      const seconds = now.getSeconds(); // 秒を取得
+        const response = await fetch("/delete_DB_SP",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ deleteId　})
+  
+          });
+        
+        //何を送信しようとしたかUIでかくにんするコード三つ。
+        document.getElementById("user").innerText = deleteId;//await response.text();
+        document.getElementById("time").innerText = getCurrentDateTime();
+        document.getElementById("mainText").innerText = "SPの削除を試みました";
+      };
   
       function getCurrentDateTime() {
         const now = new Date();
@@ -81,6 +96,11 @@
   
         return `${year}${month}${day}${hours}${minutes}${seconds}`;
       }
+
+      //const now = new Date(); // 現在の日付と時刻を取得
+      //const hours = now.getHours(); // 時間を取得
+      //const minutes = now.getMinutes(); // 分を取得
+      //const seconds = now.getSeconds(); // 秒を取得
     </script>
 
     <script src="/permission.js"></script>
