@@ -24,7 +24,7 @@ header {
 main {
   padding-block-start: 0;
   padding-block-end: 4rem;
-  height: calc(100vh - 7.5rem);
+  height: calc(100svh - 7.5rem);
   overflow-y: scroll;
   scrollbar-width: thin;
 }
@@ -35,7 +35,7 @@ footer {
   border-color: lightgray;
   height: 4rem;
   background-color: white;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 100%;
   user-select: none;
