@@ -44,9 +44,23 @@
     <p id="user">送信先ユーザー名が表示されます。</p>
     <p id="time">送信時間が表示されます。</p>
     <p id="mainText">送信したテキストが表示されます。</p>
+    <!---<button id="user_DB_Get_ID">ID新規取得とローカルストレージに保存</button>--->
+    <p id="user_ID">IDが表示されます。</p>
   
     <!--- JSスクリプト --->
     <script type="module">
+     window.onload = async (event) => {
+       // GET /shiritoriを実行
+       const response = await fetch("/get_myId_DB", { method: "POST" });
+       // responseの中からレスポンスのテキストデータを取得
+       const myId = await response.text();
+       // id: previousWordのタグを取得
+       const myID = document.querySelector("#user_ID");
+       // 取得したタグの中身を書き換える
+       myID.innerHTML = `yourID: ${myId}`;
+     }
+
+      //SP送信ボタンが送られたら
       document.getElementById("sp_send_button").onclick = async () => {
         // inputタグを取得.中身を取得
         const fromID = document.querySelector("#fromID").value;
@@ -95,6 +109,7 @@
         document.getElementById("mainText").innerText = "SPの削除を試みました";
       };
   
+      //SPゲットボタンが押されたら
       document.getElementById("sp_getall_button").onclick = async () => {
         const response = await fetch("/getAll_DB_SP",
           {
