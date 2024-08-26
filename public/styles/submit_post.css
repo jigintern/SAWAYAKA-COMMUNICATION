@@ -26,6 +26,7 @@
 .sp_form textarea {
   display: block;
   min-height: 10rem;
+  max-height: calc(100vh - 25rem);
   appearance: none;
   border-style: solid;
   padding: .5rem 1rem;
@@ -37,6 +38,7 @@
   field-sizing: content;
   border-color: gray;
   border-width: 0 0 .125rem 0;
+  resize: vertical;
 }
 
 .id_form input:hover,
