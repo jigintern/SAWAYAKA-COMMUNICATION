@@ -13,17 +13,17 @@
   <div id="header"></div>
   <main>
     <div class="id_form">
-      <input autocomplete="off" id="id_Input_form" type="text" placeholder="IDを入力">
-      <!-- <button type="button" id="id_submit_button"></button> -->
+      <input autocomplete="off" id="id_input_form" type="text" placeholder="IDを入力">
     </div>
     <div class="sp_form">
       <textarea id="sp_input_form" placeholder="さわやかポイントを書こう！"></textarea>
-      <button type="button" id="sp_submit_button">投稿</button>
+      <button type="button" id="sp_submit_button" onclick="sendSP()">投稿</button>
     </div>
 
   </main>
   <div id="footer"></div>
 
+  <script src="/submit_post/submitting.js"></script>
   <script>
     fetch("/components/header.html")
       .then((response) => response.text())
@@ -31,10 +31,6 @@
     fetch("/components/footer.html")
       .then((response) => response.text())
       .then((data) => document.querySelector("#footer").innerHTML = data);
-    document.getElementById('Search_id_submit_button').addEventListener('click', () => {
-      const rawid = document.getElementById("Search_id_Input_form");
-
-    });
   </script>
 </body>
 
