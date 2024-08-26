@@ -7,26 +7,14 @@ async function POST_add_DB_SP(req,kv) {
   const sendID = requestJson["sendId"]; //誰にまたはコメ主
   const sendTime = requestJson["time"];
   const sendText = requestJson["sendText"];
-  //console.log(sendID);送るIDが取得できたことを確認済み
 
-  // // リクエストに応じて環境変数を設定する
-  // await Deno.env.set(
-  //   "DENO_KV_ACCESS_TOKEN",
-  //   Deno.env.get("TOKEN"),
-  // );
-  // // Deno KVの読み込み
-  // const kv = await Deno.openKv(
-  //   Deno.env.get("URL"),
-  // );
-  // console.log(kv);
-
-  const key = ["SP", fromID, spNO]; //なんのデータか,誰(ID,6桁),何番目の投稿か(7桁)
-  console.log("SP_Key_Log " + fromID + " , " + spNO);
+  const key = ["SP", Number(fromID), Number(spNO)]; //なんのデータか,誰(ID),何番目の投稿か
+  console.log("SP_Key_Log " + Number(fromID) + " , " + Number(spNO));
   //console.log("TestLog " + sendID + " , " + sendTime + " , " + sendText);
   //name: "山田"
   const value = {
-    User: sendID,
-    time: sendTime,
+    User: Number(sendID),
+    time: Number(sendTime),
     mainText: sendText,
   };
   console.log(
