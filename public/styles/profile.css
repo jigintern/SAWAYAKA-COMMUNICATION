@@ -9,7 +9,7 @@
 #user_header_area {
   width: 100%;
   height: 6rem;
-  background: linear-gradient(#e66465, #9198e5);
+  background: linear-gradient(#aaecf1, #9bdee3);
   justify-content: flex-end;
   display: flex;
   flex-direction: column;
@@ -51,10 +51,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f56ff7;
+  background-color: #7e50b6;
   border-radius: 3rem;
   overflow: hidden;
-  filter: drop-shadow(.1rem .1rem .2rem #945095);
+  /* filter: drop-shadow(0 .1rem .1rem rgb(130, 70, 131)); */
 }
 
 #user_icon {
@@ -67,12 +67,12 @@
 #user_tmp_img {
   width: 100%;
   height: 100%;
-  background-color: aquamarine;
-}
-
-#SPoint {
-  font-size: 1.2rem;
-  color: #6e5fdf;
+  background-color: rgb(215, 255, 241);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 #user_icon_img {
@@ -95,10 +95,9 @@
   margin-block-start: 0rem;
   margin-block-end: 1rem;
   padding: .5rem 1rem;
-  background: linear-gradient(#9ae6c3, #9ad6db);
+  background-color: #b7ebd3;
   border-radius: .5rem;
-  color: #2d206e;
-  filter: drop-shadow(.1rem .1rem .2rem #29958c);
+  color: #211560;
 }
 
 #hobby_category {
@@ -113,7 +112,8 @@
 
 #Show_SPoint {
   width: 100%;
-  height: auto;
-  border-width: 1px 0 0 0;
-  border-style: solid;
+  /* height: auto; */
+  overflow: hidden;
+  padding-top: 2rem;
+  padding-bottom: 1.2rem;
 }
