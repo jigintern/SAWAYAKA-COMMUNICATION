@@ -78,37 +78,44 @@
           <p><b>500 SP</b></p>
         </div>
         <div id="user_info_area">
-          <span id="user_id">ID:123456</span>
+          <span id="user_id">ID:<span id="user_id_blank"></span></span>
           <span id="user_QR_code"><img src="/icons/QR-code.svg" alt=""></span>
         </div>
       </div>
       <!--ユーザー趣味表示部分-->
       <div id="user_hobby_card">
         <div id="hobby_category">
-          <p>カテゴリー「音楽」</p>
+          <p>カテゴリー「<span id="user_hobby_blank"></span>」</p>
         </div>
         <div id="hobby_content">
-          <p>君が代</p>
+          <p><span id="user_hobby_content_blank"></span></p>
         </div>
       </div>
     </div>
-    <!--さわやかポイント表示部分-->
-    <!--さわやかポイントはSPointと省略しています-->
+
     <div id="Show_SPoint">
       <div class="swiper mySwiper">
         <div class="swiper-wrapper" id="show_SPoints">
         </div>
       </div>
-
-      <!-- <p>さわやかポイント</p> -->
-      <!-- <ul id="show_SPoints"></ul> -->
     </div>
   </main>
   <div id="footer"></div>
 
   <script>
     window.onload = async (event) => {
-      const ID = 2;//後でローカルストレージからIDを取得する。
+      url = new URL(location.href)
+
+      const current_user_profile = await JSON.parse(localStorage.getItem("current_user"));
+      console.log(current_user_profile)
+
+      const ID = url.searchParams.get("id") ?? current_user_profile.id
+
+      const userResponse = await fetch(`/get_myId_DB?id=${ID}`, {
+        method: "GET",
+      }).then(res => res.json())
+      console.log(userResponse)
+
       const response = await fetch("/get_sp_list",
         {
           method: "POST",
@@ -126,6 +133,10 @@
         effect: "cards",
         grabCursor: true,
       });
+
+      document.getElementById("user_id_blank").innerText = ID;
+      document.getElementById("user_hobby_blank").innerText = userResponse.value.hobbyId;
+      document.getElementById("user_hobby_content_blank").innerText = userResponse.value.hobbyContent;
     }
 
     fetch("/components/header.html")
@@ -134,10 +145,6 @@
     fetch("/components/footer.html")
       .then((response) => response.text())
       .then((data) => document.querySelector("#footer").innerHTML = data);
-    // document.getElementById('Search_id_submit_button').addEventListener('click', () => {
-    //   const rawid = document.getElementById("Search_id_Input_form");
-    // });
-
 
     // リストを表示する関数
     function displayList(fruits) {
