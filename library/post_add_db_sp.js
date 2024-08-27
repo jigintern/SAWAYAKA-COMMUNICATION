@@ -8,6 +8,11 @@ async function POST_add_DB_SP(req,kv) {
   //const sendTime = requestJson["time"];
   const sendText = requestJson["sendText"];
 
+  if(fromID===sendID){
+    const result = "自身にSP送信することはできません";
+    return new Response(result);
+  }
+
   const sendTime = getCurrentDateTime();//送信時間をサーバーが自動で取得するようにする。
 
   const dataKey=["user", Number(fromID)];
