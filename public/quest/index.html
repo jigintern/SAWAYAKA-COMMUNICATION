@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="manifest" href="manifest.json">
+    <title>SPクエスト</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html, body {
+        height: 100vh;
+        width: 100%;
+      }
+      body {
+        display: grid;
+        place-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!--- 送信用フォーム --->
+    <p>クエストです。</p>
+    <a href="/profile">リンクテキスト</a>
+    <p></p>
+    <input id="NULL1">現在未使用</input>
+    <p></p>
+    <textarea rows="10" cols="50" name="comment" id="NULL2">現在未使用</textarea>
+    <p></p>
+    <button id="quest_completed">クエストを完了にする。</button>
+    <!--- 受信したときのテキスト --->
+    <p id="response1">クエストの完了状況が表示されます。</p>
+  
+    <!--- JSスクリプト --->
+    <script type="module">
+      //クエスト完了に関する処理
+      document.getElementById("quest_completed").onclick = async () => {
+
+        const myData = await localStorage.getItem('current_user');
+        //myDataはstring。newDataはJSON
+        const newData = JSON.parse(myData);
+        newData.quest_completed_time = Number(getCurrentDateDay());
+        localStorage.setItem('current_user',JSON.stringify(newData));//ローカルストレージにクエスト完了時間を保存
+
+        const mode = 1;//クエストを完了にするモード
+        const ID = Number(JSON.parse(myData).id);//自身のID取得
+  
+        const response = await fetch("/quest_completed", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                mode,
+                ID
+            })
+        });
+        
+        //何を送信しようとしたかUIで確認するコード。
+        switch(Number(await response.text())){
+            case 0:
+                document.getElementById("response1").innerText = "本日のクエストを行いましょう。";
+                break
+            case 1:
+                document.getElementById("response1").innerText = "本日はクエストを完了しています。";
+                break;
+            default:
+                break;
+        }
+      };
+
+      function getCurrentDateDay() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}${month}${day}`;
+      }
+    </script>
+
+    <script src="/permission.js"></script>
+  </body>
+</html>
