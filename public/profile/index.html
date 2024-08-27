@@ -58,7 +58,9 @@
 
   <script>
     window.onload = async (event) => {
-      const ID = 2;//後でローカルストレージからIDを取得する。
+      const myData = await localStorage.getItem('current_user')
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+
       const response = await fetch("/get_sp_list", 
       { 
         method: "POST",
