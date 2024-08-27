@@ -3,23 +3,25 @@ async function POST_add_DB_SP(req,kv) {
   const requestJson = await req.json();
   // JSONの中からnextWordを取得
   const fromID = requestJson["fromID"]; //誰が送信したか
-  const spNO = requestJson["spNO"]; //何個目のコメントか
+  //const spNO = requestJson["spNO"]; //何個目のコメントか
   const sendID = requestJson["sendId"]; //誰にまたはコメ主
   const sendTime = requestJson["time"];
   const sendText = requestJson["sendText"];
 
+  const dataKey=["user", Number(fromID)];
+  const data = await kv.get(dataKey);
+  const spNO = Number(data.value.sendedSpCount) + 1;
+  const newValue = data.value;
+  newValue.sendedSpCount = spNO;
+  await kv.set(dataKey, newValue);
+
   const key = ["SP", Number(fromID), Number(spNO)]; //なんのデータか,誰(ID),何番目の投稿か
-  console.log("SP_Key_Log " + Number(fromID) + " , " + Number(spNO));
-  //console.log("TestLog " + sendID + " , " + sendTime + " , " + sendText);
   //name: "山田"
   const value = {
     User: Number(sendID),
     time: Number(sendTime),
     mainText: sendText,
   };
-  console.log(
-    "SP_value_log\n" + value.User + "\n" + value.time + "\n" + value.mainText,
-  );
 
   //Deno KVに保存
   //構文 : kv.set(key,value);
@@ -31,6 +33,8 @@ async function POST_add_DB_SP(req,kv) {
   //console.log(result);
 
   const result = await kv.set(key, value);
+
+  //const result = "仮";
   console.log(result);
 
   //const result = "送ろうとしました";
