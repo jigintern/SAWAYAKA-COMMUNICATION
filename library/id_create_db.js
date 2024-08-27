@@ -15,10 +15,13 @@ async function ID_create_DB(req,kv) {
   console.log("データの長さ " + data.size);
   console.log(max);
 
+  const sendedSpCount = 0;//送ったさわやかポイントの数
+
   const key = ["user", max+1]; //なんのデータか,誰(ID,6桁),何番目の投稿か(7桁)
   const value = {
     hobbyId,
-    hobbyContent
+    hobbyContent,
+    sendedSpCount
   };
 
   const result = await kv.set(key, value);
