@@ -10,8 +10,10 @@ async function sendSP() {
   const id = document.querySelector("#id_input_form").value;
   const sp = document.querySelector("#sp_input_form").value;
 
-  const fromID = 1;//ローカルストレージからIDを取得
-  const spNO = 1;//さわやかポイントいくつ書いたか読みだして
+  const data = localStorage.getItem('current_user');
+
+  const fromID = Number(JSON.parse(data).id);//ローカルストレージからIDを取得(送信者ID)
+  //const spNO = 1;//さわやかポイントいくつ書いたか読みだしてもういらない。
 
   await fetch("/components/up_leaf.html")
     .then((response) => response.text())
@@ -22,9 +24,9 @@ async function sendSP() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       fromID,
-      spNO,
+      //spNO, //もういらない
       sendId: id,
-      "time": getCurrentDateTime(),
+      //"time": getCurrentDateTime(),
       sendText: sp,
     }),
   });
@@ -39,16 +41,16 @@ async function sendSP() {
     setTimeout(appearDoneText, 500);
   }
 
-  function getCurrentDateTime() {
-    const now = new Date();
+  // function getCurrentDateTime() {
+  //   const now = new Date();
 
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
+  //   const year = now.getFullYear();
+  //   const month = String(now.getMonth() + 1).padStart(2, "0");
+  //   const day = String(now.getDate()).padStart(2, "0");
+  //   const hours = String(now.getHours()).padStart(2, "0");
+  //   const minutes = String(now.getMinutes()).padStart(2, "0");
+  //   const seconds = String(now.getSeconds()).padStart(2, "0");
 
-    return `${year}${month}${day}${hours}${minutes}${seconds}`;
-  }
+  //   return `${year}${month}${day}${hours}${minutes}${seconds}`;
+  // }
 }
