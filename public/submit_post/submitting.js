@@ -2,8 +2,8 @@ function appearDoneText() {
   document.getElementById("comp_check").classList.add("done");
 }
 
-function transToProfile() {
-  window.location.href = '/profile';
+function transToProfile(id) {
+  window.location.href = `/profile?id=${id}`;
 }
 
 async function sendSP() {
@@ -24,9 +24,7 @@ async function sendSP() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       fromID,
-      //spNO, //もういらない
       sendId: id,
-      //"time": getCurrentDateTime(),
       sendText: sp,
     }),
   });
@@ -35,22 +33,9 @@ async function sendSP() {
 
   if (response.status === 200) {
     setTimeout(appearDoneText, 500);
-    setTimeout(transToProfile, 1500);
+    setTimeout(() => transToProfile(id), 1500);
   } else {
     document.getElementById("comp_check").innerText = "Error Occurred";
     setTimeout(appearDoneText, 500);
   }
-
-  // function getCurrentDateTime() {
-  //   const now = new Date();
-
-  //   const year = now.getFullYear();
-  //   const month = String(now.getMonth() + 1).padStart(2, "0");
-  //   const day = String(now.getDate()).padStart(2, "0");
-  //   const hours = String(now.getHours()).padStart(2, "0");
-  //   const minutes = String(now.getMinutes()).padStart(2, "0");
-  //   const seconds = String(now.getSeconds()).padStart(2, "0");
-
-  //   return `${year}${month}${day}${hours}${minutes}${seconds}`;
-  // }
 }
