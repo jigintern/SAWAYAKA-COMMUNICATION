@@ -1,0 +1,126 @@
+h1 {
+  display: block;
+  font-size: 2.4rem;
+  line-height: 1.3;
+  background-image: linear-gradient(45deg, #3b56dc, #f768d3 30%, #f2bc5f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: h1grad_always 3s ease-in-out infinite both;
+  animation-direction: alternate;
+  background-size: 300% 300%;
+}
+
+@keyframes h1grad_always {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+.create_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1rem;
+  padding-inline: 1.75rem;
+  margin-top: 2rem;
+}
+
+.selecting_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.preference_select {
+  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.preference_select::after {
+  position: absolute;
+  right: 15px;
+  width: 10px;
+  height: 7px;
+  background-color: #666;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  content: '';
+  pointer-events: none;
+}
+
+.preference_select:hover::after {
+  background-color: #2dd3d0;
+}
+
+.preference_select select {
+  appearance: none;
+  width: 15rem;
+  max-width: 100%;
+  height: 2.8em;
+  padding: .4em calc(.8em + 30px) .4em .8em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #269b99;
+  border-radius: .3rem;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 2%), 0 2px 3px -2px rgba(0 0 0 / 5%);
+  background-color: #f3fffe;
+  color: #333333;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.preference_select select:hover,
+.preference_select select:focus {
+  outline: none;
+  border-color: #2dd3d0;
+}
+
+.submit_button {
+  appearance: none;
+  padding-block: .5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #269b99;
+  cursor: pointer;
+  border-radius: .3rem;
+  display: block;
+  width: min(80%, 30rem);
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: #2dd3d0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 2%), 0 2px 3px -2px rgba(0 0 0 / 5%);
+}
+
+.submit_button:hover {
+  background-color: #269b99;
+}
+
+#input_user_hobby {
+  margin-inline: auto;
+  display: block;
+  appearance: none;
+  border-style: solid;
+  border-width: 0 0 .125rem 0;
+  padding: .5rem 1.25rem;
+  font-size: 1.2rem;
+  width: min(80%, 30rem);
+  border-color: gray;
+  border-radius: 0;
+  transition-property: color background-color border-color text-decoration-color fill stroke;
+  transition-duration: .15s;
+}
+
+#input_user_hobby:hover,
+#input_user_hobby:focus {
+  outline: none;
+  border-color: #2dd3d0;
+}

@@ -45,7 +45,7 @@ Deno.serve(async (req) => {
 
   //自分のIDの読み出し(あれば値を返し、なければ新しく作って保存してその値を返す。)
   if (req.method === "POST" && pathname === "/get_myId_DB") {
-    return ID_create_DB("000001",kv);
+    return ID_create_DB(req,kv);
     //return ;
   }
 

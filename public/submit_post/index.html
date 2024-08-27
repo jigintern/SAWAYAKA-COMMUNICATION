@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="/styles/components.css">
   <link rel="stylesheet" href="/styles/submit_post.css">
+  <script src="/lib/sessionChecker.js"></script>
   <title>submit_post_page</title>
 </head>
 
@@ -33,6 +34,7 @@
       .then((response) => response.text())
       .then((data) => document.querySelector("#footer").innerHTML = data);
   </script>
+  <script src="/lib/footerLinkModifier.js"></script>
 </body>
 
 </html>

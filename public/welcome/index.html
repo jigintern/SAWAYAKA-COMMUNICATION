@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/styles/components.css">
+  <!-- <link rel="stylesheet" href="/styles/submit_post.css"> -->
+  <link rel="stylesheet" href="/styles/welcome.css">
+  <script src="/lib/sessionChecker.js"></script>
+  <title>submit_post_page</title>
+</head>
+
+<body>
+  <div id="header"></div>
+  <main>
+    <div style="display: none;" id="existing_user">
+      <div class="create_form">
+        <h1>お帰りなさい！</h1>
+        <button onclick="localStorage.clear()">データ削除</button>
+      </div>
+    </div>
+    <div style="display: none;" id="not_user">
+      <div id="leaf"></div>
+      <div class="create_form">
+        <h1>ようこそ、早速はじめましょう</h1>
+        <div class="selecting_box">
+          <label class="preference_select">
+            <select id="select_user_hobby">
+              <option value="music">音楽</option>
+              <option value="book">本</option>
+              <option value="sports">スポーツ</option>
+            </select>
+          </label>
+        </div>
+        <input id="input_user_hobby" placeholder="あなたの趣味は？">
+        <button class="submit_button" onclick="createAccount()">アカウントを作成</button>
+      </div>
+    </div>
+
+  </main>
+  <div id="footer"></div>
+
+  <script src="/welcome/accountManager.js"></script>
+  <script>
+    const current_user = localStorage.getItem("current_user");
+
+    if (!current_user) {
+      document.getElementById("existing_user").style.display = "none";
+      document.getElementById("not_user").style.display = "block";
+    } else {
+      document.getElementById("existing_user").style.display = "block";
+      document.getElementById("not_user").style.display = "none";
+      fetch("/components/footer.html")
+        .then((response) => response.text())
+        .then((data) => document.querySelector("#footer").innerHTML = data);
+      import("/lib/footerLinkModifier.js");
+    }
+
+    fetch("/components/header.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#header").innerHTML = data);
+  </script>
+</body>
+
+</html>
