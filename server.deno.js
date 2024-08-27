@@ -4,6 +4,7 @@ import { POST_delete_DB_SP } from "./library/post_delete_db_sp.js";
 import { POST_getAll_DB_SP } from "./library/post_getall_db_sp.js";
 import { ID_create_DB, ID_get_DB } from "./library/id_create_db.js"; //ローカルストレージからIDを読み込む(key="myId")。なければIDを作って保存してその値を返す
 import { Get_sp } from "./library/get_sp.js";
+import { Quest_completed } from "./library/quest_completed.js";//クエスト完了
 import { POST_user_location_save_db } from "./library/post_location_save_db.js"; // 定期的にユーザーの位置情報をdbに保存する
 import "https://deno.land/std@0.224.0/dotenv/load.ts"; //.envの読み込み用
 
@@ -56,6 +57,11 @@ Deno.serve(async (req) => {
   if (req.method === "POST" && pathname === "/get_sp_list") {
     return Get_sp(req, kv);
   }
+
+  if (req.method === "POST" && pathname === "/quest_completed") {
+    return Quest_completed(req, kv);
+  }
+
 
   if (req.method === "POST" && pathname === "/receive_location") {  
     return POST_user_location_save_db(req, kv);
