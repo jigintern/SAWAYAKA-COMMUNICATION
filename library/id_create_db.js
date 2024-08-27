@@ -40,3 +40,15 @@ function getCurrentDateDay() {
 }
 
 export { ID_create_DB };
+
+
+async function ID_get_DB(req, kv) {
+  // IDのユーザーデータを取得
+  const id = new URL(req.url).searchParams.get("id")
+  const data = await kv.get(["user", Number(id)]);
+  
+  console.log(data)
+
+  return Response.json(data);
+}
+export { ID_get_DB };

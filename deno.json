@@ -3,7 +3,7 @@
     "http/": "https://deno.land/std@0.194.0/http/"
   },
   "tasks": {
-    "start": "deno run --watch --allow-net --allow-read server.deno.js"
+    "start": "deno run --watch --allow-net --allow-env --unstable --allow-read server.deno.js"
   },
   "compilerOptions": {
     "allowJs": true,

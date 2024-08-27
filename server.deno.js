@@ -2,9 +2,10 @@ import { serveDir } from "https://deno.land/std@0.151.0/http/file_server.ts";
 import { POST_add_DB_SP } from "./library/post_add_db_sp.js";
 import { POST_delete_DB_SP } from "./library/post_delete_db_sp.js";
 import { POST_getAll_DB_SP } from "./library/post_getall_db_sp.js";
-import { ID_create_DB } from "./library/id_create_db.js"; //ローカルストレージからIDを読み込む(key="myId")。なければIDを作って保存してその値を返す
+import { ID_create_DB, ID_get_DB } from "./library/id_create_db.js"; //ローカルストレージからIDを読み込む(key="myId")。なければIDを作って保存してその値を返す
 import { Get_sp } from "./library/get_sp.js";
 import { Quest_completed } from "./library/quest_completed.js";//クエスト完了
+import { POST_user_location_save_db } from "./library/post_location_save_db.js"; // 定期的にユーザーの位置情報をdbに保存する
 import "https://deno.land/std@0.224.0/dotenv/load.ts"; //.envの読み込み用
 
 let kv;
@@ -44,6 +45,10 @@ Deno.serve(async (req) => {
     return POST_getAll_DB_SP(req, kv);
   }
 
+  if (req.method === "GET" && pathname === "/get_myId_DB") {
+    return ID_get_DB(req, kv);
+  }
+
   //自分のIDの読み出し(あれば値を返し、なければ新しく作って保存してその値を返す。)
   if (req.method === "POST" && pathname === "/get_myId_DB") {
     return ID_create_DB(req, kv);
@@ -52,9 +57,16 @@ Deno.serve(async (req) => {
   if (req.method === "POST" && pathname === "/get_sp_list") {
     return Get_sp(req, kv);
   }
+
   if (req.method === "POST" && pathname === "/quest_completed") {
     return Quest_completed(req, kv);
   }
+
+
+  if (req.method === "POST" && pathname === "/receive_location") {  
+    return POST_user_location_save_db(req, kv);
+  }
+
   return serveDir(req, {
     fsRoot: "public",
     urlRoot: "",

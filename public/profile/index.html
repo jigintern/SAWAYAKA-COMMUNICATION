@@ -8,6 +8,52 @@
   <link rel="stylesheet" href="/styles/profile.css">
   <link href="https://use.fontawesome.com/releases/v62.0/css/all.css" rel="stylesheet">
   <script src="/lib/sessionChecker.js"></script>
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    .swiper {
+      width: 70%;
+      height: calc(100svh - 32rem);
+      filter: drop-shadow(.1rem .1rem .3rem gray);
+    }
+
+    .swiper-slide {
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1.2rem;
+      padding: 1.75rem;
+      font-size: 1.45rem;
+      font-weight: bold;
+      background-color: #a6f3f1;
+      background-image: linear-gradient(0deg,
+          #aef4f1,
+          #a6f3f1);
+      color: rgb(23, 61, 86);
+      flex-direction: column;
+    }
+
+    .swiper-slide>* {
+      position: relative;
+      z-index: 20;
+    }
+
+    .datebox {
+      font-size: small;
+      color: rgb(46, 46, 46);
+    }
+
+    .leaf_over {
+      position: absolute;
+      width: 10rem;
+      height: 10rem;
+      fill: rgb(168, 233, 230);
+      z-index: 15;
+      transform: translateY(-.7rem);
+    }
+  </style>
   <title>profile_page</title>
 </head>
 
@@ -24,56 +70,89 @@
       <div class="user_data">
         <div id="user_icon_wrapper">
           <div id="user_icon">
-            <div id="user_tmp_img"></div>
-            <!-- <img src="/icons/lemon.svg" id="user_icon_img" alt="user_icon_img"> -->
+            <div id="user_tmp_img">
+              <svg id="svg_x5F_leaf" style="width: 60%; transform:translateX(-.2rem)" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 747.35 877.82">
+                <!-- Leaf -->
+                <path class="svg_x5F_leaf_path" style="fill: rgb(30, 172, 118);"
+                  d="M0,873.85c1.36.25,19.03,3.97,49.48,3.97,18.09,0,39.61-1.31,62.51-5.45,36.32-6.57,68.51-18.93,95.68-36.74,33.9-22.23,59.92-52.96,77.38-91.35,87.24,48.42,186.2,13.76,202.67,7.99,164.25-57.55,218.73-252.15,237.35-318.69,54.46-194.56-4.33-363.59-33.76-433.58,7.19,58.78-103.84,112.64-207.37,166.96-103.53,54.32-273.61,83.83-306.88,281.09-15.62,92.62,2.35,210.16,76.69,274.37,18.08-152.57,202.81-316.97,202.81-316.97,0,0-112.46,168.42-186.14,329.81l-3.04,6.64c-29.76,61.72-82.85,99.94-157.92,113.64-58.45,10.67-108.96,1.67-109.46,1.58v16.73Z" />
+              </svg>
+            </div>
           </div>
         </div>
         <div id="SPoint">
           <p><b>500 SP</b></p>
         </div>
         <div id="user_info_area">
-          <span id="user_id">ID:123456</span>
+          <span id="user_id">ID:<span id="user_id_blank"></span></span>
           <span id="user_QR_code"><img src="/icons/QR-code.svg" alt=""></span>
         </div>
       </div>
       <!--ユーザー趣味表示部分-->
       <div id="user_hobby_card">
         <div id="hobby_category">
-          <p>カテゴリー「音楽」</p>
+          <p>カテゴリー「<span id="user_hobby_blank"></span>」</p>
         </div>
         <div id="hobby_content">
-          <p>君が代</p>
+          <p><span id="user_hobby_content_blank"></span></p>
         </div>
       </div>
     </div>
-    <!--さわやかポイント表示部分-->
-    <!--さわやかポイントはSPointと省略しています-->
-    <div id="Show_SPoint">
 
-      <p>さわやかポイント</p>
-      <ul id="show_SPoints"></ul>
+    <div id="Show_SPoint">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper" id="show_SPoints">
+          <div class="swiper-slide">
+            <p>左右にスワイプしよう！</p>
+            <div class=leaf_over>
+              <svg id="svg_x5F_leaf" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 747.35 877.82">
+                <path class="svg_x5F_leaf_path"
+                  d="M0,873.85c1.36.25,19.03,3.97,49.48,3.97,18.09,0,39.61-1.31,62.51-5.45,36.32-6.57,68.51-18.93,95.68-36.74,33.9-22.23,59.92-52.96,77.38-91.35,87.24,48.42,186.2,13.76,202.67,7.99,164.25-57.55,218.73-252.15,237.35-318.69,54.46-194.56-4.33-363.59-33.76-433.58,7.19,58.78-103.84,112.64-207.37,166.96-103.53,54.32-273.61,83.83-306.88,281.09-15.62,92.62,2.35,210.16,76.69,274.37,18.08-152.57,202.81-316.97,202.81-316.97,0,0-112.46,168.42-186.14,329.81l-3.04,6.64c-29.76,61.72-82.85,99.94-157.92,113.64-58.45,10.67-108.96,1.67-109.46,1.58v16.73Z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <div id="footer"></div>
 
   <script>
     window.onload = async (event) => {
-      const myData = await localStorage.getItem('current_user')
-      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      url = new URL(location.href)
 
-      const response = await fetch("/get_sp_list", 
-      { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          ID
-        })
-      });
+      const current_user_profile = await JSON.parse(localStorage.getItem("current_user"));
+      console.log(current_user_profile)
+
+      const ID = url.searchParams.get("id") ?? current_user_profile.id
+
+      const userResponse = await fetch(`/get_myId_DB?id=${ID}`, {
+        method: "GET",
+      }).then(res => res.json())
+      console.log(userResponse)
+
+      const response = await fetch("/get_sp_list",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ID
+          })
+        });
       const data = await response.json();
-      
-     console.log(data);
-    //  console.log(await response[0]);
-      displayList(data);
+
+      console.log(data);
+      await displayList(data);
+
+      var swiper = new Swiper(".mySwiper", {
+        effect: "cards",
+        grabCursor: true,
+      });
+
+      document.getElementById("user_id_blank").innerText = ID;
+      document.getElementById("user_hobby_blank").innerText = userResponse.value.hobbyId;
+      document.getElementById("user_hobby_content_blank").innerText = userResponse.value.hobbyContent;
     }
 
     fetch("/components/header.html")
@@ -82,11 +161,7 @@
     fetch("/components/footer.html")
       .then((response) => response.text())
       .then((data) => document.querySelector("#footer").innerHTML = data);
-    // document.getElementById('Search_id_submit_button').addEventListener('click', () => {
-    //   const rawid = document.getElementById("Search_id_Input_form");
-    // });
-    
-    
+
     // リストを表示する関数
     function displayList(fruits) {
       //const fruits = ['りんご', 'バナナ', 'オレンジ', 'ぶどう', 'メロン'];
@@ -95,10 +170,21 @@
       //console.log(fruits.message);
       fruits.forEach(fruit => {
         //console.log("くだもの名 " + fruit);
-        const li = document.createElement('li');
-        //console.log(fruit.value);
-        li.textContent = formatDateTime(String(fruit.value.time)) + " " + fruit.value.mainText;
-        list.appendChild(li);
+        const div = document.createElement('div');
+        div.classList.add("swiper-slide")
+        div.innerHTML = `
+        <p>${fruit.value.mainText}</p>
+        <div class="datebox">
+          ${formatDateTime(String(fruit.value.time))}
+        </div>
+        <div class=leaf_over>
+          <svg id="svg_x5F_leaf" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 747.35 877.82">
+          <path class="svg_x5F_leaf_path"
+            d="M0,873.85c1.36.25,19.03,3.97,49.48,3.97,18.09,0,39.61-1.31,62.51-5.45,36.32-6.57,68.51-18.93,95.68-36.74,33.9-22.23,59.92-52.96,77.38-91.35,87.24,48.42,186.2,13.76,202.67,7.99,164.25-57.55,218.73-252.15,237.35-318.69,54.46-194.56-4.33-363.59-33.76-433.58,7.19,58.78-103.84,112.64-207.37,166.96-103.53,54.32-273.61,83.83-306.88,281.09-15.62,92.62,2.35,210.16,76.69,274.37,18.08-152.57,202.81-316.97,202.81-316.97,0,0-112.46,168.42-186.14,329.81l-3.04,6.64c-29.76,61.72-82.85,99.94-157.92,113.64-58.45,10.67-108.96,1.67-109.46,1.58v16.73Z" />
+          </svg>
+        </div>`;
+        list.appendChild(div);
       });
     }
 
@@ -113,9 +199,11 @@
       // フォーマットされた文字列を返す
       return `${year}年${parseInt(month)}月${parseInt(day)}日${hour}時${minute}分`;
     }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    // ページ読み込み時にリストを表示
-    // window.onload = displayList;
+  <!-- Initialize Swiper -->
+  <script>
   </script>
   <script src="/lib/footerLinkModifier.js"></script>
 </body>
