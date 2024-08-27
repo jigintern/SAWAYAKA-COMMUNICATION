@@ -19,22 +19,47 @@
         place-content: center;
       }
     </style>
-  </head>
-  <body>
+    </head>
+    <body>
     <!--- 送信用フォーム --->
     <p>クエストです。</p>
     <a href="/profile">リンクテキスト</a>
     <p></p>
-    <input id="NULL1">現在未使用</input>
-    <p></p>
-    <textarea rows="10" cols="50" name="comment" id="NULL2">現在未使用</textarea>
-    <p></p>
+    <p id="mainText1">クエストが表示されます。</p>
     <button id="quest_completed">クエストを完了にする。</button>
     <!--- 受信したときのテキスト --->
     <p id="response1">クエストの完了状況が表示されます。</p>
   
     <!--- JSスクリプト --->
     <script type="module">
+        window.onload = async (event) => {
+            const myData = await localStorage.getItem('current_user');
+
+            const mode = 0;//クエストを確認するモード
+            const ID = Number(JSON.parse(myData).id);//自身のID取得
+    
+            const response = await fetch("/quest_completed", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    mode,
+                    ID
+                })
+            });
+        
+            //何を送信しようとしたかUIで確認するコード。
+            switch(Number(await response.text())){
+                case 0:
+                    document.getElementById("mainText1").innerText = "本日のクエストを行いましょう。\n一人と交流し、SPを書いてあげましょう。";
+                    break
+                case 1:
+                    document.getElementById("mainText1").innerText = "本日はクエストを完了しています。";
+                    break;
+                default:
+                    break;
+            }
+        }
+
       //クエスト完了に関する処理
       document.getElementById("quest_completed").onclick = async () => {
 
@@ -62,7 +87,7 @@
                 document.getElementById("response1").innerText = "本日のクエストを行いましょう。";
                 break
             case 1:
-                document.getElementById("response1").innerText = "本日はクエストを完了しています。";
+                document.getElementById("response1").innerText = "本日のクエストを完了しました。";
                 break;
             default:
                 break;
