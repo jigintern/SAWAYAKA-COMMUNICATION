@@ -10,6 +10,9 @@ async function sendSP() {
   const id = document.querySelector("#id_input_form").value;
   const sp = document.querySelector("#sp_input_form").value;
 
+  const fromID = 1;//ローカルストレージからIDを取得
+  const spNO = 1;//さわやかポイントいくつ書いたか読みだして
+
   await fetch("/components/up_leaf.html")
     .then((response) => response.text())
     .then((data) => document.querySelector("#leaf").innerHTML = data);
@@ -18,6 +21,8 @@ async function sendSP() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
+      fromID,
+      spNO,
       sendId: id,
       "time": getCurrentDateTime(),
       sendText: sp,

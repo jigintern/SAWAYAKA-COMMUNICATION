@@ -49,20 +49,71 @@
     <!--さわやかポイント表示部分-->
     <!--さわやかポイントはSPointと省略しています-->
     <div id="Show_SPoint">
+
+      <p>さわやかポイント</p>
+      <ul id="show_SPoints"></ul>
     </div>
   </main>
   <div id="footer"></div>
 
   <script>
+    window.onload = async (event) => {
+      const ID = 2;//後でローカルストレージからIDを取得する。
+      const response = await fetch("/get_sp_list", 
+      { 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          ID
+        })
+      });
+      const data = await response.json();
+      
+     console.log(data);
+    //  console.log(await response[0]);
+      displayList(data);
+    }
+
     fetch("/components/header.html")
       .then((response) => response.text())
       .then((data) => document.querySelector("#header").innerHTML = data);
     fetch("/components/footer.html")
       .then((response) => response.text())
       .then((data) => document.querySelector("#footer").innerHTML = data);
-    document.getElementById('Search_id_submit_button').addEventListener('click', () => {
-      const rawid = document.getElementById("Search_id_Input_form");
-    });
+    // document.getElementById('Search_id_submit_button').addEventListener('click', () => {
+    //   const rawid = document.getElementById("Search_id_Input_form");
+    // });
+    
+    
+    // リストを表示する関数
+    function displayList(fruits) {
+      //const fruits = ['りんご', 'バナナ', 'オレンジ', 'ぶどう', 'メロン'];
+
+      const list = document.getElementById('show_SPoints');
+      //console.log(fruits.message);
+      fruits.forEach(fruit => {
+        //console.log("くだもの名 " + fruit);
+        const li = document.createElement('li');
+        //console.log(fruit.value);
+        li.textContent = formatDateTime(String(fruit.value.time)) + " " + fruit.value.mainText;
+        list.appendChild(li);
+      });
+    }
+
+    function formatDateTime(dateTimeString) {
+      // 文字列から年、月、日、時、分を抽出
+      const year = dateTimeString.substring(0, 4);
+      const month = dateTimeString.substring(4, 6);
+      const day = dateTimeString.substring(6, 8);
+      const hour = dateTimeString.substring(8, 10);
+      const minute = dateTimeString.substring(10, 12);
+
+      // フォーマットされた文字列を返す
+      return `${year}年${parseInt(month)}月${parseInt(day)}日${hour}時${minute}分`;
+    }
+
+    // ページ読み込み時にリストを表示
+    // window.onload = displayList;
   </script>
   <script src="/lib/footerLinkModifier.js"></script>
 </body>
