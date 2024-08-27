@@ -15,12 +15,10 @@
   border-style: solid;
   border-width: 0 0 .125rem 0;
   padding: .5rem 1.25rem;
-  /* border-radius: 3rem; */
+  border-radius: 0;
   font-size: 1.2rem;
   width: min(80%, 30rem);
   border-color: gray;
-  transition-property: color background-color border-color text-decoration-color fill stroke;
-  transition-duration: .15s;
 }
 
 .sp_form textarea {
@@ -30,11 +28,9 @@
   appearance: none;
   border-style: solid;
   padding: .5rem 1rem;
-  /* border-radius: .3rem; */
+  border-radius: 0;
   font-size: 1.2rem;
   width: min(80%, 30rem);
-  transition-property: color background-color border-color text-decoration-color fill stroke;
-  transition-duration: .15s;
   field-sizing: content;
   border-color: gray;
   border-width: 0 0 .125rem 0;
@@ -61,8 +57,6 @@
   font-size: 1.2rem;
   color: white;
   font-weight: bold;
-  transition-property: color background-color border-color text-decoration-color fill stroke;
-  transition-duration: .15s;
   cursor: pointer;
 }
 

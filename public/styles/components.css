@@ -1,6 +1,10 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  transition-property: color background-color border-color text-decoration-color fill stroke;
+  transition-duration: .15s;
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
@@ -84,8 +88,6 @@ footer {
   font-weight: bold;
   color: white;
   border-color: transparent;
-  transition-property: color background-color border-color text-decoration-color fill stroke;
-  transition-duration: .15s;
   pointer-events: auto;
 }
 
@@ -111,8 +113,6 @@ a#fot-center-link {
   width: 1.7rem;
   height: 1.7rem;
   fill: #bcbcbc;
-  transition: fill .15s linear;
-
 }
 
 #fot-center-content {
