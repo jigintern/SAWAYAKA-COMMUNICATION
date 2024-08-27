@@ -8,7 +8,7 @@ async function POST_add_DB_SP(req,kv) {
   //const sendTime = requestJson["time"];
   const sendText = requestJson["sendText"];
 
-  if(fromID===sendID){
+  if(Number(fromID)===Number(sendID)){
     const result = "自身にSP送信することはできません";
     return new Response(result);
   }
