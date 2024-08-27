@@ -5,8 +5,10 @@ async function POST_add_DB_SP(req,kv) {
   const fromID = requestJson["fromID"]; //誰が送信したか
   //const spNO = requestJson["spNO"]; //何個目のコメントか
   const sendID = requestJson["sendId"]; //誰にまたはコメ主
-  const sendTime = requestJson["time"];
+  //const sendTime = requestJson["time"];
   const sendText = requestJson["sendText"];
+
+  const sendTime = getCurrentDateTime();//送信時間をサーバーが自動で取得するようにする。
 
   const dataKey=["user", Number(fromID)];
   const data = await kv.get(dataKey);
@@ -16,6 +18,7 @@ async function POST_add_DB_SP(req,kv) {
   await kv.set(dataKey, newValue);
 
   const key = ["SP", Number(fromID), Number(spNO)]; //なんのデータか,誰(ID),何番目の投稿か
+  console.log("Sp : " + Number(fromID) + " : " + Number(spNO));
   //name: "山田"
   const value = {
     User: Number(sendID),
@@ -39,6 +42,19 @@ async function POST_add_DB_SP(req,kv) {
 
   //const result = "送ろうとしました";
   return new Response(result);
+}
+
+function getCurrentDateTime() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+
+  return `${year}${month}${day}${hours}${minutes}${seconds}`;
 }
 
 export { POST_add_DB_SP };
