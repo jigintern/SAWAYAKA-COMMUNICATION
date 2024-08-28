@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="/styles/submit_post.css">
   <script src="/lib/sessionChecker.js"></script>
   <title>submit_post_page</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><!---QRコード表示--->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js"></script><!---QRコード読み取り--->
 </head>
 
 <body>
@@ -35,6 +38,109 @@
       .then((data) => document.querySelector("#footer").innerHTML = data);
   </script>
   <script src="/lib/footerLinkModifier.js"></script>
+
+  <button id="display_QRcord">自身のQRコードを表示する</button>
+  <!---<button id="loading_QRcord">他人のQRコードを読み込む</button>--->
+  <button onclick="toggleCamera()">他人のQRコードからIDを読み込み</button>
+  <div id="qrcode"></div><!---QRコード表示場所--->
+  <div id="camera-container" style="display: none;">
+    <video id="video" style="display: none;"></video><!---QRコード読み取り--->
+    <canvas id="canvas" style="width: 30%;"></canvas><!---QRコード読み取り--->
+  </div>
+
+  <script>
+    //QRコード表示
+    document.getElementById("display_QRcord").onclick = async () => {
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');//string型でローカルストレージから値を取得
+      const newData = JSON.parse(myData);//JOSN型に変換
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      displayQRcode(ID);//QRコードを表示
+    }
+
+    //QRコード読み取り
+    let cameraOn = false;
+    //let video, canvas, ctx, stream;
+    function toggleCamera() {
+      cameraOn = !cameraOn;
+      const container = document.getElementById('camera-container');
+      container.style.display = cameraOn ? 'block' : 'none';
+      
+      if (cameraOn) {
+        startCamera();
+      } else {
+        stopCamera();
+      }
+    }
+    function startCamera() {
+      video = document.getElementById('video');
+      canvas = document.getElementById('canvas');
+      ctx = canvas.getContext('2d');
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(function(streamObj) {
+          stream = streamObj;
+          video.srcObject = stream;
+          video.setAttribute("playsinline", true);
+          video.play();
+          requestAnimationFrame(tick);
+        })
+        .catch(function(error) {
+          console.error("カメラの起動に失敗しました:", error);
+        });
+    }
+    function stopCamera() {
+      if (stream) {
+        const tracks = stream.getTracks();
+        tracks.forEach(function(track) {
+          track.stop();
+        });
+      }
+      if (video) {
+        video.srcObject = null;
+      }
+    }
+    function tick() {
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.height = video.videoHeight;
+        canvas.width = video.videoWidth;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        var code = jsQR(imageData.data, imageData.width, imageData.height, {
+          inversionAttempts: "dontInvert",
+        });
+        if (code) {
+          const container = document.getElementById('camera-container');
+          cameraOn = false;
+          container.style.display = 'none';
+          stopCamera();
+          //console.log("QRコードを検出しました:", code.data);
+          // ここでQRコードのデータを処理
+
+          document.getElementById("id_input_form").value = `${Number(code.data)}`;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    let displayQR = false;
+    //QRコードに関する関数
+    function displayQRcode(ID){
+      displayQR = !displayQR;
+      if(displayQR){
+        new QRCode(document.getElementById("qrcode"), {
+          text: `${ID}`,
+          width: 128,
+          height: 128,
+          colorDark : "#000000",
+          colorLight : "#ffffff",
+          correctLevel : QRCode.CorrectLevel.H
+        });
+      }else{
+        document.getElementById("qrcode").innerHTML = '';
+      }
+    }
+  </script>
 </body>
 
 </html>
