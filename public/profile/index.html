@@ -125,21 +125,14 @@
       const current_user_profile = await JSON.parse(localStorage.getItem("current_user"));
       console.log(current_user_profile)
 
-      const ID = url.searchParams.get("id") ?? current_user_profile.id
+      const id = url.searchParams.get("id") ?? current_user_profile.id
 
-      const userResponse = await fetch(`/get_myId_DB?id=${ID}`, {
+      const userResponse = await fetch(`/user?id=${id}`, {
         method: "GET",
       }).then(res => res.json())
       console.log(userResponse)
 
-      const response = await fetch("/get_sp_list",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ID
-          })
-        });
+      const response = await fetch(`/sp?id=${id}`);
       const data = await response.json();
 
       console.log(data);
@@ -150,7 +143,7 @@
         grabCursor: true,
       });
 
-      document.getElementById("user_id_blank").innerText = ID;
+      document.getElementById("user_id_blank").innerText = id;
       document.getElementById("user_hobby_blank").innerText = userResponse.value.hobbyId;
       document.getElementById("user_hobby_content_blank").innerText = userResponse.value.hobbyContent;
     }

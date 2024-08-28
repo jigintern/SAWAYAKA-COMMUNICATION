@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="stylesheet" href="/search_around_people/search_around_people_style.css">
+  <script src="/lib/sessionChecker.js"></script>
+  <title>search_people</title>
+</head>
+
+<body>
+  <div id="leaf"></div>
+  <div id="header"></div>
+  <main>
+    <h3>あなたの近くのユーザー</h3>
+    <!--検索した結果を表示するカードを作ってリストにする-->
+    <div id="searched_user_card_area">
+        <!--ユーザー1-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_1" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザー2-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_2" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザー3-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_3" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザー4-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_4" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザー5-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_5" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザ6-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_6" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザー7-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_7" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザー8-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_8" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザー9-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_9" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+        <!--ユーザー10-->
+        <div class="user_card_container">
+            <img class="user_icon" id="user_icon_10" src="/icons/lemon.svg" alt="icon">
+            <span>匿名のたけだ〜ん</span>
+        </div>
+    </div>
+  </main>
+  <div id="footer"></div>
+
+  <script src="/submit_post/submitting.js"></script>
+  <script>
+    fetch("/components/header.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#header").innerHTML = data);
+    fetch("/components/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+  <script src="/lib/footerLinkModifier.js"></script>
+</body>
+
+</html>
