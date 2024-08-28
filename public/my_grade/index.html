@@ -35,10 +35,10 @@
         const myData = await localStorage.getItem('current_user');
         const ID = Number(JSON.parse(myData).id);//自身のID取得
   
-        const response = await fetch(`/get_mygrade?ID=${ID}`, {
+        const response = await fetch(`/grade?id=${ID}`, {
             method: "GET",
         });
-        const responseJSON = await JSON.parse(await response.text());
+        const responseJSON = await response.json();
         
         //何を送信しようとしたかUIで確認するコード。
         document.getElementById("mainText1").innerText = responseJSON.grade + "\n" + responseJSON.gradeTitle;
