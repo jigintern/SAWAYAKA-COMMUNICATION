@@ -13,13 +13,12 @@ async function sendSP() {
   const data = localStorage.getItem('current_user');
 
   const fromID = Number(JSON.parse(data).id);//ローカルストレージからIDを取得(送信者ID)
-  //const spNO = 1;//さわやかポイントいくつ書いたか読みだしてもういらない。
 
   await fetch("/components/up_leaf.html")
     .then((response) => response.text())
     .then((data) => document.querySelector("#leaf").innerHTML = data);
 
-  const response = await fetch("/add_DB_SP", {
+  const response = await fetch("/sp", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

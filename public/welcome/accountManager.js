@@ -14,7 +14,7 @@ async function createAccount() {
     .then((response) => response.text())
     .then((data) => document.querySelector("#leaf").innerHTML = data);
   
-  const response = await fetch("/get_myId_DB", {
+  const response = await fetch("/user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

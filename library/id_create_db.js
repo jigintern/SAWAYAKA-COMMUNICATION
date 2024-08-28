@@ -26,7 +26,7 @@ async function ID_create_DB(req,kv) {
     quest_completed_time
   };
 
-  const result = await kv.set(key, value);
+  await kv.set(key, value);
 
   return Response.json({id: max + 1});
 }
