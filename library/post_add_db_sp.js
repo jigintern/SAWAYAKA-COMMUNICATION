@@ -1,3 +1,5 @@
+import { Status } from "https://deno.land/std@0.151.0/http/http_status.ts";
+
 async function POST_add_DB_SP(req,kv) {
   // リクエストのペイロードを取得
   const requestJson = await req.json();
@@ -10,7 +12,7 @@ async function POST_add_DB_SP(req,kv) {
 
   if(Number(fromID)===Number(sendID)){
     const result = "自身にSP送信することはできません";
-    return new Response(result);
+    return new Response(result,{status: 400});
   }
 
   const sendTime = getCurrentDateTime();//送信時間をサーバーが自動で取得するようにする。
@@ -46,7 +48,7 @@ async function POST_add_DB_SP(req,kv) {
   console.log(result);
 
   //const result = "送ろうとしました";
-  return new Response(result);
+  return new Response(result,{status: 200});
 }
 
 function getCurrentDateTime() {
