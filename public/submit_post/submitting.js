@@ -34,6 +34,7 @@ async function sendSP() {
     const ID = Number(JSON.parse(data2).id);
     const newData = JSON.parse(data2);
     newData.quest_completed_time = Number(getCurrentDateDay());
+    newData.tutorialEnded = true;//チュートリアル脱却
     localStorage.setItem("current_user", JSON.stringify(newData)); //ローカルストレージにクエスト完了時間を保存
 
     //データベースに完了時間を記録
