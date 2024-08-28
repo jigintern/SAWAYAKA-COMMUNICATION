@@ -25,7 +25,7 @@
     <!--- 送信用フォーム --->
     <a href="/profile">profileへのリンク</a>
 
-    <h1>クエストです。</h1>
+    <h1>日々のさわやか</h1>
     <p></p>
     <p id="mainText1">クエストが表示されます。</p>
     <a href="/submit_post">クエストを行う!!</a>
@@ -36,15 +36,46 @@
     <!---<p id="response1">クエストの完了状況が表示されます。</p>--->
   
     <div id="qrcode"></div>
+    <button id="test1">チュートリアルを完了にする。</button>
+    <button id="test2">チュートリアルを「未」完了にする。</button>
+    <script>
+      document.getElementById("test1").onclick = async () => {
+        //ローカルストレージ、//myDataはstring。newDataはJSON
+        const myData = await localStorage.getItem('current_user');
+        const newData = JSON.parse(myData);
+        newData.tutorialEnded = true;//チュートリアル達成
+        localStorage.setItem('current_user',JSON.stringify(newData));//ローカルストレージに値を保存
+      }
+      document.getElementById("test2").onclick = async () => {
+        //ローカルストレージ、//myDataはstring。newDataはJSON
+        const myData = await localStorage.getItem('current_user');
+        const newData = JSON.parse(myData);
+        newData.tutorialEnded = false;//チュートリアル未達成
+        localStorage.setItem('current_user',JSON.stringify(newData));//ローカルストレージに値を保存
+      }
+    </script>
+
+    <!---チュートリアル関係--->
+    <p>　</p>
+    <hr>
+    <div id="tutorialEnded">
+      <h1>チュートリアルテキスト</h1>
+      <p>チュートリアル用操作説明です。</p>
+    </div>
+    <div id="nomal">
+      <h1>通常テキスト</h1>
+      <p>通常の操作説明です。</p>
+    </div>
+
+
     <!--- JSスクリプト --->
     <script type="module">
+      //読み込まれた時の処理
       window.onload = async (event) => {
-
+        //ローカルストレージ
         const myData = await localStorage.getItem('current_user');
-
         const mode = 0;//クエストを確認するモード
         const ID = Number(JSON.parse(myData).id);//自身のID取得
-
           
         displayQRcode(ID);//自身のIDのQRコードを描画する。
   
@@ -60,10 +91,10 @@
         //何を送信しようとしたかUIで確認するコード。
         switch(Number(await response.text())){
           case 0:
-            document.getElementById("mainText1").innerText = "本日のクエストを行いましょう。\n一人と交流し、SPを書いてあげましょう。";
+            document.getElementById("mainText1").innerText = "本日もSPを書きましょう。\n一人と交流し、SPを書いてあげましょう。";
             break
           case 1:
-            document.getElementById("mainText1").innerText = "本日はクエストを完了しています。";
+            document.getElementById("mainText1").innerText = "本日はSP送信を完了しています。";
             break;
           default:
             break;
@@ -94,11 +125,11 @@
         //何を送信しようとしたかUIで確認するコード。
         switch(Number(await response.text())){
             case 0:
-              document.getElementById("mainText1").innerText = "本日のクエストを行いましょう。\n一人と交流し、SPを書いてあげましょう。";
+              document.getElementById("mainText1").innerText = "本日もSPを書きましょう。\n一人と交流し、SPを書いてあげましょう。";
               //document.getElementById("response1").innerText = "本日のクエストを行いましょう。";
               break
             case 1:
-              document.getElementById("mainText1").innerText = "本日のクエストを完了しました。";
+              document.getElementById("mainText1").innerText = "本日はSP送信を完了しています。";
               //document.getElementById("response1").innerText = "本日のクエストを完了しました。";
               break;
             default:
@@ -106,6 +137,7 @@
         }
       };
 
+      //時間取得関数
       function getCurrentDateDay() {
         const now = new Date();
         const year = now.getFullYear();
@@ -117,7 +149,7 @@
         return `${year}${month}${day}${hours}${minutes}${seconds}`;
       }
 
-
+      //QRコードに関する関数
       function displayQRcode(ID){
         new QRCode(document.getElementById("qrcode"), {
               text: `${ID}`,
@@ -127,6 +159,19 @@
               colorLight : "#ffffff",
               correctLevel : QRCode.CorrectLevel.H
         });
+      }
+
+      //チュートリアル関係
+      //ローカルストレージ
+      const myData = JSON.parse(await localStorage.getItem('current_user'));
+      //const isAdmin = true; // この値を条件に応じて変更
+      const isAdmin = myData.tutorialEnded;//ローカルストレージのデータで表示を変える(trueならクエスト達成)
+      if (isAdmin) {
+        //console.log("チュートリアル達成済み");
+        const content = document.getElementById('tutorialEnded');
+        content.style.display = "none";
+      } else {
+        //console.log("チュートリアル未達成");
       }
     </script>
     <script src="/permission.js"></script>
