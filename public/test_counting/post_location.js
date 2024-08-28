@@ -1,7 +1,4 @@
-console.log("ok");
 // 位置情報を取得するための関数
-
-// 15秒ごとにsend_location_to_databaseを実行する
 setInterval(() => {
   console.log("ok");
   if ("geolocation" in navigator) {

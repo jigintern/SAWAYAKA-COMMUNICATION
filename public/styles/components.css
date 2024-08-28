@@ -4,6 +4,7 @@
   transition-property: color background-color border-color text-decoration-color fill stroke;
   transition-duration: .15s;
   transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  font-style: normal;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 

@@ -6,6 +6,7 @@ import { Get_grade } from "./library/get_grade.js";
 import { POST_get_DB_SP } from "./library/get_sp.js";
 import { Quest_completed } from "./library/quest_completed.js"; //クエスト完了
 import { POST_user_location_save_db } from "./library/post_location_save_db.js"; // 定期的にユーザーの位置情報をdbに保存する
+import { distilled_user_within_24hours } from "./library/distilled_user_within_24hour.js"; // 定期的にユーザーの位置情報をdbに保存する
 import "https://deno.land/std@0.224.0/dotenv/load.ts"; //.envの読み込み用
 
 let kv;
@@ -57,6 +58,13 @@ Deno.serve(async (req) => {
   if (req.method === "GET" && pathname === "/grade") {  
     return Get_grade(req, kv);
   }
+
+  if (req.method === "GET" && pathname === "/distilled_user") {  
+    return distilled_user_within_24hours(req, kv);
+  }
+
+
+
 
   return serveDir(req, {
     fsRoot: "public",
