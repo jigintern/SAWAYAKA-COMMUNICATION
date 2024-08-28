@@ -47,6 +47,12 @@ async function sendSP() {
       }),
     });
 
+    localStorage.setItem("submitted_previous",
+      JSON.stringify({
+        id: Number(id)
+      })
+    )
+
     setTimeout(appearDoneText, 500);
     setTimeout(() => transToProfile(id), 1500);
   } else {

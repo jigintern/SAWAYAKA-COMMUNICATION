@@ -136,3 +136,40 @@ a#fot-center-link {
 .footer-item:hover svg {
   fill: #2dd3d0;
 }
+
+.notification {
+  position: fixed;
+  z-index: 105;
+  width: 80%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #b78637;
+  left: 10%;
+  background-color: #fdf2ad;
+  padding: 1rem 2rem;
+  border-radius: .5rem;
+  filter: drop-shadow(.1rem .1rem .2rem gray);
+  animation: notification_appearing .25s ease-out forwards;
+}
+
+.notification svg {
+  width: 1rem;
+  position: relative;
+  top: .2rem;
+  margin-right: .2rem;
+}
+
+.notification p {
+  color: #b88c07;
+  font-weight: bold;
+}
+
+@keyframes notification_appearing {
+  from {
+    top: 0;
+  }
+
+  to {
+    top: 3rem;
+  }
+}
