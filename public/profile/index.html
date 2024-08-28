@@ -14,7 +14,7 @@
   <style>
     .swiper {
       width: 70%;
-      height: calc(100svh - 32rem);
+      height: calc(100svh - 35rem);
       filter: drop-shadow(.1rem .1rem .3rem gray);
     }
 
@@ -80,12 +80,18 @@
             </div>
           </div>
         </div>
-        <div id="SPoint">
+        <!-- <div id="SPoint">
           <p><b>500 SP</b></p>
-        </div>
+        </div> -->
         <div id="user_info_area">
           <span id="user_id">ID:<span id="user_id_blank"></span></span>
           <span id="user_QR_code"><img src="/icons/QR-code.svg" alt=""></span>
+        </div>
+      </div>
+      <div class="user_grade">
+        <div class="grade_text">👑<span id="user_grade_name_blank"></span></div>
+        <div class="progress">
+          <span id="user_grade" class=""></span>
         </div>
       </div>
       <!--ユーザー趣味表示部分-->
@@ -142,6 +148,12 @@
         effect: "cards",
         grabCursor: true,
       });
+
+      const gradeID = 4;
+      const gradeText = "みんなの親友";
+
+      document.getElementById("user_grade_name_blank").innerText = gradeText;
+      document.getElementById("user_grade").classList.add(`g${gradeID}`);
 
       document.getElementById("user_id_blank").innerText = id;
       document.getElementById("user_hobby_blank").innerText = userResponse.value.hobbyId;

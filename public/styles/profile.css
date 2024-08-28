@@ -18,10 +18,69 @@
   color: white;
 }
 
+.user_grade {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding-inline: 1.75rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.progress {
+  width: 75%;
+  margin-bottom: .5rem;
+  background-color: #dedede;
+  height: 1rem;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+#user_grade {
+  position: relative;
+  top: -.1rem;
+  display: inline-block;
+  width: 0%;
+  height: 100%;
+  border-radius: 1rem;
+  background-color: #dfc52f;
+  transition-property: width;
+  transition-duration: 1s;
+}
+
+.grade_text {
+  font-weight: bold;
+  color: #e8c919;
+  font-size: small;
+}
+
+.g1#user_grade {
+  width: 15%;
+  background-color: #b6e452;
+}
+
+.g2#user_grade {
+  width: 40%;
+  background-color: #c1e435;
+}
+
+.g3#user_grade {
+  width: 75%;
+  background-color: #dbd13e;
+}
+
+.g4#user_grade {
+  width: 100%;
+  background-color: #dfc52f;
+}
+
 .user_data {
   display: flex;
   position: relative;
   top: -1.4rem;
+  margin-bottom: -2rem;
   justify-content: space-between;
   padding-inline: 1.75rem;
   align-items: center;
