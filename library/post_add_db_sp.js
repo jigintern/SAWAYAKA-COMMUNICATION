@@ -23,7 +23,7 @@ async function POST_add_DB_SP(req, kv) {
   await kv.set(dataKey, newValue);
 
   const key = ["SP", Number(fromID), Number(spNO)]; //なんのデータか,誰(ID),何番目の投稿か
-  console.log("Sp : " + Number(fromID) + " : " + Number(spNO));
+  //console.log("Sp : " + Number(fromID) + " : " + Number(spNO));
   const value = {
     User: Number(sendID),
     time: Number(sendTime),
@@ -32,7 +32,7 @@ async function POST_add_DB_SP(req, kv) {
 
   const result = await kv.set(key, value);
 
-  console.log(result);
+  //console.log(result);
 
   return new Response(result);
 }
