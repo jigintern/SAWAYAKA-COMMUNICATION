@@ -14,7 +14,8 @@ async function ID_create_DB(req, kv) {
 
   //const grade = 0;//現在のグレード(SPの送信数を基準にする)
   const sendedSpCount = 0;//送ったさわやかポイントの数
-  const quest_completed_time = getCurrentDateDay();//クエストの完了時間を初期設定ではアカウント作成日にする。
+  const quest_completed_time = 0;//クエストの完了時間を初期設定ではアカウント作成日にする。
+  //変更で初期設定では0にする。
 
   const key = ["user", max + 1]; //なんのデータか,誰(ID,6桁),何番目の投稿か(7桁)
   const value = {
@@ -29,13 +30,13 @@ async function ID_create_DB(req, kv) {
   return Response.json({ id: max + 1 });
 }
 
-function getCurrentDateDay() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  return `${year}${month}${day}`;
-}
+// function getCurrentDateDay() {
+//   const now = new Date();
+//   const year = now.getFullYear();
+//   const month = String(now.getMonth() + 1).padStart(2, "0");
+//   const day = String(now.getDate()).padStart(2, "0");
+//   return `${year}${month}${day}`;
+// }
 
 export { ID_create_DB };
 

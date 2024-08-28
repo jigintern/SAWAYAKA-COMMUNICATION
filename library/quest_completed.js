@@ -1,3 +1,4 @@
+
 async function Quest_completed(req, kv) {
   //クエストの完了日を更新。または本日クエストが完了しているかどうかをサーバーに問い合わせることが出来る。
   //完了日更新は1、完了の確認は0(kye='mode')
@@ -34,3 +35,4 @@ function getCurrentDateDay() {
 }
 
 export { Quest_completed };
+
