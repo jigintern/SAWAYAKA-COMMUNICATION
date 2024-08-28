@@ -32,7 +32,9 @@ async function createAccount() {
   }
 
   const resJson = await response.json();
+  const quest_completed_time = 0;//クエストの完了時間を初期設定では0にする
 
+  console.log("ローカルストレージにユーザーを追加");
   console.log(resJson.id);
   localStorage.setItem(
     "current_user",
@@ -41,6 +43,7 @@ async function createAccount() {
         id: resJson.id,
         hobbyId,
         hobbyContent,
+        quest_completed_time,//クエストの完了時間を初期設定では0にする
         tutorialEnded: false,
       },
     ),
