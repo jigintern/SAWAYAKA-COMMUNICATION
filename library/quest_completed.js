@@ -20,7 +20,7 @@ async function Quest_completed(req, kv) {
   } else {
     //if (newValue.quest_completed_time === getCurrentDateDay()) {
     //クエストの間隔を調整できます。/public/lib/sessionChecker.js Line9も確認
-    if (Number(getCurrentDateDay()) - newValue.quest_completed_time > 500) {
+    if ((Number(getCurrentDateDay()) - newValue.quest_completed_time) <= 500) {
       return new Response(1);
     } else {
       return new Response(0);
