@@ -7,9 +7,8 @@ async function ID_create_DB(req, kv) {
   let max = 0;
   for await (const entry of data) {
     if (max < entry.key[1]) max = entry.key[1];
-    console.log(entry.key + " : " + JSON.stringify(entry.value));
-
-    console.log("IDが取得できたか? " + entry.key[1]);
+    //console.log(entry.key + " : " + JSON.stringify(entry.value));
+    //console.log("IDが取得できたか? " + entry.key[1]);
   }
 
   //const grade = 0;//現在のグレード(SPの送信数を基準にする)
@@ -22,7 +21,7 @@ async function ID_create_DB(req, kv) {
     hobbyId,
     hobbyContent,
     sendedSpCount,
-    quest_completed_time
+    quest_completed_time: quest_completed_time
   };
 
   await kv.set(key, value);
