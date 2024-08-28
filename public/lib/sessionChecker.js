@@ -5,6 +5,7 @@ if (!current_user_login) {
   }
 }else{
   const mydata = JSON.parse(current_user_login);
+  //クエストの間隔を調整できます。../quest_completed.js Line22も確認
   if(Number(getCurrentDateDay()) - Number(mydata.quest_completed_time) > 500){
     if (new URL(window.location.href).pathname !== '/quest' && new URL(window.location.href).pathname !== "/submit_post") {
       window.location.href = "/quest";

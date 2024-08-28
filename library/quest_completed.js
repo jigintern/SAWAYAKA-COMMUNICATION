@@ -18,7 +18,9 @@ async function Quest_completed(req, kv) {
     await kv.set(dataKey, newValue);
     return new Response(1);
   } else {
-    if (newValue.quest_completed_time === getCurrentDateDay()) {
+    //if (newValue.quest_completed_time === getCurrentDateDay()) {
+    //クエストの間隔を調整できます。/public/lib/sessionChecker.js Line9も確認
+    if ((Number(getCurrentDateDay()) - newValue.quest_completed_time) <= 500) {
       return new Response(1);
     } else {
       return new Response(0);
@@ -27,11 +29,14 @@ async function Quest_completed(req, kv) {
 }
 
 function getCurrentDateDay() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  return `${year}${month}${day}`;
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    return `${year}${month}${day}${hours}${minutes}${seconds}`;
 }
 
 export { Quest_completed };
