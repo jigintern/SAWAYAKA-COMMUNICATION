@@ -19,8 +19,9 @@
         place-content: center;
       }
     </style>
-    </head>
-    <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  </head>
+  <body>
     <!--- 送信用フォーム --->
     <a href="/profile">profileへのリンク</a>
 
@@ -32,41 +33,46 @@
     <p>以下テスト機能</p>
     <button id="quest_completed">クエストを完了にする。</button>
     <!--- 受信したときのテキスト --->
-    <p id="response1">クエストの完了状況が表示されます。</p>
+    <!---<p id="response1">クエストの完了状況が表示されます。</p>--->
   
+    <div id="qrcode"></div>
     <!--- JSスクリプト --->
     <script type="module">
-        window.onload = async (event) => {
-            const myData = await localStorage.getItem('current_user');
+      window.onload = async (event) => {
 
-            const mode = 0;//クエストを確認するモード
-            const ID = Number(JSON.parse(myData).id);//自身のID取得
-    
-            const response = await fetch("/quest_completed", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    mode,
-                    ID
-                })
-            });
-        
-            //何を送信しようとしたかUIで確認するコード。
-            switch(Number(await response.text())){
-                case 0:
-                    document.getElementById("mainText1").innerText = "本日のクエストを行いましょう。\n一人と交流し、SPを書いてあげましょう。";
-                    break
-                case 1:
-                    document.getElementById("mainText1").innerText = "本日はクエストを完了しています。";
-                    break;
-                default:
-                    break;
-            }
+        const myData = await localStorage.getItem('current_user');
+
+        const mode = 0;//クエストを確認するモード
+        const ID = Number(JSON.parse(myData).id);//自身のID取得
+
+          
+        displayQRcode(ID);//自身のIDのQRコードを描画する。
+  
+        const response = await fetch("/quest_completed", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                mode,
+                ID
+            })
+        });
+      
+        //何を送信しようとしたかUIで確認するコード。
+        switch(Number(await response.text())){
+          case 0:
+            document.getElementById("mainText1").innerText = "本日のクエストを行いましょう。\n一人と交流し、SPを書いてあげましょう。";
+            break
+          case 1:
+            document.getElementById("mainText1").innerText = "本日はクエストを完了しています。";
+            break;
+          default:
+            break;
         }
+      }
 
       //クエスト完了に関する処理
       document.getElementById("quest_completed").onclick = async () => {
-
+        //ローカルストレージ
         const myData = await localStorage.getItem('current_user');
         //myDataはstring。newDataはJSON
         const newData = JSON.parse(myData);
@@ -88,11 +94,13 @@
         //何を送信しようとしたかUIで確認するコード。
         switch(Number(await response.text())){
             case 0:
-                document.getElementById("response1").innerText = "本日のクエストを行いましょう。";
-                break
+              document.getElementById("mainText1").innerText = "本日のクエストを行いましょう。\n一人と交流し、SPを書いてあげましょう。";
+              //document.getElementById("response1").innerText = "本日のクエストを行いましょう。";
+              break
             case 1:
-                document.getElementById("response1").innerText = "本日のクエストを完了しました。";
-                break;
+              document.getElementById("mainText1").innerText = "本日のクエストを完了しました。";
+              //document.getElementById("response1").innerText = "本日のクエストを完了しました。";
+              break;
             default:
                 break;
         }
@@ -103,10 +111,24 @@
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
-        return `${year}${month}${day}`;
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        return `${year}${month}${day}${hours}${minutes}${seconds}`;
+      }
+
+
+      function displayQRcode(ID){
+        new QRCode(document.getElementById("qrcode"), {
+              text: `${ID}`,
+              width: 128,
+              height: 128,
+              colorDark : "#000000",
+              colorLight : "#ffffff",
+              correctLevel : QRCode.CorrectLevel.H
+        });
       }
     </script>
-
     <script src="/permission.js"></script>
   </body>
 </html>

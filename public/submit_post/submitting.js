@@ -11,7 +11,6 @@ async function sendSP() {
   const sp = document.querySelector("#sp_input_form").value;
 
   const data = localStorage.getItem("current_user");
-
   const fromID = Number(JSON.parse(data).id); //ローカルストレージからIDを取得(送信者ID)
 
   await fetch("/components/up_leaf.html")
@@ -30,13 +29,14 @@ async function sendSP() {
   //console.log(response);
 
   if (response.status === 200) { //クエストクリアを実装
-    //newDataはJSON
+    //ローカルストレージに完了時間を保存
     const data2 = localStorage.getItem("current_user");
     const ID = Number(JSON.parse(data2).id);
     const newData = JSON.parse(data2);
     newData.quest_completed_time = Number(getCurrentDateDay());
     localStorage.setItem("current_user", JSON.stringify(newData)); //ローカルストレージにクエスト完了時間を保存
 
+    //データベースに完了時間を記録
     const mode = 1; //クエストを完了にするモード
     await fetch("/quest_completed", {
       method: "POST",
@@ -58,7 +58,10 @@ async function sendSP() {
 function getCurrentDateDay() {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  return `${year}${month}${day}`;
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  return `${year}${month}${day}${hours}${minutes}${seconds}`;
 }
