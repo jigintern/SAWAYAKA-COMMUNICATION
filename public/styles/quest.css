@@ -1,0 +1,73 @@
+.main_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1rem;
+  padding-inline: 1.75rem;
+  margin-top: 2rem;
+}
+
+h1,h2 {
+  display: block;
+  font-size: 2.4rem;
+  line-height: 1.3;
+  background-image: linear-gradient(45deg, #3b56dc, #f768d3 30%, #f2bc5f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: h1grad_always 3s ease-in-out infinite both;
+  animation-direction: alternate;
+  background-size: 300% 300%;
+  text-align: center;
+}
+
+.link_button_over {
+  pointer-events: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+}
+
+.link_button_over div {
+  display: inline-block;
+  margin-block: 1rem;
+  pointer-events: auto;
+  padding: .5rem 1.5rem;
+  color: white;
+  background-color: #435ee6;
+  border-style: solid;
+  border-color: #2b41ad;
+  border-width: .15rem;
+  text-align: center;
+  border-radius: 100vw;
+  font-weight: bold;
+}
+
+.link_button_over div:hover {
+  background-color: #2b41ad;
+}
+
+h2 {
+  background-image: linear-gradient(-45deg, #3b56dc, #f768d3 30%, #f2bc5f);
+  font-size: 1.8rem;
+}
+
+@keyframes h1grad_always {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+.quest_box {
+  padding: 1rem 2rem;
+  margin-block: 1rem;
+  margin-inline: 1.75rem;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  row-gap: .5rem;  
+}
