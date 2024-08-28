@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="/styles/components.css">
   <link href="https://use.fontawesome.com/releases/v62.0/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/daily_result/daily_result.css">
   <script src="/lib/sessionChecker.js"></script>
   <title>daily_result</title>
 </head>
@@ -13,40 +14,26 @@
 <body>
   <div id="header"></div>
   <main>
-    <ul>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-      <li>list1</li>
-    </ul>
+    <div id="main_title_container">
+      <span id="page_title">24時間以内に交流したユーザー</span>
+    </div>
+    <div id="content_container">
+      <!--ユーザー1-->
+      <div id="first_user_card_container" class="user_card_container">
+        <img class="user_icon" id="user_icon_1" src="/icons/lemon.svg" alt="icon">
+        <span>交流したユーザー1</span>
+      </div>
+      <!--ユーザー2-->
+      <div class="user_card_container">
+        <img class="user_icon" id="user_icon_2" src="/icons/lemon.svg" alt="icon">
+        <span>交流したユーザー2</span>
+      </div>
+      <!--ユーザー3-->
+      <div class="user_card_container">
+        <img class="user_icon" id="user_icon_3" src="/icons/lemon.svg" alt="icon">
+        <span>交流したユーザー3</span>
+      </div>
+    </div>
   </main>
 
   <div id="footer"></div>
