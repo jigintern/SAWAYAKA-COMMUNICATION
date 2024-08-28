@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="manifest" href="manifest.json">
-    <title>ようこそ、jigインターンへ！</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-      }
-      html, body {
-        height: 100vh;
-        width: 100%;
-      }
-      body {
-        display: grid;
-        place-content: center;
-      }
-    </style>
-    <script type="module">
-      const message = await fetch("/welcome-message")
-      //document.querySelector("body").innerHTML = `<h1>${await message.text()}</h1>`
-    </script>
-  </head>
-  <body>
-    さわやかコミュニケーションへようこそ！
 
-    <a href="/welcome">さわやかを体験する</a>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="stylesheet" href="/styles/root.css">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    main {
+      height: 100svh;
+    }
+  </style>
+  <title>さわやかコミュニケーション</title>
+  <script type="module">
+    const message = await fetch("/welcome-message")
+    //document.querySelector("body").innerHTML = `<h1>${await message.text()}</h1>`
+  </script>
+</head>
 
-    <script src="/permission.js"></script>
-  </body>
+<body>
+  <main>
+    <div class="main_form">
+      <h1>さわやかコミュニケーション</h1>
+
+      <a class="link_button_over" href="/welcome">
+        <div>さわやかを体験する&nbsp;▶</div>
+      </a>
+
+      <h2>「さわコミュ」とは？</h2>
+      <img src="/icons/top-d1.svg">
+      <div class="quest_box">
+        相手に「さわやかポイント」を贈り、贈られ
+      </div>
+      <img src="/icons/top-d2.svg">
+      <div class="quest_box">
+        さわやかスパイラルを興しましょう！
+      </div>
+    </div>
+  </main>
+
+  <script src="/permission.js"></script>
+</body>
+
 </html>
