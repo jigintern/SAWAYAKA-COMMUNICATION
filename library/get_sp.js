@@ -1,17 +1,14 @@
 //さわやかポイントをIDから検索して配列で返す
-async function Get_sp(req, kv) {
+async function POST_get_DB_SP(req, kv) {
   // リクエストのペイロードを取得
-  const requestJson = await req.json();
-  // JSONの中からnextWordを取得
-  const ID = requestJson["ID"]; //誰が送信したか
-  console.log("test " + ID);
+  const id = new URL(req.url).searchParams.get("id");
 
   // IDのユーザーデータを取得
   const data = await kv.list({ prefix: ["SP"] });
   // リザルトに格納
   const result = [];
   for await (const entry of data) {
-    if (entry.value.User === Number(ID)) {
+    if (entry.value.User === Number(id)) {
       result.push({
         key: entry.key, //配列
         value: entry.value, //JSON
@@ -19,13 +16,6 @@ async function Get_sp(req, kv) {
     }
   }
 
-  //   for await (const entry of data) {
-  //     if(entry.value.User===Number(ID)){
-  //       result.push(entry.value);
-  //     }
-  //   }
-  //console.log(result);
-  console.log(result);
   return new Response(JSON.stringify(result));
 }
-export { Get_sp };
+export { POST_get_DB_SP };
