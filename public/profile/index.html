@@ -149,11 +149,13 @@
         grabCursor: true,
       });
 
-      const gradeID = 4;
-      const gradeText = "みんなの親友";
+      const gradeResponse = await fetch(`/grade?id=${id}`, {
+        method: "GET",
+      }).then(res => res.json())
+      console.log(gradeResponse)
 
-      document.getElementById("user_grade_name_blank").innerText = gradeText;
-      document.getElementById("user_grade").classList.add(`g${gradeID}`);
+      document.getElementById("user_grade_name_blank").innerText = gradeResponse.gradeTitle;
+      document.getElementById("user_grade").classList.add(`g${gradeResponse.grade}`);
 
       document.getElementById("user_id_blank").innerText = id;
       document.getElementById("user_hobby_blank").innerText = userResponse.value.hobbyId;

@@ -53,11 +53,9 @@ Deno.serve(async (req) => {
     return POST_user_location_save_db(req, kv);
   }
 
-  //自身のグレード取得(文字列JOSN)
-  if (req.method === "GET" && pathname === "/get_mygrade") {  
-    const params = new URL(req.url).searchParams;
-    const ID = params.get("ID"); // 文字列 "Jonathan Smith" です。
-    return Get_grade(ID, kv);
+  //自身のグレード取得(文字列JSON)
+  if (req.method === "GET" && pathname === "/grade") {  
+    return Get_grade(req, kv);
   }
 
   return serveDir(req, {
