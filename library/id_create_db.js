@@ -12,9 +12,10 @@ async function ID_create_DB(req,kv) {
     console.log("IDが取得できたか? "+entry.key[1]);
   }
 
-  console.log("データの長さ " + data.size);
-  console.log(max);
+  //console.log("データの長さ " + data.size);
+  //console.log(max);
 
+  //const grade = 0;//現在のグレード(SPの送信数を基準にする)
   const sendedSpCount = 0;//送ったさわやかポイントの数
   const quest_completed_time = getCurrentDateDay();//クエストの完了時間を初期設定ではアカウント作成日にする。
 
@@ -23,6 +24,7 @@ async function ID_create_DB(req,kv) {
     hobbyId,
     hobbyContent,
     sendedSpCount,
+    //grade,
     quest_completed_time
   };
 

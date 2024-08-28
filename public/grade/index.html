@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="manifest" href="manifest.json">
+    <title>グレート初期型</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html, body {
+        height: 100vh;
+        width: 100%;
+      }
+      body {
+        display: grid;
+        place-content: center;
+      }
+    </style>
+    </head>
+    <body>
+    <!--- 送信用フォーム --->
+    <a href="/profile">profileへのリンク</a>
+
+    <h1>グレード機能の初期型です。</h1>
+    <p></p>
+    <p id="mainText1">現在のグレードが表示されます。</p>
+    <!---<a href="/submit_post">クエストを行う!!</a>--->
+  
+    <!--- JSスクリプト --->
+    <script type="module">
+      window.onload = async (event) => {
+        const myData = await localStorage.getItem('current_user');
+        const ID = Number(JSON.parse(myData).id);//自身のID取得
+  
+        const response = await fetch(`/get_mygrade?ID=${ID}`, {
+            method: "GET",
+        });
+        const responseJSON = await JSON.parse(await response.text());
+        
+        //何を送信しようとしたかUIで確認するコード。
+        document.getElementById("mainText1").innerText = responseJSON.grade + "\n" + responseJSON.gradeTitle;
+      };
+    </script>
+
+    <script src="/permission.js"></script>
+  </body>
+</html>

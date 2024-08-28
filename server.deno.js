@@ -4,6 +4,7 @@ import { POST_delete_DB_SP } from "./library/post_delete_db_sp.js";
 import { POST_getAll_DB_SP } from "./library/post_getall_db_sp.js";
 import { ID_create_DB, ID_get_DB } from "./library/id_create_db.js"; //ローカルストレージからIDを読み込む(key="myId")。なければIDを作って保存してその値を返す
 import { Get_sp } from "./library/get_sp.js";
+import { Get_grade } from "./library/get_grade.js";
 import { Quest_completed } from "./library/quest_completed.js";//クエスト完了
 import { POST_user_location_save_db } from "./library/post_location_save_db.js"; // 定期的にユーザーの位置情報をdbに保存する
 import "https://deno.land/std@0.224.0/dotenv/load.ts"; //.envの読み込み用
@@ -65,6 +66,13 @@ Deno.serve(async (req) => {
 
   if (req.method === "POST" && pathname === "/receive_location") {  
     return POST_user_location_save_db(req, kv);
+  }
+
+  //自身のグレード取得(文字列JOSN)
+  if (req.method === "GET" && pathname === "/get_mygrade") {  
+    const params = new URL(req.url).searchParams;
+    const ID = params.get("ID"); // 文字列 "Jonathan Smith" です。
+    return Get_grade(ID, kv);
   }
 
   return serveDir(req, {
