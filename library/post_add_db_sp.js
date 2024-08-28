@@ -1,6 +1,6 @@
 import { Status } from "https://deno.land/std@0.151.0/http/http_status.ts";
 
-async function POST_add_DB_SP(req,kv) {
+async function POST_add_DB_SP(req, kv) {
   // リクエストのペイロードを取得
   const requestJson = await req.json();
   // JSONの中からnextWordを取得
@@ -8,14 +8,14 @@ async function POST_add_DB_SP(req,kv) {
   const sendID = requestJson["sendId"]; //誰にまたはコメ主
   const sendText = requestJson["sendText"];
 
-  if(Number(fromID)===Number(sendID)){
+  if (Number(fromID) === Number(sendID)) {
     const result = "自身にSP送信することはできません";
-    return new Response(result,{status: 400});
+    return new Response(result, { status: 400 });
   }
 
-  const sendTime = getCurrentDateTime();//送信時間をサーバーが自動で取得するようにする。
+  const sendTime = getCurrentDateTime(); //送信時間をサーバーが自動で取得するようにする。
 
-  const dataKey=["user", Number(fromID)];
+  const dataKey = ["user", Number(fromID)];
   const data = await kv.get(dataKey);
   const spNO = Number(data.value.sendedSpCount) + 1;
   const newValue = data.value;
@@ -41,11 +41,11 @@ function getCurrentDateTime() {
   const now = new Date();
 
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
 
   return `${year}${month}${day}${hours}${minutes}${seconds}`;
 }

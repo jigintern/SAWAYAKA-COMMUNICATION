@@ -10,9 +10,9 @@ async function sendSP() {
   const id = document.querySelector("#id_input_form").value;
   const sp = document.querySelector("#sp_input_form").value;
 
-  const data = localStorage.getItem('current_user');
+  const data = localStorage.getItem("current_user");
 
-  const fromID = Number(JSON.parse(data).id);//ローカルストレージからIDを取得(送信者ID)
+  const fromID = Number(JSON.parse(data).id); //ローカルストレージからIDを取得(送信者ID)
 
   await fetch("/components/up_leaf.html")
     .then((response) => response.text())
@@ -29,22 +29,22 @@ async function sendSP() {
   });
   //console.log(response);
 
-  if (response.status === 200) {//クエストクリアを実装
+  if (response.status === 200) { //クエストクリアを実装
     //newDataはJSON
-    const data2 = localStorage.getItem('current_user');
+    const data2 = localStorage.getItem("current_user");
     const ID = Number(JSON.parse(data2).id);
     const newData = JSON.parse(data2);
     newData.quest_completed_time = Number(getCurrentDateDay());
-    localStorage.setItem('current_user',JSON.stringify(newData));//ローカルストレージにクエスト完了時間を保存
+    localStorage.setItem("current_user", JSON.stringify(newData)); //ローカルストレージにクエスト完了時間を保存
 
-    const mode = 1;//クエストを完了にするモード
+    const mode = 1; //クエストを完了にするモード
     await fetch("/quest_completed", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-            mode,
-            ID
-        })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mode,
+        ID,
+      }),
     });
 
     setTimeout(appearDoneText, 500);
@@ -58,7 +58,7 @@ async function sendSP() {
 function getCurrentDateDay() {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
   return `${year}${month}${day}`;
 }
