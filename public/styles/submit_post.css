@@ -35,6 +35,8 @@
   border-color: gray;
   border-width: 0 0 .125rem 0;
   resize: vertical;
+  background-color: #f5f5f5;
+  border-radius: .3rem .3rem 0 0;
 }
 
 .id_form input:hover,
@@ -62,4 +64,15 @@
 
 .sp_form #sp_submit_button:hover {
   background-color: #269b99;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: none;
+  -moz-appearance: none;
 }
