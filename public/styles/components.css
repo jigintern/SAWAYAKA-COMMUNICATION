@@ -148,6 +148,8 @@ a#fot-center-link {
   background-color: #fdf2ad;
   padding: 1rem 2rem;
   border-radius: .5rem;
+  transition-property: all;
+  user-select: none;
   filter: drop-shadow(.1rem .1rem .2rem gray);
   animation: notification_appearing .25s ease-out forwards;
 }
@@ -172,4 +174,8 @@ a#fot-center-link {
   to {
     top: 3rem;
   }
+}
+
+.notification.close {
+  opacity: 0;
 }
