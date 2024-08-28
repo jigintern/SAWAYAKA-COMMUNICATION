@@ -1,179 +1,180 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="manifest" href="manifest.json">
-    <title>SPクエスト</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-      }
-      html, body {
-        height: 100vh;
-        width: 100%;
-      }
-      body {
-        display: grid;
-        place-content: center;
-      }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  </head>
-  <body>
-    <!--- 送信用フォーム --->
-    <a href="/profile">profileへのリンク</a>
 
-    <h1>日々のさわやか</h1>
-    <p></p>
-    <p id="mainText1">クエストが表示されます。</p>
-    <a href="/submit_post">クエストを行う!!</a>
-    <p>　</p>
-    <p>以下テスト機能</p>
-    <button id="quest_completed">クエストを完了にする。</button>
-    <!--- 受信したときのテキスト --->
-    <!---<p id="response1">クエストの完了状況が表示されます。</p>--->
-  
-    <div id="qrcode"></div>
-    <button id="test1">チュートリアルを完了にする。</button>
-    <button id="test2">チュートリアルを「未」完了にする。</button>
-    <script>
-      document.getElementById("test1").onclick = async () => {
-        //ローカルストレージ、//myDataはstring。newDataはJSON
-        const myData = await localStorage.getItem('current_user');
-        const newData = JSON.parse(myData);
-        newData.tutorialEnded = true;//チュートリアル達成
-        localStorage.setItem('current_user',JSON.stringify(newData));//ローカルストレージに値を保存
-      }
-      document.getElementById("test2").onclick = async () => {
-        //ローカルストレージ、//myDataはstring。newDataはJSON
-        const myData = await localStorage.getItem('current_user');
-        const newData = JSON.parse(myData);
-        newData.tutorialEnded = false;//チュートリアル未達成
-        localStorage.setItem('current_user',JSON.stringify(newData));//ローカルストレージに値を保存
-      }
-    </script>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="stylesheet" href="/styles/quest.css">
+  <link rel="manifest" href="manifest.json">
+  <title>SPクエスト</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
 
-    <!---チュートリアル関係--->
-    <p>　</p>
-    <hr>
-    <div id="tutorialEnded">
-      <h1>チュートリアルテキスト</h1>
-      <p>チュートリアル用操作説明です。</p>
+<body>
+  <div id="header"></div>
+  <!--- 送信用フォーム --->
+  <main>
+    <div class="main_form">
+      <h1>日々のさわやか</h1>
+      <div class="quest_box">
+        <p id="mainText1">クエストが表示されます。</p>
+      </div>
+      <a class="link_button_over" href="/submit_post">
+        <div>さわやかを誰かに&nbsp;▶</div>
+      </a>
+      <!---チュートリアル関係--->
+      <div id="tutorialEnded">
+        <h2>相手へ「さわやか」を贈るには？</h2>
+        <div class="quest_box">
+          <a class="link_button_over" href="/submit_post">
+            <div>さわやかを誰かに&nbsp;▶</div>
+          </a>
+          <p>▲&nbsp;を押すと「さわやかポイント」が書けるページへ移動するよ！</p>
+          <p>ID に贈りたい相手のIDを入力しよう！</p>
+          <p>さわやかポイントを書いて、「贈る」ボタンを押そう！</p>
+        </div>
+      </div>
+      <p>以下テスト機能</p>
+      <button id="quest_completed">クエストを完了にする。</button>
+      <!--- 受信したときのテキスト --->
+      <!---<p id="response1">クエストの完了状況が表示されます。</p>--->
+
+      <!-- <div id="qrcode"></div> -->
+      <button id="test1">チュートリアルを完了にする。</button>
+      <button id="test2">チュートリアルを「未」完了にする。</button>
+
+      <hr>
+      <div id="nomal">
+        <h2>さわコミュの使い方</h2>
+        <div class="quest_box">
+          <p>ピピピ...工事中...</p>
+        </div>
+      </div>
     </div>
-    <div id="nomal">
-      <h1>通常テキスト</h1>
-      <p>通常の操作説明です。</p>
-    </div>
+  </main>
 
+  <div id="footer"></div>
 
-    <!--- JSスクリプト --->
-    <script type="module">
-      //読み込まれた時の処理
-      window.onload = async (event) => {
-        //ローカルストレージ
-        const myData = await localStorage.getItem('current_user');
-        const mode = 0;//クエストを確認するモード
-        const ID = Number(JSON.parse(myData).id);//自身のID取得
-          
-        displayQRcode(ID);//自身のIDのQRコードを描画する。
-  
-        const response = await fetch("/quest_completed", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-                mode,
-                ID
-            })
-        });
-      
-        //何を送信しようとしたかUIで確認するコード。
-        switch(Number(await response.text())){
-          case 0:
-            document.getElementById("mainText1").innerText = "本日もSPを書きましょう。\n一人と交流し、SPを書いてあげましょう。";
-            break
-          case 1:
-            document.getElementById("mainText1").innerText = "本日はSP送信を完了しています。";
-            break;
-          default:
-            break;
-        }
-      }
+  <script>
+    document.getElementById("test1").onclick = async () => {
+      //ローカルストレージ、//myDataはstring。newDataはJSON
+      const myData = await localStorage.getItem('current_user');
+      const newData = JSON.parse(myData);
+      newData.tutorialEnded = true;//チュートリアル達成
+      localStorage.setItem('current_user', JSON.stringify(newData));//ローカルストレージに値を保存
+    }
+    document.getElementById("test2").onclick = async () => {
+      //ローカルストレージ、//myDataはstring。newDataはJSON
+      const myData = await localStorage.getItem('current_user');
+      const newData = JSON.parse(myData);
+      newData.tutorialEnded = false;//チュートリアル未達成
+      localStorage.setItem('current_user', JSON.stringify(newData));//ローカルストレージに値を保存
+    }
+  </script>
 
-      //クエスト完了に関する処理
-      document.getElementById("quest_completed").onclick = async () => {
-        //ローカルストレージ
-        const myData = await localStorage.getItem('current_user');
-        //myDataはstring。newDataはJSON
-        const newData = JSON.parse(myData);
-        newData.quest_completed_time = Number(getCurrentDateDay());
-        localStorage.setItem('current_user',JSON.stringify(newData));//ローカルストレージにクエスト完了時間を保存
-
-        const mode = 1;//クエストを完了にするモード
-        const ID = Number(JSON.parse(myData).id);//自身のID取得
-  
-        const response = await fetch("/quest_completed", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-                mode,
-                ID
-            })
-        });
-        
-        //何を送信しようとしたかUIで確認するコード。
-        switch(Number(await response.text())){
-            case 0:
-              document.getElementById("mainText1").innerText = "本日もSPを書きましょう。\n一人と交流し、SPを書いてあげましょう。";
-              //document.getElementById("response1").innerText = "本日のクエストを行いましょう。";
-              break
-            case 1:
-              document.getElementById("mainText1").innerText = "本日はSP送信を完了しています。";
-              //document.getElementById("response1").innerText = "本日のクエストを完了しました。";
-              break;
-            default:
-                break;
-        }
-      };
-
-      //時間取得関数
-      function getCurrentDateDay() {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        return `${year}${month}${day}${hours}${minutes}${seconds}`;
-      }
-
-      //QRコードに関する関数
-      function displayQRcode(ID){
-        new QRCode(document.getElementById("qrcode"), {
-              text: `${ID}`,
-              width: 128,
-              height: 128,
-              colorDark : "#000000",
-              colorLight : "#ffffff",
-              correctLevel : QRCode.CorrectLevel.H
-        });
-      }
-
-      //チュートリアル関係
+  <script>
+    fetch("/components/header.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#header").innerHTML = data);
+    fetch("/components/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+  <script src="/lib/footerLinkModifier.js"></script>
+  <!--- JSスクリプト --->
+  <script type="module">
+    //読み込まれた時の処理
+    window.onload = async (event) => {
       //ローカルストレージ
-      const myData = JSON.parse(await localStorage.getItem('current_user'));
-      //const isAdmin = true; // この値を条件に応じて変更
-      const isAdmin = myData.tutorialEnded;//ローカルストレージのデータで表示を変える(trueならクエスト達成)
-      if (isAdmin) {
-        //console.log("チュートリアル達成済み");
-        const content = document.getElementById('tutorialEnded');
-        content.style.display = "none";
-      } else {
-        //console.log("チュートリアル未達成");
+      const myData = await localStorage.getItem('current_user');
+      const mode = 0;//クエストを確認するモード
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+
+      const response = await fetch("/quest_completed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode,
+          ID
+        })
+      });
+
+      //何を送信しようとしたかUIで確認するコード。
+      switch (Number(await response.text())) {
+        case 0:
+          document.getElementById("mainText1").innerText = "本日もSPを書きましょう。\n一人と交流し、SPを書いてあげましょう。";
+          break
+        case 1:
+          document.getElementById("mainText1").innerText = "本日はSP送信を完了しています。";
+          break;
+        default:
+          break;
       }
-    </script>
-    <script src="/permission.js"></script>
-  </body>
+    }
+
+    //クエスト完了に関する処理
+    document.getElementById("quest_completed").onclick = async () => {
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');
+      //myDataはstring。newDataはJSON
+      const newData = JSON.parse(myData);
+      newData.quest_completed_time = Number(getCurrentDateDay());
+      localStorage.setItem('current_user', JSON.stringify(newData));//ローカルストレージにクエスト完了時間を保存
+
+      const mode = 1;//クエストを完了にするモード
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+
+      const response = await fetch("/quest_completed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode,
+          ID
+        })
+      });
+
+      //何を送信しようとしたかUIで確認するコード。
+      switch (Number(await response.text())) {
+        case 0:
+          document.getElementById("mainText1").innerText = "本日もSPを書きましょう。\n一人と交流し、SPを書いてあげましょう。";
+          //document.getElementById("response1").innerText = "本日のクエストを行いましょう。";
+          break
+        case 1:
+          document.getElementById("mainText1").innerText = "本日はSP送信を完了しています。";
+          //document.getElementById("response1").innerText = "本日のクエストを完了しました。";
+          break;
+        default:
+          break;
+      }
+    };
+
+    //時間取得関数
+    function getCurrentDateDay() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      return `${year}${month}${day}${hours}${minutes}${seconds}`;
+    }
+
+    //チュートリアル関係
+    //ローカルストレージ
+    const myData = JSON.parse(await localStorage.getItem('current_user'));
+    //const isAdmin = true; // この値を条件に応じて変更
+    const isAdmin = myData.tutorialEnded;//ローカルストレージのデータで表示を変える(trueならクエスト達成)
+    if (isAdmin) {
+      //console.log("チュートリアル達成済み");
+      const content = document.getElementById('tutorialEnded');
+      content.style.display = "none";
+    } else {
+      //console.log("チュートリアル未達成");
+    }
+  </script>
+  <script src="/permission.js"></script>
+</body>
+
 </html>
