@@ -12,20 +12,16 @@ async function distilled_user_within_24hours(req,kv) {
 
     // ループしながらDeno KVに問い合わせるので、forループにawaitを付ける
     for await (const spItem of spIterator) {
-        const Nowtime = GetNowTime(); // 今現在の時間
-        const fromID = Number(spItem.key[1]); // spを送った人のID
-        const currentUser = Number(id); // 今のユーザID
-        const toID = Number(spItem.value.User); // spを送られた人のID
-        const submitedTime = Number(spItem.value.time); // spが送られた時間
-
+        const Nowtime = await GetNowTime(); //今現在の時間
+        // const fromID = Number(spItem.key[1]); //spを送ってきた人のID
+        const currentUser = Number(id); //今のユーザID
+        const toID = Number(spItem.value.User); //spを送られた人のID
+        // const submitedTime = Number(spItem.value.time); //spが送られた時間
 
         if (toID === currentUser) {
-                const sp_submited = String(submitedTime);
-                const time = String(Nowtime);
-
-                if(sp_submited.slice(6, 8) === time.slice(6, 8)) {
-                    distilled_user_array.push(spItem); // 日付が一緒の場合
-                }
+            if(new Date(Nowtime) - new Date(spItem.value.time) < 86400 * 1000) {
+                distilled_user_array.push(spItem); // 日付が一緒の場合
+            }
         }
     }
 
