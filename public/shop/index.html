@@ -2,12 +2,11 @@
 <html lang="ja">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="/styles/components.css">
+  <script src="/lib/metaPlacer.js"></script>
+  <script>
+    metaPlacer("ステッカーショップ")
+  </script>
   <link rel="stylesheet" href="/styles/shop.css">
-  <link rel="manifest" href="manifest.json">
-  <title>商店</title>
   <script src="/lib/sessionChecker.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
@@ -21,15 +20,18 @@
       <div class="quest_box">
         これまで贈ったさわやかポイントと同時にポイントがカウントされています！
         <br>
-        ポイントと交換してプロフィールのヘッダーに飾ろう！
+        ポイントと交換してプロフィールのバナーに飾ろう！
       </div>
+      <a class="link_button_over" href="/edit_banner">
+        <div>バナーを編集する&nbsp;▶</div>
+      </a>
       <h2>プロフィールに配置しよう！</h2>
       <div class="quest_box">
-        ヘッダーの幅・高さを(100%)として配置できます！
+        バナーの幅・高さを100%として配置できます！
       </div>
       <div class="pos_box">
-        <div>X(0~100)[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_x"></input></div>
-        <div>Y(0~100)[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y"></input></div>
+        <div>X(0~100)&nbsp;[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_x"></input></div>
+        <div>Y(0~100)&nbsp;[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y"></input></div>
       </div>
       <h2>商品一覧</h2>
       <p id="myPoint">所有ポイント : </p>
@@ -46,7 +48,7 @@
       //ローカルストレージ
       const myData = await localStorage.getItem('current_user');
       const ID = Number(JSON.parse(myData).id);//自身のID取得
-      const response = await fetch(`/shopitems?id=${ID}`, {
+      const response = await fetch(`/shopitems`, {
         method: "GET",
       });
 

@@ -18,6 +18,16 @@ h2 {
   font-size: 1.8rem;
 }
 
+@keyframes h1grad_always {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 100% 100%;
+  }
+}
+
 .main_form {
   display: flex;
   flex-direction: column;
@@ -160,4 +170,31 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   appearance: none;
   -moz-appearance: none;
+}
+
+
+.link_button_over {
+  pointer-events: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+}
+
+.link_button_over div {
+  display: inline-block;
+  margin-block: 1rem;
+  pointer-events: auto;
+  padding: .5rem 1.5rem;
+  color: white;
+  background-color: #435ee6;
+  border-style: solid;
+  border-color: #2b41ad;
+  border-width: .15rem;
+  text-align: center;
+  border-radius: 100vw;
+  font-weight: bold;
+}
+
+.link_button_over div:hover {
+  background-color: #2b41ad;
 }
