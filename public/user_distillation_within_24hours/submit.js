@@ -1,6 +1,7 @@
 window.onload = async (event) => {
     const current_user_profile = await JSON.parse(localStorage.getItem("current_user"))
-    console.log(current_user_profile)
+    console.log("今の自分のIDは");
+    console.log(current_user_profile);
 
     const id = current_user_profile.id
 
@@ -9,5 +10,6 @@ window.onload = async (event) => {
         method: "GET",
     })
 
-    const data = await userResponse.json();
+    const data = await userResponse.json(); //
+    console.log(data)
 }
