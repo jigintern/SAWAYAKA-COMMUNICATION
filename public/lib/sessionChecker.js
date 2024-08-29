@@ -15,7 +15,7 @@ async function QuestTime(mydata){
   //クエストの間隔を調整できます。../quest_completed.js Line22も確認
   if((new Date(await GetNowTime()) - new Date(mydata.quest_completed_time)) >= 300000){//300000ミリ秒は五分
     if (new URL(window.location.href).pathname !== '/quest' && new URL(window.location.href).pathname !== "/submit_post") {
-      window.location.href = "/quest";
+      window.location.href = "/quest?type=1";
     }
   }
 }
