@@ -26,6 +26,7 @@
   <div id="leaf"></div>
   <div id="header"></div>
   <main>
+    <p id="myid">私のID : </p>
     <div class="id_form">
       <input inputmode="numeric" autocomplete="off" id="id_input_form" type="number" placeholder="IDを入力">
     </div>
@@ -53,6 +54,12 @@
   <script src="/lib/footerLinkModifier.js"></script>
 
   <script>
+    window.onload = async (event) => {
+      const myData = await localStorage.getItem('current_user');
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      document.getElementById("myid").innerText = `私のID : ${ID}`;
+    }
+
     let displayQR = false;
     let cameraOn = false;
     //QRコード表示
