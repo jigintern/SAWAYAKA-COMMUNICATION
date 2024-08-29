@@ -1,5 +1,6 @@
 .id_form,
-.sp_form {
+.sp_form,
+.qr_nav {
   width: 100%;
   display: flex;
   margin-block: 2rem;
@@ -7,6 +8,12 @@
   align-items: center;
   flex-direction: column;
   row-gap: 1rem;
+}
+
+.qr_nav {
+  flex-direction: row;
+  column-gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .id_form input {
@@ -47,7 +54,7 @@
   border-color: #2dd3d0;
 }
 
-.sp_form #sp_submit_button {
+button {
   appearance: none;
   border-style: solid;
   border-width: 2px;
@@ -62,7 +69,7 @@
   cursor: pointer;
 }
 
-.sp_form #sp_submit_button:hover {
+button:hover {
   background-color: #269b99;
 }
 
@@ -75,4 +82,45 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   appearance: none;
   -moz-appearance: none;
+}
+
+#overlay {
+  position: fixed;
+  width: 90svw;
+  height: 70svh;
+  top: 15vh;
+  left: 5vw;
+  font-weight: bold;
+  font-size: 1.4rem;
+  background-color: #cdf6f6;
+  color: #1b5d5c;
+  border-radius: 1rem;
+  border: #1b5d5c 3px solid;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  transition-property: all;
+}
+
+.open#overlay {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.close#overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#qrcode {
+  padding: 1.2rem;
+  background-color: white;
+  border-radius: 1rem;
+}
+
+#canvas {
+  border-radius: 1rem;
 }
