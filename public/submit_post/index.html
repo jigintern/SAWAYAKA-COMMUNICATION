@@ -14,11 +14,24 @@
 </head>
 
 <body>
+  <div id="overlay" class="close">
+    <span id="overlay-text">オーバーレイです</span>
+    <div id="qrcode" style="display: none;"></div>
+    <div id="camera-container" style="display: none;">
+      <video id="video" style="display: none;"></video><!---QRコード読み取り--->
+      <canvas id="canvas" style="width: 80%;"></canvas><!---QRコード読み取り--->
+    </div>
+    <button id="close_button">閉じる</button>
+  </div>
   <div id="leaf"></div>
   <div id="header"></div>
   <main>
     <div class="id_form">
       <input inputmode="numeric" autocomplete="off" id="id_input_form" type="number" placeholder="IDを入力">
+    </div>
+    <div class="qr_nav">
+      <button id="button_disp">QRを表示する</button>
+      <button id="button_on">QRを読み込む</button>
     </div>
     <div class="sp_form">
       <textarea id="sp_input_form" placeholder="さわやかポイントを書こう！" required></textarea>
@@ -39,35 +52,49 @@
   </script>
   <script src="/lib/footerLinkModifier.js"></script>
 
-  <button id="display_QRcord">自身のQRコードを表示する</button>
-  <!---<button id="loading_QRcord">他人のQRコードを読み込む</button>--->
-  <button onclick="toggleCamera()">他人のQRコードからIDを読み込み</button>
-  <div id="qrcode"></div><!---QRコード表示場所--->
-  <div id="camera-container" style="display: none;">
-    <video id="video" style="display: none;"></video><!---QRコード読み取り--->
-    <canvas id="canvas" style="width: 30%;"></canvas><!---QRコード読み取り--->
-  </div>
-
   <script>
+    let displayQR = false;
+    let cameraOn = false;
     //QRコード表示
-    document.getElementById("display_QRcord").onclick = async () => {
+    document.getElementById("button_disp").onclick = async () => {
       //ローカルストレージ
       const myData = await localStorage.getItem('current_user');//string型でローカルストレージから値を取得
       const newData = JSON.parse(myData);//JOSN型に変換
       const ID = Number(JSON.parse(myData).id);//自身のID取得
+      displayQR = true;
+      displayQRcode(ID);//QRコードを表示
+    }
+
+    document.getElementById("button_on").onclick = async () => {
+      //ローカルストレージ
+      cameraOn = true
+      toggleCamera();//QRコードを表示
+    }
+
+    document.getElementById("close_button").onclick = async () => {
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');//string型でローカルストレージから値を取得
+      const newData = JSON.parse(myData);//JOSN型に変換
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      displayQR = false;
+      if (cameraOn) {
+        cameraOn = false;
+        toggleCamera()
+      }
       displayQRcode(ID);//QRコードを表示
     }
 
     //QRコード読み取り
-    let cameraOn = false;
     //let video, canvas, ctx, stream;
     function toggleCamera() {
-      cameraOn = !cameraOn;
       const container = document.getElementById('camera-container');
       container.style.display = cameraOn ? 'block' : 'none';
-      
+
       if (cameraOn) {
         startCamera();
+        document.getElementById("overlay-text").innerText = "QRコードを見せてもらってスキャンしよう！";
+        document.getElementById("overlay").classList.remove("close");
+        document.getElementById("overlay").classList.add("open");
       } else {
         stopCamera();
       }
@@ -78,27 +105,31 @@
       ctx = canvas.getContext('2d');
 
       navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-        .then(function(streamObj) {
+        .then(function (streamObj) {
           stream = streamObj;
           video.srcObject = stream;
           video.setAttribute("playsinline", true);
           video.play();
           requestAnimationFrame(tick);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.error("カメラの起動に失敗しました:", error);
         });
     }
     function stopCamera() {
       if (stream) {
         const tracks = stream.getTracks();
-        tracks.forEach(function(track) {
+        tracks.forEach(function (track) {
           track.stop();
         });
       }
       if (video) {
         video.srcObject = null;
       }
+
+      document.getElementById("overlay-text").innerText = "";
+      document.getElementById("overlay").classList.remove("open");
+      document.getElementById("overlay").classList.add("close");
     }
     function tick() {
       if (video.readyState === video.HAVE_ENOUGH_DATA) {
@@ -112,8 +143,7 @@
         if (code) {
           const container = document.getElementById('camera-container');
           cameraOn = false;
-          container.style.display = 'none';
-          stopCamera();
+          toggleCamera()
           //console.log("QRコードを検出しました:", code.data);
           // ここでQRコードのデータを処理
 
@@ -123,21 +153,27 @@
       requestAnimationFrame(tick);
     }
 
-    let displayQR = false;
     //QRコードに関する関数
-    function displayQRcode(ID){
-      displayQR = !displayQR;
-      if(displayQR){
+    function displayQRcode(ID) {
+      if (displayQR) {
+        document.getElementById("overlay").classList.remove("close");
+        document.getElementById("overlay").classList.add("open");
+        document.getElementById("overlay-text").innerText = "QRコードを他の人に見せよう！";
+        document.getElementById("qrcode").style.display = "block";
         new QRCode(document.getElementById("qrcode"), {
           text: `${ID}`,
           width: 128,
           height: 128,
-          colorDark : "#000000",
-          colorLight : "#ffffff",
-          correctLevel : QRCode.CorrectLevel.H
+          colorDark: "#1b5d5c",
+          colorLight: "#fff",
+          correctLevel: QRCode.CorrectLevel.H
         });
-      }else{
+      } else {
         document.getElementById("qrcode").innerHTML = '';
+        document.getElementById("qrcode").style.display = "none";
+        document.getElementById("overlay-text").innerText = "";
+        document.getElementById("overlay").classList.remove("open");
+        document.getElementById("overlay").classList.add("close");
       }
     }
   </script>
