@@ -5,6 +5,7 @@ import { ID_create_DB, ID_get_DB } from "./library/id_create_db.js"; //ローカ
 import { Get_grade } from "./library/get_grade.js";
 import { POST_get_DB_SP } from "./library/get_sp.js";
 import { Quest_completed } from "./library/quest_completed.js"; //クエスト完了
+import { GET_saleItems_list } from "./library/saleItems_list.js"//販売商品の確認
 import { POST_buy_sticker } from "./library/post_sticker_buy.js"; //ステッカーの購入
 import { GET_mySticker } from "./library/get_mySticker.js";//ステッカーの確認
 import { POST_sticker_cp } from "./library/post_sticker_cp.js"//ステッカーの移動
@@ -77,6 +78,10 @@ Deno.serve(async (req) => {
   //ステッカーの確認
   if (req.method === "POST" && pathname === "/move_mySticker") {  
     return POST_sticker_cp(req, kv);
+  }
+  //商品の確認
+  if (req.method === "GET" && pathname === "/shopitems") {
+    return new Response(JSON.stringify(GET_saleItems_list()));
   }
 
   return serveDir(req, {
