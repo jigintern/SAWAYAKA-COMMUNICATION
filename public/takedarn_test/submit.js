@@ -10,7 +10,4 @@ window.onload = async (event) => {
     })
 
     const data = await userResponse.json();
-    console.log(data)
-
-    console.log(userResponse);
 }

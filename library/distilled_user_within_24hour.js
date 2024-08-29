@@ -28,8 +28,6 @@ async function distilled_user_within_24hours(req,kv) {
           }
         }
 
-        console.log(distilled_user_array)
-
     return new Response(JSON.stringify(distilled_user_array))
 }
   
