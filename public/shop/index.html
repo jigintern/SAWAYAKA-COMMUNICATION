@@ -32,6 +32,7 @@
         <div>Y(0~100)[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y"></input></div>
       </div>
       <h2>商品一覧</h2>
+      <p id="myPoint">所有ポイント : </p>
       <p id="test">購入状況がここに表示されます。</p>
       <dev id="itemList">
       </dev>
@@ -89,6 +90,10 @@
       //   list.appendChild(p);
       //   index++;
       // });
+      const response2 = await fetch(`/myPoint?id=${ID}`, {
+        method: "GET",
+      });
+      document.getElementById("myPoint").innerText = "所有ポイント : " + await response2.text();
     }
 
     //商品購入ボタン

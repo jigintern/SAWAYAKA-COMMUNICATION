@@ -52,3 +52,16 @@ async function POST_buy_sticker(req, kv) {
 }
 
 export { POST_buy_sticker };
+
+
+//自身の所有ポイントを確認する。戻り値は数値
+
+//ステッカーの購入は配置する場所を決めてから。決定ボタンを押すと購入確認が出てSPが足りないとステータス400が返ってくる。
+async function GET_myPoint(req, kv) {
+  const ID = new URL(req.url).searchParams.get("id");
+  const data = await kv.get(["useritem", Number(ID)]);
+  const newValue = data.value;//次に保存するユーザーデータ
+  return new Response(Number(newValue.SPcount));
+}
+
+export { GET_myPoint };

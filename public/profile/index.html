@@ -178,19 +178,19 @@
       url = new URL(location.href)
 
       const current_user_profile = await JSON.parse(localStorage.getItem("current_user"));
-      console.log(current_user_profile)
+      //console.log(current_user_profile)
 
       const id = url.searchParams.get("id") ?? current_user_profile.id
 
       const userResponse = await fetch(`/user?id=${id}`, {
         method: "GET",
       }).then(res => res.json())
-      console.log(userResponse)
+      //console.log(userResponse)
 
       const response = await fetch(`/sp?id=${id}`);
       const data = await response.json();
 
-      console.log(data);
+      //console.log(data);
       await displayList(data);
 
       var swiper = new Swiper(".mySwiper", {
@@ -201,7 +201,7 @@
       const gradeResponse = await fetch(`/grade?id=${id}`, {
         method: "GET",
       }).then(res => res.json())
-      console.log(gradeResponse)
+      //console.log(gradeResponse)
 
       document.getElementById("user_grade_name_blank").innerText = gradeResponse.gradeTitle;
       document.getElementById("user_grade").classList.add(`g${gradeResponse.grade}`);
@@ -277,15 +277,16 @@
     }
 
     function formatDateTime(dateTimeString) {
-      // 文字列から年、月、日、時、分を抽出
-      const year = dateTimeString.substring(0, 4);
-      const month = dateTimeString.substring(4, 6);
-      const day = dateTimeString.substring(6, 8);
-      const hour = dateTimeString.substring(8, 10);
-      const minute = dateTimeString.substring(10, 12);
+      // 正規表現を使用して分割
+      const regex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/;
+      const match = dateTimeString.match(regex);
 
-      // フォーマットされた文字列を返す
-      return `${year}年${parseInt(month)}月${parseInt(day)}日${hour}時${minute}分`;
+      if (match) {
+        const [, year, month, day, hour, minute] = match;
+        return `${year}年${parseInt(month)}月${parseInt(day)}日${hour}時${minute}分`;
+      } else {
+        throw new Error('Invalid ISO string format');
+      }
     }
 
     async function get_sticker() {

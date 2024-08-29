@@ -4,9 +4,10 @@ import { POST_delete_DB_SP } from "./library/post_delete_db_sp.js";
 import { ID_create_DB, ID_get_DB } from "./library/id_create_db.js"; //ローカルストレージからIDを読み込む(key="myId")。なければIDを作って保存してその値を返す
 import { Get_grade } from "./library/get_grade.js";
 import { POST_get_DB_SP } from "./library/get_sp.js";
+import { GetNowTime } from "./library/get_time.js"//時間取得
 import { Quest_completed } from "./library/quest_completed.js"; //クエスト完了
 import { GET_saleItems_list } from "./library/saleItems_list.js"//販売商品の確認
-import { POST_buy_sticker } from "./library/post_sticker_buy.js"; //ステッカーの購入
+import { POST_buy_sticker , GET_myPoint } from "./library/post_sticker_buy.js"; //ステッカーの購入
 import { GET_mySticker } from "./library/get_mySticker.js";//ステッカーの確認
 import { POST_sticker_cp } from "./library/post_sticker_cp.js"//ステッカーの移動
 import { POST_user_location_save_db } from "./library/post_location_save_db.js"; // 定期的にユーザーの位置情報をdbに保存する
@@ -68,6 +69,11 @@ Deno.serve(async (req) => {
     return distilled_user_within_24hours(req, kv);
   }
 
+  //自身のポイント確認(戻り値数値)
+  if (req.method === "GET" && pathname === "/myPoint") {  
+    return GET_myPoint(req, kv);
+  }
+
   //ステッカーの購入
   if (req.method === "POST" && pathname === "/buy_sticker") {  
     return POST_buy_sticker(req, kv);
@@ -83,6 +89,10 @@ Deno.serve(async (req) => {
   //商品の確認
   if (req.method === "GET" && pathname === "/shopitems") {
     return new Response(JSON.stringify(GET_saleItems_list()));
+  }
+
+  if (req.method === "GET" && pathname === "/time"){
+    return new Response(GetNowTime());
   }
 
   return serveDir(req, {
