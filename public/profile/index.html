@@ -229,6 +229,21 @@
       // フォーマットされた文字列を返す
       return `${year}年${parseInt(month)}月${parseInt(day)}日${hour}時${minute}分`;
     }
+
+    async function get_sticker(){
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      const response = await fetch(`/get_mySticker?id=${ID}`, {
+        method: "GET",
+      });
+
+      //使用例
+      // const itemList = await response.json();
+      // itemList.forEach(item => {
+      //   .innerHTML = `${JSON.stringify(item)}`;
+      // });
+    }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
