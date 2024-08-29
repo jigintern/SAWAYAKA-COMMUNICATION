@@ -33,7 +33,7 @@ async function sendSP() {
     const data2 = localStorage.getItem("current_user");
     const ID = Number(JSON.parse(data2).id);
     const newData = JSON.parse(data2);
-    newData.quest_completed_time = Number(getCurrentDateDay());
+    newData.quest_completed_time = await GetNowTime();
     newData.tutorialEnded = true;//チュートリアル脱却
     localStorage.setItem("current_user", JSON.stringify(newData)); //ローカルストレージにクエスト完了時間を保存
 
@@ -62,13 +62,10 @@ async function sendSP() {
   }
 }
 
-function getCurrentDateDay() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
-  return `${year}${month}${day}${hours}${minutes}${seconds}`;
+async function GetNowTime() {
+  const result = await fetch("/time", {
+    method: "GET",
+  });
+  const nowTime = await result.text();
+  return nowTime;
 }

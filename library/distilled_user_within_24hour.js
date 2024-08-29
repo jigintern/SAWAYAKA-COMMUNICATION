@@ -12,7 +12,7 @@ async function distilled_user_within_24hours(req,kv) {
 
     // ループしながらDeno KVに問い合わせるので、forループにawaitを付ける
     for await (const spItem of spIterator) {
-        const Nowtime = GetNowTime(); //　今現在のID
+        const Nowtime = await GetNowTime(); //　今現在のID
         const fromID = Number(spItem.key[1]); // spを送ってきた人のID
         const currentUser = Number(id); // 今のユーザID
         const toID = Number(spItem.value.User); // spを送られた人のID

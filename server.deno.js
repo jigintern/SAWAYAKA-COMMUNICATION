@@ -4,6 +4,7 @@ import { POST_delete_DB_SP } from "./library/post_delete_db_sp.js";
 import { ID_create_DB, ID_get_DB } from "./library/id_create_db.js"; //ローカルストレージからIDを読み込む(key="myId")。なければIDを作って保存してその値を返す
 import { Get_grade } from "./library/get_grade.js";
 import { POST_get_DB_SP } from "./library/get_sp.js";
+import { GetNowTime } from "./library/get_time.js"//時間取得
 import { Quest_completed } from "./library/quest_completed.js"; //クエスト完了
 import { GET_saleItems_list } from "./library/saleItems_list.js"//販売商品の確認
 import { POST_buy_sticker } from "./library/post_sticker_buy.js"; //ステッカーの購入
@@ -83,6 +84,10 @@ Deno.serve(async (req) => {
   //商品の確認
   if (req.method === "GET" && pathname === "/shopitems") {
     return new Response(JSON.stringify(GET_saleItems_list()));
+  }
+
+  if (req.method === "GET" && pathname === "/time"){
+    return new Response(GetNowTime());
   }
 
   return serveDir(req, {
