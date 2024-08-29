@@ -9,8 +9,6 @@ function transToProfile(id) {
 async function sendSP() {
   const input = document.getElementById('id_input_form');
   const input2 = document.getElementById('sp_input_form');
-  console.log(input.value === '');
-  console.log(input2.value === '');
   if (input.value === '' || input2.value === '') {
     const notificationBanner = document.createElement("div");
     notificationBanner.classList.add("notification");
