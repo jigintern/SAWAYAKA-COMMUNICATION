@@ -2,36 +2,39 @@
 <html lang="ja">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/styles/components.css">
-    <link rel="stylesheet" href="/search_around_people/search_around_people_style.css">
-    <script src="/lib/sessionChecker.js"></script>
-    <script src="/search_around_people/post_location.js"></script>
-    <script src="/search_around_people/get_around_people_location.js"></script>
-    <title>search_people</title>
+  <script src="/lib/metaPlacer.js"></script>
+  <script>
+    metaPlacer("あなたの周りには...!?")
+  </script>
+  <link rel="stylesheet" href="/styles/search_around_people.css">
+  <script src="/lib/sessionChecker.js"></script>
+  <script src="/search_around_people/post_location.js"></script>
+  <script src="/search_around_people/get_around_people_location.js"></script>
+  <title>search_people</title>
 </head>
 
 <body>
-    <div id="leaf"></div>
-    <div id="header"></div>
-    <main>
-        <div>
-            <span id="page_title">あなたの周りにいるユーザー</span>
-        </div>
+  <div id="header"></div>
+  <main>
+    <div class="main_form">
+      <h1>あなたの周りに...!?</h1>
+      <div class="results_form" id="user_list">
 
-        
-    </main>
-    <div id="footer"></div>
-    <script>
-        fetch("/components/header.html")
-            .then((response) => response.text())
-            .then((data) => document.querySelector("#header").innerHTML = data);
-        fetch("/components/footer.html")
-            .then((response) => response.text())
-            .then((data) => document.querySelector("#footer").innerHTML = data);
-    </script>
-    <script src="/lib/footerLinkModifier.js"></script>
+      </div>
+    </div>
+
+  </main>
+  <div id="footer"></div>
+
+  <script>
+    fetch("/components/header.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#header").innerHTML = data);
+    fetch("/components/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+  <script src="/lib/footerLinkModifier.js"></script>
 </body>
 
 </html>

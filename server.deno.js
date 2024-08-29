@@ -83,7 +83,6 @@ Deno.serve(async (req) => {
 
   // 自分の周りのユーザーを探索する
   if (req.method === "GET" && pathname === "/get_around_people") {
-    console.log("kitemasu");
     return get_around_people(req, kv);
   }
 
