@@ -60,15 +60,15 @@ Deno.serve(async (req) => {
     return POST_user_location_save_db(req, kv);
   }
 
-  //自身のグレード取得(文字列JSON)
-  if (req.method === "GET" && pathname === "/grade") {  
-    return Get_grade(req, kv);
-  }
-
+  //すべての24時間以内に交流したユーザーデータが返ってくる
   if (req.method === "GET" && pathname === "/distilled_user") {  
     return distilled_user_within_24hours(req, kv);
   }
 
+  //自身のグレード取得(文字列JSON)
+  if (req.method === "GET" && pathname === "/grade") {  
+    return Get_grade(req, kv);
+  }
   //自身のポイント確認(戻り値数値)
   if (req.method === "GET" && pathname === "/myPoint") {  
     return GET_myPoint(req, kv);
