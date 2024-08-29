@@ -104,6 +104,8 @@ button {
   color: white;
   font-weight: bold;
   cursor: pointer;
+  display: inline-block;
+  margin-inline: 1.75rem;
 }
 
 button:hover {
