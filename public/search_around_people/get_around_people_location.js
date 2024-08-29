@@ -11,4 +11,4 @@ setInterval( async () => {
 
     console.log(await userResponse.json());
 
-}, 10000); // 10秒ごとに取得する
+}, 30000); // 30秒ごとに取得する
