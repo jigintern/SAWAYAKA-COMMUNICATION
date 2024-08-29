@@ -34,7 +34,7 @@ async function get_around_people(req,kv) {
         const longitudedediff = Math.abs(Number(userItem.value.longitude) - Mylongitude) 
         
 
-        if(latitidediff < 0.0001000 && longitudedediff < 0.001000) {
+        if(latitidediff < 0.0005000 && longitudedediff < 0.001000) {
             nearuserArray.push(userItem)
         }
     }    
