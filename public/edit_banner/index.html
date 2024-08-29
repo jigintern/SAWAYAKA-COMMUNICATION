@@ -25,6 +25,13 @@
         <div>Y(0~100)&nbsp;[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y"></div>
         <button id="move_sticker">移動</button>
       </div>
+      <h2>プレビュー</h2>
+    </div>
+    <div id="user_content_card">
+      <div id="user_header_area">
+      </div>
+    </div>
+    <div class="main_form">
       <h2>所持ステッカー</h2>
       <div class="itemList" id="itemList"></div>
       <button id="check_sticker" onclick="refreshStickers()">更新</button>
@@ -68,7 +75,7 @@
         const div = document.createElement('div');
         div.classList.add("item");
         div.innerHTML = `
-          <p><b>${itemName}</b></p>
+          <p><b>[${index}]${itemName}</b></p>
           <img src=${shopItems[itemName].link}>
           <div class="item_cost">
             <span id="point_icon">
@@ -81,16 +88,33 @@
         index++;
       });
 
+      const banner = document.getElementById('user_header_area');
+      banner.innerHTML = ""
+      itemList.forEach(item => {
+        //console.log("くだもの名 " + fruit);
+        const itemName = item.itemName;
+        const X = item.X;
+        const Y = item.Y;
+        const img = document.createElement('img');
+        img.setAttribute("src", shopItems[itemName].link)
+        img.style.position = "absolute";
+        img.style.top = `${Y * 100}%`;
+        img.style.left = `${X * 100}%`;
+        img.style.width = "4.4rem"
+        banner.appendChild(img);
+        index++;
+      });
+
     }
 
-    
+
     document.getElementById("move_sticker").onclick = async () => {
       //ローカルストレージ
       const myData = await localStorage.getItem('current_user');
       const ID = Number(JSON.parse(myData).id);//自身のID取得
       const itemindex = document.querySelector("#moveitem_index").value;//アイテムを移動するときのインデックス
-      const xPosition = document.querySelector("#buy_itemName_x").value;
-      const yPosition = document.querySelector("#buy_itemName_y").value;
+      const xPosition = Number(document.querySelector("#buy_itemName_x").value) / 100.;
+      const yPosition = Number(document.querySelector("#buy_itemName_y").value) / 100.;
       console.log(xPosition);
       const response = await fetch("/move_mySticker", {
         method: "POST",

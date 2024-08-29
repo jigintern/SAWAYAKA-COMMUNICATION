@@ -82,17 +82,6 @@
         });
       });
 
-      //リスト表示
-      // const list = document.getElementById('itemList');
-      // removeAllListItems(list);
-      // let index = 0;
-      // itemList.forEach(item => {
-      //   //console.log("くだもの名 " + fruit);
-      //   const p = document.createElement('p');
-      //   p.innerHTML = `${JSON.stringify(item)} index = ${index}`;
-      //   list.appendChild(p);
-      //   index++;
-      // });
       const response2 = await fetch(`/myPoint?id=${ID}`, {
         method: "GET",
       });
@@ -139,8 +128,8 @@
       const myData = await localStorage.getItem('current_user');
       const ID = Number(JSON.parse(myData).id);//自身のID取得
       const itemName = name;//買うアイテムの名前を取得
-      const xPosition = document.querySelector("#buy_itemName_x").value;
-      const yPosition = document.querySelector("#buy_itemName_y").value;
+      const xPosition = Number(document.querySelector("#buy_itemName_x").value) / 100.;
+      const yPosition = Number(document.querySelector("#buy_itemName_y").value) / 100.;
       const response = await fetch("/buy_sticker", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -229,6 +229,43 @@
         `;
         document.getElementById("notification").appendChild(notificationBanner);
       }
+
+      const shopResponse = await fetch(`/shopitems`, {
+        method: "GET",
+      });
+
+      const shopItems = (await shopResponse.json()).sticker;//await JSON.parse(
+
+      console.log(shopItems)
+
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      const stickerJson = await fetch(`/get_mySticker?id=${ID}`, {
+        method: "GET",
+      });
+
+      const itemList = await stickerJson.json();
+      console.log(itemList)//await JSON.parse(
+      //console.log(await stringToArrayOfJSON(itemList));
+      //リスト表示
+      const banner = document.getElementById('user_header_area');
+      let index = 0;
+      itemList.forEach(item => {
+        //console.log("くだもの名 " + fruit);
+        const itemName = item.itemName;
+        const X = item.X;
+        const Y = item.Y;
+        const img = document.createElement('img');
+        img.classList.add("item");
+        img.setAttribute("src", shopItems[itemName].link)
+        img.style.position = "absolute";
+        img.style.top = `${Y * 100}%`;
+        img.style.left = `${X * 100}%`;
+        img.style.width = "4.4rem"
+        banner.appendChild(img);
+        index++;
+      });
     }
 
     fetch("/components/header.html")
