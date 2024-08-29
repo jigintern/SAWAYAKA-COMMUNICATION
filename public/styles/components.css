@@ -59,6 +59,10 @@ footer {
   border-radius: 3rem;
   bottom: .425rem;
   z-index: 90;
+  -webkit-border-radius: 3rem;
+  -moz-border-radius: 3rem;
+  -ms-border-radius: 3rem;
+  -o-border-radius: 3rem;
 }
 
 #footer-container {
@@ -89,6 +93,10 @@ footer {
   color: white;
   border-color: transparent;
   pointer-events: auto;
+  -webkit-border-radius: 10rem;
+  -moz-border-radius: 10rem;
+  -ms-border-radius: 10rem;
+  -o-border-radius: 10rem;
 }
 
 .footer-item:hover,
@@ -152,6 +160,12 @@ a#fot-center-link {
   user-select: none;
   filter: drop-shadow(.1rem .1rem .2rem gray);
   animation: notification_appearing .25s ease-out forwards;
+  -webkit-border-radius: .5rem;
+  -moz-border-radius: .5rem;
+  -ms-border-radius: .5rem;
+  -o-border-radius: .5rem;
+  -webkit-filter: drop-shadow(.1rem .1rem .2rem gray);
+  -webkit-animation: notification_appearing .25s ease-out forwards;
 }
 
 .notification svg {

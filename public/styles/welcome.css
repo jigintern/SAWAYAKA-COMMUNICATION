@@ -9,6 +9,7 @@ h1 {
   animation: h1grad_always 3s ease-in-out infinite both;
   animation-direction: alternate;
   background-size: 300% 300%;
+  -webkit-animation: h1grad_always 3s ease-in-out infinite both;
 }
 
 @keyframes h1grad_always {
@@ -73,6 +74,10 @@ h1 {
   color: #333333;
   font-size: 1em;
   cursor: pointer;
+  -webkit-border-radius: .3rem;
+  -moz-border-radius: .3rem;
+  -ms-border-radius: .3rem;
+  -o-border-radius: .3rem;
 }
 
 .preference_select select:hover,
@@ -98,6 +103,10 @@ h1 {
   font-size: 1.1rem;
   color: white;
   box-shadow: 0 4px 4px rgb(0 0 0 / 2%), 0 2px 3px -2px rgba(0 0 0 / 5%);
+  -webkit-border-radius: .3rem;
+  -moz-border-radius: .3rem;
+  -ms-border-radius: .3rem;
+  -o-border-radius: .3rem;
 }
 
 .submit_button:hover {
@@ -117,6 +126,10 @@ h1 {
   border-radius: 0;
   transition-property: color background-color border-color text-decoration-color fill stroke;
   transition-duration: .15s;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
 }
 
 #input_user_hobby:hover,

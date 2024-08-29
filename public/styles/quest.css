@@ -19,6 +19,7 @@ h1,h2 {
   animation-direction: alternate;
   background-size: 300% 300%;
   text-align: center;
+  -webkit-animation: h1grad_always 3s ease-in-out infinite both;
 }
 
 .link_button_over {
@@ -41,6 +42,10 @@ h1,h2 {
   text-align: center;
   border-radius: 100vw;
   font-weight: bold;
+  -webkit-border-radius: 100vw;
+  -moz-border-radius: 100vw;
+  -ms-border-radius: 100vw;
+  -o-border-radius: 100vw;
 }
 
 .link_button_over div:hover {
