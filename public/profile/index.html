@@ -214,6 +214,10 @@
           </svg>
         </div>`;
         list.appendChild(div);
+        const button = document.createElement('button');
+        button.innerHTML = `このSPを消す`;
+        button.addEventListener('click', () => handleClick(fruit));
+        div.appendChild(button);
       });
     }
 
@@ -243,6 +247,34 @@
       //   .innerHTML = `${JSON.stringify(item)}`;
       // });
     }
+
+    async function handleClick(deleteKey){
+      if(!showWarning()) return;
+      const response = await fetch("/sp", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: deleteKey.key,
+        }),
+      });
+
+      //以下ページのリロード
+      location.reload();
+    }
+    function showWarning() {
+      const result = confirm("警告: 本当にこのSPを削除しますか?");
+      if (result) {
+          //console.log("実行が選択されました");
+          return true;
+      } else {
+          //console.log("操作取り消しが選択されました");
+          return false;
+      }
+    }
+
+    // document.getElementById("check_sticker").onclick = async () => {
+    //   deleteSP
+    // }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 

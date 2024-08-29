@@ -33,6 +33,7 @@ Deno.serve(async (req) => {
     return POST_add_DB_SP(req, kv);
   }
 
+  //SP削除
   if (req.method === "DELETE" && pathname === "/sp") {
     return POST_delete_DB_SP(req, kv);
   }
