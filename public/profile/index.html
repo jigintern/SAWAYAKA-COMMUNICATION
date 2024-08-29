@@ -303,12 +303,15 @@
     }
 
     async function handleClick(deleteKey) {
+      const current_user_profile = await JSON.parse(localStorage.getItem("current_user"));
+
       if (!showWarning()) return;
       const response = await fetch("/sp", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: deleteKey.key,
+          fromId: current_user_profile.id
         }),
       });
 
