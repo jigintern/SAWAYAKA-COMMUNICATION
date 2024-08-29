@@ -9,7 +9,7 @@ window.onload = async (event) => {
     const data = await userResponse.json(); 
 
 
-    const usr_name_content = document.getElementById("content_container");
+    const usr_name_content = document.getElementById("content_container2");
     const usr_name_el = document.getElementById("contacted_username");
     const usercontent_el = document.getElementById("contacted_time");
     const usercontent_time_el = document.getElementById("user_card_container_0");
@@ -27,8 +27,13 @@ window.onload = async (event) => {
         const current_iterate_contact_time = data[step].value.time;
         
         // 新しいdiv要素を作成
+        const outDiv = document.createElement('div');
         const idDiv = document.createElement('div');
         const timeDiv = document.createElement('div');
+
+        outDiv.id = "content_container";
+        // コンテナに追加する
+        usr_name_content.appendChild(outDiv);
              
         // 生成されたdivにidと送られたテキストを設定する
         idDiv.textContent = `交流した相手のID:${current_iterate_username}`;
@@ -39,8 +44,8 @@ window.onload = async (event) => {
         idDiv.id = `user_card_container_${step}`;
 
         // コンテナに追加する
-        usr_name_content.appendChild(idDiv);
-        usr_name_content.appendChild(timeDiv);
+        outDiv.appendChild(idDiv);
+        outDiv.appendChild(timeDiv);
     }
 }
 
