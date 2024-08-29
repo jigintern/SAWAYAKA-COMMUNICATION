@@ -22,7 +22,7 @@ async function distilled_user_within_24hours(req,kv) {
             const sp_submited = String(submitedTime);
             const time = String(Nowtime);
 
-            if(sp_submited.slice(6, 8) === time.slice(6, 8)) {
+            if(new Date(NowTime) - new Date(spItem.value.time) < 86400 * 1000) {
                 distilled_user_array.push(spItem);
             }
           }
