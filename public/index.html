@@ -2,21 +2,18 @@
 <html lang="ja">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="/styles/components.css">
   <link rel="stylesheet" href="/styles/root.css">
-  <link rel="manifest" href="manifest.json">
-  <link rel=”icon” href=“/favicon.ico”>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <style>
     main {
       height: 100svh;
     }
   </style>
-  <title>さわやかコミュニケーション</title>
   <script type="module">
     const message = await fetch("/welcome-message")
+  </script>
+  <script src="/lib/metaPlacer.js"></script>
+  <script>
+    metaPlacer()
   </script>
 </head>
 
