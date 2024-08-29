@@ -8,20 +8,8 @@
     margin: 0px 20px 0px 20px;
     width: auto;
     height: auto;
-}
 
-#page_title {
-    color: rgb(81, 81, 81);
-    font-size: 20px;
-    font-weight: bold;
-}
-
-#first_user_card_container {
-    margin-top: 10px;
-}
-
-.user_card_container {
-    width: 100%;
+    width: 90%;
     height: auto;
     background-color: rgb(255, 255, 255);
     border: solid lightgrey;
@@ -30,6 +18,17 @@
     margin-top: 30px;
     box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.08);
 }
+
+#page_title {
+    color: rgb(81, 81, 81);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#user_card_container {
+    margin-top: 10px;
+}
+
 
 .user_icon {
     height: 60px;
