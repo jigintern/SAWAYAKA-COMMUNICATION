@@ -16,6 +16,7 @@
   <div id="header"></div>
   <!--- 送信用フォーム --->
   <main>
+    <p id="myPoint">所有ポイント : </p>
     <input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_x">購入するアイテムのx座標(0~1)を入力してください。</input>
     <p></p>
     <input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y">購入するアイテムのy座標(0~1)を入力してください。</input>
@@ -66,6 +67,10 @@
       //   list.appendChild(p);
       //   index++;
       // });
+      const response2 = await fetch(`/myPoint?id=${ID}`, {
+        method: "GET",
+      });
+      document.getElementById("myPoint").innerText = "所有ポイント : " + await response2.text();
     }
 
     //商品購入ボタン
