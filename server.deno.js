@@ -5,6 +5,9 @@ import { ID_create_DB, ID_get_DB } from "./library/id_create_db.js"; //ローカ
 import { Get_grade } from "./library/get_grade.js";
 import { POST_get_DB_SP } from "./library/get_sp.js";
 import { Quest_completed } from "./library/quest_completed.js"; //クエスト完了
+import { POST_buy_sticker } from "./library/post_sticker_buy.js"; //ステッカーの購入
+import { GET_mySticker } from "./library/get_mySticker.js";//ステッカーの確認
+import { POST_sticker_cp } from "./library/post_sticker_cp.js"//ステッカーの移動
 import { POST_user_location_save_db } from "./library/post_location_save_db.js"; // 定期的にユーザーの位置情報をdbに保存する
 import { distilled_user_within_24hours } from "./library/distilled_user_within_24hour.js"; // 定期的にユーザーの位置情報をdbに保存する
 import "https://deno.land/std@0.224.0/dotenv/load.ts"; //.envの読み込み用
@@ -63,8 +66,18 @@ Deno.serve(async (req) => {
     return distilled_user_within_24hours(req, kv);
   }
 
-
-
+  //ステッカーの購入
+  if (req.method === "POST" && pathname === "/buy_sticker") {  
+    return POST_buy_sticker(req, kv);
+  }
+  //ステッカーの確認
+  if (req.method === "GET" && pathname === "/get_mySticker") {  
+    return GET_mySticker(req, kv);
+  }
+  //ステッカーの確認
+  if (req.method === "POST" && pathname === "/move_mySticker") {  
+    return POST_sticker_cp(req, kv);
+  }
 
   return serveDir(req, {
     fsRoot: "public",
