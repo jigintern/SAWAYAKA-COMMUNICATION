@@ -9,7 +9,7 @@ if (!current_user_login) {
 }
 
 async function QuestTime(mydata){
-  if(mydata.tutorialEnded === false && new URL(window.location.href).pathname !== "/submit_post"){
+  if(mydata.tutorialEnded === false && new URL(window.location.href).pathname !== "/submit_post" && new URL(window.location.href).pathname !== '/quest' ){
     window.location.href = "/quest";
   }
   //クエストの間隔を調整できます。../quest_completed.js Line22も確認
