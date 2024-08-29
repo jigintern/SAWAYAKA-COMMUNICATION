@@ -17,8 +17,13 @@ window.onload = async (event) => {
 
 
     for (let step = 0; step < data.length; step++) {
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+
         // 各イテレーションで配列の要素セット
-        const current_iterate_username = data[step].key[1];
+        let current_iterate_username = data[step].key[1];
+        if(ID === data[step].key[1]){current_iterate_username = data[step].value.User;}//自身の送信したものなら送信先を見る
         const current_iterate_contact_time = data[step].value.time;
         
         // 新しいdiv要素を作成
@@ -27,7 +32,7 @@ window.onload = async (event) => {
              
         // 生成されたdivにidと送られたテキストを設定する
         idDiv.textContent = `交流した相手のID:${current_iterate_username}`;
-        timeDiv.textContent = `交流した時間：${current_iterate_contact_time}`;
+        timeDiv.textContent = `交流した時間：${formatDateTime(current_iterate_contact_time)}`;
 
         // 生成したdivタグにidやclass名を与える
         idDiv.className = `user_card_container`;
@@ -38,3 +43,17 @@ window.onload = async (event) => {
         usr_name_content.appendChild(timeDiv);
     }
 }
+
+//時間を表示
+function formatDateTime(dateTimeString) {
+    // 正規表現を使用して分割
+    const regex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/;
+    const match = dateTimeString.match(regex);
+
+    if (match) {
+      const [, year, month, day, hour, minute] = match;
+      return `${year}年${parseInt(month)}月${parseInt(day)}日${hour}時${minute}分`;
+    } else {
+      throw new Error('Invalid ISO string format');
+    }
+  }
