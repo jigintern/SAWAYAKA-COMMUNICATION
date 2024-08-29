@@ -23,13 +23,15 @@ async function POST_add_DB_SP(req, kv) {
 
   const sendTime = await GetNowTime(); //送信時間をサーバーが自動で取得するようにする。
 
+  //ユーザーデータ取得と送信数更新
   const dataKey = ["user", Number(fromID)];
   const data = await kv.get(dataKey);
-  const spNO = Number(data.value.sendedSpCount) + 1;
   const newValue = data.value;
+  const spNO = Number(newValue.sendedSpCount) + 1;
   newValue.sendedSpCount = spNO;
   await kv.set(dataKey, newValue);
 
+  //spのデータ追加
   const key = ["SP", Number(fromID), Number(spNO)]; //なんのデータか,誰(ID),何番目の投稿か
   //console.log("Sp : " + Number(fromID) + " : " + Number(spNO));
   const value = {
@@ -37,8 +39,14 @@ async function POST_add_DB_SP(req, kv) {
     time: sendTime,
     mainText: sendText,
   };
-
   const result = await kv.set(key, value);
+
+  //アイテムを買うポイントを追加
+  const itemKey = ["useritem", Number(fromID)];
+  const useritemdata = await kv.get(itemKey);
+  const newitemValue = useritemdata.value;
+  newitemValue.SPcount = Number(newitemValue.SPcount) + 1;
+  await kv.set(itemKey, newitemValue);
 
   //console.log(result);
 
