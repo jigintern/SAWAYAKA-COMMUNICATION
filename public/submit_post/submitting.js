@@ -26,7 +26,6 @@ async function sendSP() {
       sendText: sp,
     }),
   });
-  //console.log(response);
 
   if (response.status === 200) { //クエストクリアを実装
     //ローカルストレージに完了時間を保存
@@ -57,7 +56,9 @@ async function sendSP() {
     setTimeout(appearDoneText, 500);
     setTimeout(() => transToProfile(id), 1500);
   } else {
-    document.getElementById("comp_check").innerHTML = "<center>Error Occurred<br><small>プロフィールへ戻ります</small></center>";
+    const error_message = await response.text();
+    console.error(error_message)
+    document.getElementById("comp_check").innerHTML = `<center>Error Occurred<br>${error_message}<br><small>プロフィールへ戻ります</small></center>`;
     setTimeout(appearDoneText, 0);
     setTimeout(() => transToProfile(fromID), 2000);
   }

@@ -9,13 +9,13 @@ async function POST_add_DB_SP(req, kv) {
   const sendText = requestJson["sendText"];
 
   if (Number(fromID) === Number(sendID)) {
-    const result = "自身にSP送信することはできません";
+    const result = "自身に贈ることはできません";
     return new Response(result, { status: 400 });
   }
 
   const sendingUser = await kv.get(["user", Number(sendID)]);
   if (!sendingUser.value) {
-    const result = "存在しないIDです";
+    const result = "ユーザーが見つかりません";
     return new Response(result, { status: 400 });
   }
 
