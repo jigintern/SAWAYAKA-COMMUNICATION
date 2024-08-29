@@ -106,6 +106,7 @@
           document.getElementById("mainText1").innerText = "本日もSPを書きましょう。\n一人と交流し、SPを書いてあげましょう。";
           break
         case 1:
+          if(!myData.tutorialEnded) document.getElementById("mainText1").innerText = "早速SPを書きましょう。\n一人と交流し、SPを書いてあげましょう。";
           document.getElementById("mainText1").innerText = "本日はSP送信を完了しています。";
           break;
         default:
