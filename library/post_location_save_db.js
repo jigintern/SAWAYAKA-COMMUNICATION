@@ -10,7 +10,6 @@ async function POST_user_location_save_db(req, kv) {
   // get: 単体の取得
   const getResult = await kv.get(["user", userID]);
   const user = getResult.value;
-  console.log(user.latitude);
 
   // latitudeとlonitudeを上書きする
   user.latitude = latitude;
@@ -18,6 +17,10 @@ async function POST_user_location_save_db(req, kv) {
 
   // keyが既に存在する場合は、更新
   const result = await kv.set(["user", userID], user);
+
+  console.log(JSON.stringify(user))
+
+  return new Response()
 }
 
 export { POST_user_location_save_db };
