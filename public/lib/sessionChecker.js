@@ -5,24 +5,25 @@ if (!current_user_login) {
   }
 }else{
   const mydata = JSON.parse(current_user_login);
-  if(mydata.tutorialEnded === false && new URL(window.location.href).pathname !== "/submit_post"){
+  QuestTime(mydata);
+}
+
+async function QuestTime(mydata){
+  if(mydata.tutorialEnded === false && new URL(window.location.href).pathname !== "/submit_post" && new URL(window.location.href).pathname !== '/quest' ){
     window.location.href = "/quest";
   }
   //クエストの間隔を調整できます。../quest_completed.js Line22も確認
-  // if(Number(getCurrentDateDay()) - Number(mydata.quest_completed_time) > 500){
-  //   if (new URL(window.location.href).pathname !== '/quest' && new URL(window.location.href).pathname !== "/submit_post") {
-  //     window.location.href = "/quest";
-  //   }
-  // }
+  if((new Date(await GetNowTime()) - new Date(mydata.quest_completed_time)) >= 300000){//300000ミリ秒は五分
+    if (new URL(window.location.href).pathname !== '/quest' && new URL(window.location.href).pathname !== "/submit_post") {
+      window.location.href = "/quest";
+    }
+  }
 }
 
-function getCurrentDateDay() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
-  return `${year}${month}${day}${hours}${minutes}${seconds}`;
+async function GetNowTime() {
+  const result = await fetch("/time", {
+    method: "GET",
+  });
+  const nowTime = await result.text();
+  return nowTime;
 }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
   <link rel="stylesheet" href="/styles/components.css">
-  <link rel="stylesheet" href="/styles/quest.css">
+  <link rel="stylesheet" href="/styles/shop.css">
   <link rel="manifest" href="manifest.json">
   <title>商店</title>
   <script src="/lib/sessionChecker.js"></script>
@@ -13,16 +13,31 @@
 </head>
 
 <body>
+  <div id="notification"></div>
   <div id="header"></div>
   <!--- 送信用フォーム --->
   <main>
-    <input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_x">購入するアイテムのx座標(0~1)を入力してください。</input>
-    <p></p>
-    <input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y">購入するアイテムのy座標(0~1)を入力してください。</input>
-    <h2>商品一覧</h2>
-    <p id="test">購入状況がここに表示されます。</p>
-    <dev id="itemList">
-    </dev>
+    <div class="main_form">
+      <h1>ショップへようこそ！</h1>
+      <div class="quest_box">
+        これまで贈ったさわやかポイントと同時にポイントがカウントされています！
+        <br>
+        ポイントと交換してプロフィールのヘッダーに飾ろう！
+      </div>
+      <h2>プロフィールに配置しよう！</h2>
+      <div class="quest_box">
+        ヘッダーの幅・高さを(100%)として配置できます！
+      </div>
+      <div class="pos_box">
+        <div>X(0~100)[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_x"></input></div>
+        <div>Y(0~100)[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y"></input></div>
+      </div>
+      <h2>商品一覧</h2>
+      <p id="myPoint">所有ポイント : </p>
+      <p id="test">購入状況がここに表示されます。</p>
+      <dev id="itemList">
+      </dev>
+    </div>
   </main>
 
   <div id="footer"></div>
@@ -45,13 +60,23 @@
         const inkeys = Object.keys(itemList[key]);
         console.log("発売商品型 : " + key);
         inkeys.forEach(inkey => {//アイテム名前列挙
-          const p = document.createElement('p');
-          p.innerHTML = `アイテムID: ${inkey}, 必要SP送信数: ${itemList[key][inkey].cost}`;
-          list.appendChild(p);
+          const div = document.createElement('div');
+          div.classList.add("item");
+          div.innerHTML = `
+          <p><b>${inkey}</b></p>
+          <img src=${itemList[key][inkey].link}>
+          <div class="item_cost">
+            <span id="point_icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+            </span>
+            ${itemList[key][inkey].cost}
+          </div>
+          `;
+          list.appendChild(div);
           const button = document.createElement('button');
-          button.innerHTML = `これを買う(${inkey})`;
+          button.innerHTML = `購入`;
           button.addEventListener('click', () => handleClick(inkey));
-          list.appendChild(button);
+          div.appendChild(button);
         });
       });
 
@@ -66,10 +91,47 @@
       //   list.appendChild(p);
       //   index++;
       // });
+      const response2 = await fetch(`/myPoint?id=${ID}`, {
+        method: "GET",
+      });
+      document.getElementById("myPoint").innerText = "所有ポイント : " + await response2.text();
     }
 
     //商品購入ボタン
     async function handleClick(name) {
+      const input = document.getElementById('buy_itemName_x');
+      const input2 = document.getElementById('buy_itemName_y');
+      if (input.value === '' || input2.value === '') {
+        const notificationBanner = document.createElement("div");
+        notificationBanner.classList.add("notification");
+        notificationBanner.addEventListener("click", () => {
+          notificationBanner.classList.add("close")
+        })
+        notificationBanner.addEventListener("click", () => {
+          setTimeout(() => {
+            notificationBanner.remove()
+          }, 500)
+        })
+        const htmlText = `<p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#b88c07" d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/></svg>`
+        if(input.value === '' && input2.value === ''){
+          notificationBanner.innerHTML = `${htmlText}x、y座標が未入力です</p>`;
+          document.getElementById("notification").appendChild(notificationBanner);
+          return;
+        }
+        if(input.value === ''){
+          notificationBanner.innerHTML = `${htmlText}x座標が未入力です</p>`;
+          document.getElementById("notification").appendChild(notificationBanner);
+          return;
+        }
+        if(input2.value === ''){
+          notificationBanner.innerHTML = `${htmlText}y座標が未入力です</p>`;
+          document.getElementById("notification").appendChild(notificationBanner);
+          return;
+        }
+      }
+      //未入力処理終わり
+
+
       //console.log(`${name} ボタンがクリックされました`);
       //ローカルストレージ
       const myData = await localStorage.getItem('current_user');

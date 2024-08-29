@@ -4,7 +4,7 @@ async function Get_grade(req, kv) {
   // IDのユーザーデータを取得
   const id = new URL(req.url).searchParams.get("id");
   const data = await kv.get(["user", Number(id)]);
-  console.log(req);
+  //console.log(req);
   const sendedSpCount = Number(data.value.sendedSpCount);
 
   //グレード一覧作成

@@ -11,6 +11,7 @@ async function POST_user_location_save_db(req, kv) {
   const getResult = await kv.get(["user", userID]);
   const user = getResult.value;
 
+
   // latitudeとlonitudeを上書きする
   user.latitude = latitude;
   user.longitude = longitude;
