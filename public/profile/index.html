@@ -239,13 +239,12 @@
       .then((data) => document.querySelector("#footer").innerHTML = data);
 
     // リストを表示する関数
-    function displayList(fruits) {
-      //const fruits = ['りんご', 'バナナ', 'オレンジ', 'ぶどう', 'メロン'];
+    async function displayList(fruits) {
+      const current_user_profile = await JSON.parse(localStorage.getItem("current_user"));
+      const id = url.searchParams.get("id") ?? current_user_profile.id
 
       const list = document.getElementById('show_SPoints');
-      //console.log(fruits.message);
       fruits.forEach(fruit => {
-        //console.log("くだもの名 " + fruit);
         const div = document.createElement('div');
         div.classList.add("swiper-slide")
         div.innerHTML = `
@@ -263,15 +262,17 @@
           </svg>
         </div>`;
         list.appendChild(div);
-        const button = document.createElement('button');
-        button.classList.add("d_button");
-        button.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-            <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
-        `;
-        button.addEventListener('click', () => handleClick(fruit));
-        div.appendChild(button);
+        if (Number(current_user_profile.id) === Number(id)) {
+          const button = document.createElement('button');
+          button.classList.add("d_button");
+          button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+              <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          `;
+          button.addEventListener('click', () => handleClick(fruit));
+          div.appendChild(button);
+        }
       });
     }
 
