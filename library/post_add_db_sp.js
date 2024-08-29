@@ -13,6 +13,12 @@ async function POST_add_DB_SP(req, kv) {
     return new Response(result, { status: 400 });
   }
 
+  const sendingUser = await kv.get(["user", Number(sendID)]);
+  if (!sendingUser.value) {
+    const result = "存在しないIDです";
+    return new Response(result, { status: 400 });
+  }
+
   const sendTime = getCurrentDateTime(); //送信時間をサーバーが自動で取得するようにする。
 
   const dataKey = ["user", Number(fromID)];

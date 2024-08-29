@@ -57,8 +57,9 @@ async function sendSP() {
     setTimeout(appearDoneText, 500);
     setTimeout(() => transToProfile(id), 1500);
   } else {
-    document.getElementById("comp_check").innerText = "Error Occurred";
-    setTimeout(appearDoneText, 500);
+    document.getElementById("comp_check").innerHTML = "<center>Error Occurred<br><small>プロフィールへ戻ります</small></center>";
+    setTimeout(appearDoneText, 0);
+    setTimeout(() => transToProfile(fromID), 2000);
   }
 }
 
