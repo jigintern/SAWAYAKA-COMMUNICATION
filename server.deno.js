@@ -72,6 +72,7 @@ Deno.serve(async (req) => {
   // 24時間以内にコンタクトしたユーザーをデータベースから抽出する
   if (req.method === "GET" && pathname === "/distilled_user") {  
     return distilled_user_within_24hours(req, kv);
+  }
 
 
   //自身のポイント確認(戻り値数値)
