@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <script src="/lib/metaPlacer.js"></script>
+  <script>
+    metaPlacer("ステッカーコレクション")
+  </script>
+  <link rel="stylesheet" href="/styles/shop.css">
+  <script src="/lib/sessionChecker.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <!--- 送信用フォーム --->
+  <main>
+    <div class="main_form">
+      <h1>ステッカーコレクション</h1>
+      <div class="pos_box">
+        <div>対象のID
+          <input inputmode="numeric" autocomplete="off" type="number" id="moveitem_index">
+        </div>
+        <div>X(0~100)&nbsp;[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_x"></div>
+        <div>Y(0~100)&nbsp;[%]<input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y"></div>
+        <button id="move_sticker">移動</button>
+      </div>
+      <h2>所持ステッカー</h2>
+      <div class="itemList" id="itemList"></div>
+      <button id="check_sticker" onclick="refreshStickers()">更新</button>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+
+    window.addEventListener("load", () => refreshStickers())
+
+    const refreshStickers = async (event) => {
+      const shopResponse = await fetch(`/shopitems`, {
+        method: "GET",
+      });
+
+      const shopItems = (await shopResponse.json()).sticker;//await JSON.parse(
+
+      console.log(shopItems)
+
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      const response = await fetch(`/get_mySticker?id=${ID}`, {
+        method: "GET",
+      });
+
+      const itemList = await response.json();
+      console.log(itemList)//await JSON.parse(
+      //console.log(await stringToArrayOfJSON(itemList));
+      //リスト表示
+      const list = document.getElementById('itemList');
+      removeAllListItems(list);
+      let index = 0;
+      itemList.forEach(item => {
+        //console.log("くだもの名 " + fruit);
+        const itemName = item.itemName;
+        const X = item.X;
+        const Y = item.Y;
+        const div = document.createElement('div');
+        div.classList.add("item");
+        div.innerHTML = `
+          <p><b>${itemName}</b></p>
+          <img src=${shopItems[itemName].link}>
+          <div class="item_cost">
+            <span id="point_icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M384 476.1L192 421.2l0-385.3L384 90.8l0 385.3zm32-1.2l0-386.5L543.1 37.5c15.8-6.3 32.9 5.3 32.9 22.3l0 334.8c0 9.8-6 18.6-15.1 22.3L416 474.8zM15.1 95.1L160 37.2l0 386.5L32.9 474.5C17.1 480.8 0 469.2 0 452.2L0 117.4c0-9.8 6-18.6 15.1-22.3z"/></svg>
+            </span>
+            (${X}, ${Y})
+          </div>
+          `;
+        list.appendChild(div);
+        index++;
+      });
+
+    }
+
+    
+    document.getElementById("move_sticker").onclick = async () => {
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      const itemindex = document.querySelector("#moveitem_index").value;//アイテムを移動するときのインデックス
+      const xPosition = document.querySelector("#buy_itemName_x").value;
+      const yPosition = document.querySelector("#buy_itemName_y").value;
+      console.log(xPosition);
+      const response = await fetch("/move_mySticker", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ID,
+          itemindex,
+          xPosition,
+          yPosition
+        })
+      });
+      refreshStickers()
+    }
+
+    //liをすべて削除
+    function removeAllListItems(ul) {
+      while (ul.firstChild) {
+        if (ul.firstChild.tagName === 'LI') {
+          ul.removeChild(ul.firstChild);
+        } else {
+          ul.firstChild.remove();
+        }
+      }
+    }
+  </script>
+
+  <script>
+    fetch("/components/header.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#header").innerHTML = data);
+    fetch("/components/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+  <script src="/permission.js"></script>
+</body>
+
+</html>
