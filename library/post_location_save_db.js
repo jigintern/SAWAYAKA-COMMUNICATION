@@ -1,3 +1,4 @@
+//経度と緯度の取得
 async function POST_user_location_save_db(req, kv) {
   // リクエストのペイロードを取得
   const requestJson = await req.json();

@@ -1,3 +1,4 @@
+//時間取得
 function GetNowTime() {
   const now = new Date();
   const year = now.getFullYear();

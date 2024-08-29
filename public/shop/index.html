@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="stylesheet" href="/styles/quest.css">
+  <link rel="manifest" href="manifest.json">
+  <title>商店</title>
+  <!---<script src="/lib/sessionChecker.js"></script>--->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <!--- 送信用フォーム --->
+  <main>
+    <input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_x">購入するアイテムのx座標(0~1)を入力してください。</input>
+    <p></p>
+    <input inputmode="numeric" autocomplete="off" type="number" id="buy_itemName_y">購入するアイテムのy座標(0~1)を入力してください。</input>
+    <h2>商品一覧</h2>
+    <p id="test">購入状況がここに表示されます。</p>
+    <dev id="itemList">
+    </dev>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    window.onload = async (event) => {
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      const response = await fetch(`/shopitems?id=${ID}`, {
+        method: "GET",
+      });
+
+      const itemList = await response.json();//await JSON.parse(
+      console.log(JSON.stringify(itemList));
+
+      const list = document.getElementById('itemList');
+      const keys = Object.keys(itemList);
+      keys.forEach(key => {//アイテム種類列挙
+        const inkeys = Object.keys(itemList[key]);
+        console.log("発売商品型 : " + key);
+        inkeys.forEach(inkey => {//アイテム名前列挙
+          const p = document.createElement('p');
+          p.innerHTML = `アイテムID: ${inkey}, 必要SP送信数: ${itemList[key][inkey].cost}`;
+          list.appendChild(p);
+          const button = document.createElement('button');
+          button.innerHTML = `これを買う(${inkey})`;
+          button.addEventListener('click', () => handleClick(inkey));
+          list.appendChild(button);
+        });
+      });
+
+      //リスト表示
+      // const list = document.getElementById('itemList');
+      // removeAllListItems(list);
+      // let index = 0;
+      // itemList.forEach(item => {
+      //   //console.log("くだもの名 " + fruit);
+      //   const p = document.createElement('p');
+      //   p.innerHTML = `${JSON.stringify(item)} index = ${index}`;
+      //   list.appendChild(p);
+      //   index++;
+      // });
+    }
+
+    //商品購入ボタン
+    async function handleClick(name) {
+      //console.log(`${name} ボタンがクリックされました`);
+      //ローカルストレージ
+      const myData = await localStorage.getItem('current_user');
+      const ID = Number(JSON.parse(myData).id);//自身のID取得
+      const itemName = name;//買うアイテムの名前を取得
+      const xPosition = document.querySelector("#buy_itemName_x").value;
+      const yPosition = document.querySelector("#buy_itemName_y").value;
+      const response = await fetch("/buy_sticker", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ID,
+          itemName,
+          xPosition,
+          yPosition
+        })
+      });
+      document.querySelector("#test").innerHTML = await response.text();
+      // ここに追加の処理を記述できます
+    }
+
+    //liをすべて削除
+    function removeAllListItems(ul) {
+      while (ul.firstChild) {
+        if (ul.firstChild.tagName === 'LI') {
+          ul.removeChild(ul.firstChild);
+        } else {
+          ul.firstChild.remove();
+        }
+      }
+    }
+  </script>
+
+  <script>
+    fetch("/components/header.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#header").innerHTML = data);
+    fetch("/components/footer.html")
+      .then((response) => response.text())
+      .then((data) => document.querySelector("#footer").innerHTML = data);
+  </script>
+  <script src="/permission.js"></script>
+</body>
+
+</html>

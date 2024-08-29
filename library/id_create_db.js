@@ -23,10 +23,18 @@ async function ID_create_DB(req, kv) {
     sendedSpCount,
     quest_completed_time: quest_completed_time
   };
-
   await kv.set(key, value);
 
-  return Response.json({ id: max + 1 });
+  //ステッカー機能等、用の個人情報系データベース
+  const pointkey = ["useritem", max + 1];
+  //keyがuseritemなのは今後の開発でステッカー以外のアイテムが増えることを許容するため。
+  const pointvalue = {
+    SPcount: 0,
+    hasSticker: []
+  };
+  await kv.set(pointkey, pointvalue);
+
+  return Response.json({ id: max + 1 });//IDを返す
 }
 
 // function getCurrentDateDay() {
