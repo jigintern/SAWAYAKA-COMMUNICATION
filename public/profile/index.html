@@ -240,9 +240,7 @@
       console.log(shopItems)
 
       //ローカルストレージ
-      const myData = await localStorage.getItem('current_user');
-      const ID = Number(JSON.parse(myData).id);//自身のID取得
-      const stickerJson = await fetch(`/get_mySticker?id=${ID}`, {
+      const stickerJson = await fetch(`/get_mySticker?id=${id}`, {
         method: "GET",
       });
 
