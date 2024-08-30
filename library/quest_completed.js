@@ -23,7 +23,10 @@ async function Quest_completed(req, kv) {
   } else {
     //if (newValue.quest_completed_time === getCurrentDateDay()) {
     //クエストの間隔を調整できます。/public/lib/sessionChecker.js Line9も確認
-    if ((new Date(await GetNowTime()) - new Date(newValue.quest_completed_time)) <= 300000) {//300000ミリ秒は五分
+    if (
+      (new Date(await GetNowTime()) -
+        new Date(newValue.quest_completed_time)) <= 300000
+    ) { //300000ミリ秒は五分
       return new Response(1);
     } else {
       return new Response(0);
@@ -32,4 +35,3 @@ async function Quest_completed(req, kv) {
 }
 
 export { Quest_completed };
-

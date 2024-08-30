@@ -8,21 +8,21 @@ async function POST_sticker_cp(req, kv) {
   const requestJson = await req.json();
   // JSONの中からnextWordを取得
   const ID = requestJson["ID"]; //誰の
-  const index = requestJson["itemindex"];//何番目のアイテムを
-  const xPosition = requestJson["xPosition"];//どこに置くか(x)
-  const yPosition = requestJson["yPosition"];//どこに置くか(y)
+  const index = requestJson["itemindex"]; //何番目のアイテムを
+  const xPosition = requestJson["xPosition"]; //どこに置くか(x)
+  const yPosition = requestJson["yPosition"]; //どこに置くか(y)
   const data = await kv.get(["useritem", Number(ID)]);
-  const newValue = data.value;//次に保存するユーザーデータ
+  const newValue = data.value; //次に保存するユーザーデータ
 
-  if(isNaN(Number(xPosition)) || isNaN(Number(yPosition))){//座標が数値以外
+  if (isNaN(Number(xPosition)) || isNaN(Number(yPosition))) { //座標が数値以外
     const result = "xまたはy座標が数値ではありません。";
     return new Response(result, { status: 400 });
   }
-  if(Number(xPosition) < 0 || Number(xPosition) > 1){//x座標が不正
+  if (Number(xPosition) < 0 || Number(xPosition) > 1) { //x座標が不正
     const result = "座標が不正です(x座標)";
     return new Response(result, { status: 400 });
   }
-  if(Number(yPosition) < 0 || Number(yPosition) > 1){//x座標が不正
+  if (Number(yPosition) < 0 || Number(yPosition) > 1) { //x座標が不正
     const result = "座標が不正です(y座標)";
     return new Response(result, { status: 400 });
   }
@@ -30,8 +30,8 @@ async function POST_sticker_cp(req, kv) {
   const itemName = newValue.hasSticker[index].itemName;
   newValue.hasSticker[index] = {
     itemName, //アイテム名
-    X: Number(xPosition),//配置x座標(%)
-    Y: Number(yPosition)//配置y座標(%)
+    X: Number(xPosition), //配置x座標(%)
+    Y: Number(yPosition), //配置y座標(%)
   };
   await kv.set(["useritem", Number(ID)], newValue);
 

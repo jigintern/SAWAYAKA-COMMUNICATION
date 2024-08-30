@@ -12,8 +12,8 @@ async function ID_create_DB(req, kv) {
   }
 
   //const grade = 0;//現在のグレード(SPの送信数を基準にする)
-  const sendedSpCount = 0;//送ったさわやかポイントの数
-  const quest_completed_time = 0;//クエストの完了時間を初期設定ではアカウント作成日にする。
+  const sendedSpCount = 0; //送ったさわやかポイントの数
+  const quest_completed_time = 0; //クエストの完了時間を初期設定ではアカウント作成日にする。
   //変更で初期設定では0にする。
 
   const key = ["user", max + 1]; //なんのデータか,誰(ID,6桁),何番目の投稿か(7桁)
@@ -21,7 +21,7 @@ async function ID_create_DB(req, kv) {
     hobbyId,
     hobbyContent,
     sendedSpCount,
-    quest_completed_time: quest_completed_time
+    quest_completed_time: quest_completed_time,
   };
   await kv.set(key, value);
 
@@ -30,11 +30,11 @@ async function ID_create_DB(req, kv) {
   //keyがuseritemなのは今後の開発でステッカー以外のアイテムが増えることを許容するため。
   const pointvalue = {
     SPcount: 0,
-    hasSticker: []
+    hasSticker: [],
   };
   await kv.set(pointkey, pointvalue);
 
-  return Response.json({ id: max + 1 });//IDを返す
+  return Response.json({ id: max + 1 }); //IDを返す
 }
 
 // function getCurrentDateDay() {
