@@ -11,8 +11,8 @@ if (!current_user_login) {
 async function QuestTime(mydata) {
   if (
     mydata.tutorialEnded === false &&
-    new URL(window.location.href).pathname !== "/submit_post" &&
-    new URL(window.location.href).pathname !== "/quest"
+    new URL(window.location.href).pathname !== "/quest" &&
+    new URL(window.location.href).pathname !== "/submit_post"
   ) {
     window.location.href = "/quest";
   }
