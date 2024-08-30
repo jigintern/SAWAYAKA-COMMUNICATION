@@ -11,6 +11,7 @@ h2 {
   animation-direction: alternate;
   background-size: 300% 300%;
   text-align: center;
+  -webkit-animation: h1grad_always 3s ease-in-out infinite both;
 }
 
 h2 {
@@ -59,6 +60,11 @@ h2 {
   border: 2px #8cf7e8 solid;
   border-radius: .5rem;
   filter: drop-shadow(.15rem .15rem 0 #8cf7e8);
+  -webkit-border-radius: .5rem;
+  -moz-border-radius: .5rem;
+  -ms-border-radius: .5rem;
+  -o-border-radius: .5rem;
+  -webkit-filter: drop-shadow(.15rem .15rem 0 #8cf7e8);
 }
 
 .item>p {
@@ -68,7 +74,7 @@ h2 {
 .item img {
   filter: drop-shadow(.15rem .15rem 0 #8cf7e8);
   pointer-events: none;
-
+  -webkit-filter: drop-shadow(.15rem .15rem 0 #8cf7e8);
 }
 
 #point_icon {
@@ -106,6 +112,10 @@ button {
   cursor: pointer;
   display: inline-block;
   margin-inline: 1.75rem;
+  -webkit-border-radius: 3rem;
+  -moz-border-radius: 3rem;
+  -ms-border-radius: 3rem;
+  -o-border-radius: 3rem;
 }
 
 button:hover {
@@ -132,6 +142,10 @@ button:hover {
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
 }
 
 .pos_box>div {
@@ -156,6 +170,10 @@ input {
   width: min(80%, 30rem);
   border-color: gray;
   background-color: transparent;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
 }
 
 input:hover {
@@ -195,6 +213,10 @@ input[type="number"] {
   text-align: center;
   border-radius: 100vw;
   font-weight: bold;
+  -webkit-border-radius: 100vw;
+  -moz-border-radius: 100vw;
+  -ms-border-radius: 100vw;
+  -o-border-radius: 100vw;
 }
 
 .link_button_over div:hover {

@@ -39,6 +39,10 @@
   border-radius: 1rem;
   position: relative;
   overflow: hidden;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
 }
 
 #user_grade {
@@ -51,6 +55,10 @@
   background-color: #dfc52f;
   transition-property: width;
   transition-duration: 1s;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
 }
 
 .grade_text {
@@ -116,7 +124,10 @@
   background-color: #7e50b6;
   border-radius: 3rem;
   overflow: hidden;
-  /* filter: drop-shadow(0 .1rem .1rem rgb(130, 70, 131)); */
+  -webkit-border-radius: 3rem;
+  -moz-border-radius: 3rem;
+  -ms-border-radius: 3rem;
+  -o-border-radius: 3rem;
 }
 
 #user_icon {
@@ -124,6 +135,10 @@
   height: 5rem;
   border-radius: 2.5rem;
   overflow: hidden;
+  -webkit-border-radius: 2.5rem;
+  -moz-border-radius: 2.5rem;
+  -ms-border-radius: 2.5rem;
+  -o-border-radius: 2.5rem;
 }
 
 #user_tmp_img {
@@ -141,9 +156,13 @@
   height: 80px;
   width: auto;
   border-radius: 100%;
-  padding: 10px; 
+  padding: 10px;
   border: solid white;
   background-color: transparent;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
 }
 
 #user_QR_code {
@@ -160,6 +179,10 @@
   background-color: #b7ebd3;
   border-radius: .5rem;
   color: #211560;
+  -webkit-border-radius: .5rem;
+  -moz-border-radius: .5rem;
+  -ms-border-radius: .5rem;
+  -o-border-radius: .5rem;
 }
 
 #hobby_category {
@@ -174,7 +197,6 @@
 
 #Show_SPoint {
   width: 100%;
-  /* height: auto; */
   overflow: hidden;
   padding-top: 1rem;
   padding-bottom: .7rem;
