@@ -151,6 +151,5 @@ input[type="number"] {
 #myid {
   position: absolute;
   left: 1.75rem;
-  z-index: 100;
   top: 3.5rem;
 }
