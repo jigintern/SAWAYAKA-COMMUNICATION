@@ -20,7 +20,6 @@ h2 {
   animation-direction: alternate;
   background-size: 300% 300%;
   text-align: left;
-  -webkit-animation: h1grad_always 3s ease-in-out infinite both;
 }
 
 h2 {

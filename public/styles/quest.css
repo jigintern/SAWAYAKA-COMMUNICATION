@@ -19,7 +19,6 @@ h1,h2 {
   animation-direction: alternate;
   background-size: 300% 300%;
   text-align: center;
-  -webkit-animation: h1grad_always 3s ease-in-out infinite both;
 }
 
 .link_button_over {
