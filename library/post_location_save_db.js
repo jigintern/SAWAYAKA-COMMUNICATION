@@ -1,9 +1,9 @@
 //経度と緯度の取得
-async function POST_user_location_save_db(req, kv) {
+async function postUserLocationSaveDb(req, kv) {
   // リクエストのペイロードを取得
   const requestJson = await req.json();
   // JSONの中から欲しい情報を取り出す
-  const userID = requestJson["userID"]; //useridの取得
+  const userID = requestJson["userID"]; //userIDの取得
   const latitude = requestJson["latitude"]; //user_latitudeの取得
   const longitude = requestJson["longitude"]; //user_longitudeの取得
 
@@ -11,16 +11,14 @@ async function POST_user_location_save_db(req, kv) {
   const getResult = await kv.get(["user", userID]);
   const user = getResult.value;
 
-  // latitudeとlonitudeを上書きする
+  // latitudeとlongitudeを上書きする
   user.latitude = latitude;
   user.longitude = longitude;
 
   // keyが既に存在する場合は、更新
-  const result = await kv.set(["user", userID], user);
-
-  console.log(JSON.stringify(user));
+  await kv.set(["user", userID], user);
 
   return new Response();
 }
 
-export { POST_user_location_save_db };
+export { postUserLocationSaveDb };

@@ -1,10 +1,9 @@
-//IDの人のグレードをJOSNのような文字列で返す。
+//IDの人のグレードをJSONのような文字列で返す。
 //中身 : {"grade" : <数値>, "gradeTitle" : <数値に一致する文字列>}
-async function Get_grade(req, kv) {
+async function getGrade(req, kv) {
   // IDのユーザーデータを取得
   const id = new URL(req.url).searchParams.get("id");
   const data = await kv.get(["user", Number(id)]);
-  //console.log(req);
   const sendedSpCount = Number(data.value.sendedSpCount);
 
   //グレード一覧作成
@@ -30,7 +29,6 @@ async function Get_grade(req, kv) {
     }
   }
 
-  //console.log(result);
   return Response.json(result);
 }
-export { Get_grade };
+export { getGrade };

@@ -1,4 +1,4 @@
-async function POST_delete_DB_SP(req, kv) {
+async function postDeleteDbSp(req, kv) {
   // リクエストのペイロードを取得
   const requestJson = await req.json();
   // JSONの中からnextWordを取得
@@ -18,4 +18,4 @@ async function POST_delete_DB_SP(req, kv) {
   return new Response(result);
 }
 
-export { POST_delete_DB_SP };
+export { postDeleteDbSp };

@@ -1,9 +1,7 @@
 //ステッカーの場所を変更8/28の夜作成
-import { GET_saleItems_list } from "./saleItems_list.js";
-import { Status } from "https://deno.land/std@0.151.0/http/http_status.ts";
 
 //ステッカーの購入は配置する場所を決めてから。決定ボタンを押すと購入確認が出てSPが足りないとステータス400が返ってくる。
-async function POST_sticker_cp(req, kv) {
+async function postStickerCp(req, kv) {
   // リクエストのペイロードを取得
   const requestJson = await req.json();
   // JSONの中からnextWordを取得
@@ -38,4 +36,4 @@ async function POST_sticker_cp(req, kv) {
   const result = "位置を変更しました。";
   return new Response(result);
 }
-export { POST_sticker_cp };
+export { postStickerCp };

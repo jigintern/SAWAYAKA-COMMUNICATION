@@ -1,6 +1,6 @@
 //自身の所有するステッカーをJSONが入った配列で返す。
-import { Status } from "https://deno.land/std@0.151.0/http/http_status.ts";
-async function GET_mySticker(req, kv) {
+
+async function getMySticker(req, kv) {
   // IDのユーザーデータを取得
   const id = new URL(req.url).searchParams.get("id");
   const data = await kv.get(["useritem", Number(id)]);
@@ -19,4 +19,5 @@ async function GET_mySticker(req, kv) {
   //console.log(result);
   return new Response(JSON.stringify(result));
 }
-export { GET_mySticker };
+
+export { getMySticker };

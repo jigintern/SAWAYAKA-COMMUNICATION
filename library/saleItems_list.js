@@ -1,5 +1,5 @@
 //アイテムショップのアイテム一覧をここに保存する。
-function GET_saleItems_list() {
+function getSaleItemsList() {
   const saleItemsList = {
     "sticker": {
       "棒アイス": {
@@ -19,4 +19,4 @@ function GET_saleItems_list() {
   return saleItemsList;
 }
 
-export { GET_saleItems_list };
+export { getSaleItemsList };

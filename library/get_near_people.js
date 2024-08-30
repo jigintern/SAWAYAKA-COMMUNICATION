@@ -1,7 +1,7 @@
 // この関数で今の自分の周りのユーザが検索できる
-async function get_around_people(req, kv) {
+async function getAroundPeople(req, kv) {
   // 近くにいるユーザを保持する配列
-  const nearuserArray = [];
+  const nearUserArray = [];
 
   // リクエストのペイロードを取得
   const id = new URL(req.url).searchParams.get("id");
@@ -18,8 +18,8 @@ async function get_around_people(req, kv) {
   });
 
   // 自分自身の緯度経度
-  const Mylatitude = Number(user.latitude);
-  const Mylongitude = Number(user.longitude);
+  const MyLatitude = Number(user.latitude);
+  const MyLongitude = Number(user.longitude);
 
   // 自分自身とユーザー一覧の緯度と経度を取得して一致したものだけを抽出する
   for await (const userItem of userIterator) {
@@ -27,20 +27,17 @@ async function get_around_people(req, kv) {
       continue;
     }
 
-    console.log(userItem.value.latitude);
-    console.log(userItem.value.longitude);
-
-    const latitidediff = Math.abs(Number(userItem.value.latitude) - Mylatitude);
-    const longitudedediff = Math.abs(
-      Number(userItem.value.longitude) - Mylongitude,
+    const latitudeDiff = Math.abs(Number(userItem.value.latitude) - MyLatitude);
+    const longitudeDiff = Math.abs(
+      Number(userItem.value.longitude) - MyLongitude,
     );
 
-    if (latitidediff < 0.0005000 && longitudedediff < 0.001000) {
-      nearuserArray.push(userItem);
+    if (latitudeDiff < 0.0005000 && longitudeDiff < 0.001000) {
+      nearUserArray.push(userItem);
     }
   }
 
-  return new Response(JSON.stringify(nearuserArray));
+  return new Response(JSON.stringify(nearUserArray));
 }
 
-export { get_around_people };
+export { getAroundPeople };

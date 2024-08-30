@@ -1,3 +1,4 @@
+
 window.onload = async (event) => {
   const current_user_profile = await JSON.parse(
     localStorage.getItem("current_user"),
@@ -10,10 +11,7 @@ window.onload = async (event) => {
 
   const data = await userResponse.json();
 
-  const usr_name_content = document.getElementById("content_container2");
-  const usr_name_el = document.getElementById("contacted_username");
-  const usercontent_el = document.getElementById("contacted_time");
-  const usercontent_time_el = document.getElementById("user_card_container_0");
+  const userNameContent = document.getElementById("content_container2");
 
   for (let step = 0; step < data.length; step++) {
     //ローカルストレージ
@@ -21,11 +19,11 @@ window.onload = async (event) => {
     const ID = Number(JSON.parse(myData).id); //自身のID取得
 
     // 各イテレーションで配列の要素セット
-    let current_iterate_username = data[step].key[1];
+    let currentIterateUsername = data[step].key[1];
     if (ID === data[step].key[1]) {
-      current_iterate_username = data[step].value.User;
+      currentIterateUsername = data[step].value.User;
     } //自身の送信したものなら送信先を見る
-    const current_iterate_contact_time = data[step].value.time;
+    const currentIterateContactTime = data[step].value.time;
 
     // 新しいdiv要素を作成
     const outDiv = document.createElement("div");
@@ -34,12 +32,12 @@ window.onload = async (event) => {
 
     outDiv.id = "content_container";
     // コンテナに追加する
-    usr_name_content.appendChild(outDiv);
+    userNameContent.appendChild(outDiv);
 
     // 生成されたdivにidと送られたテキストを設定する
-    idDiv.textContent = `交流した相手のID:${current_iterate_username}`;
+    idDiv.textContent = `交流した相手のID:${currentIterateUsername}`;
     timeDiv.textContent = `交流した時間：${
-      formatDateTime(current_iterate_contact_time)
+      formatDateTime(currentIterateContactTime)
     }`;
 
     // 生成したdivタグにidやclass名を与える
