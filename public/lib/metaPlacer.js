@@ -1,7 +1,9 @@
 /// <reference lib="dom" />
 
 function metaPlacer(title) {
-  const displayingTitle = title ? `${title} - さわコミュ` : "さわやかコミュニケーション";
+  const displayingTitle = title
+    ? `${title} - さわコミュ`
+    : "さわやかコミュニケーション";
   const head = document.getElementsByTagName("head")[0];
 
   const mTitle = document.createElement("title");
@@ -33,9 +35,9 @@ function metaPlacer(title) {
   apple.setAttribute("href", "/apple-touch-icon.png");
   head.appendChild(apple);
 
-  const css = document.createElement("link");;
+  const css = document.createElement("link");
   css.setAttribute("rel", "stylesheet");
-  css.setAttribute("type","text/css");
+  css.setAttribute("type", "text/css");
   css.setAttribute("href", "/styles/components.css");
   head.appendChild(css);
 }

@@ -1,47 +1,43 @@
 // この関数で今の自分の周りのユーザが検索できる
-async function get_around_people(req,kv) {
-    // 近くにいるユーザを保持する配列
-    const nearuserArray = [];
+async function getAroundPeople(req, kv) {
+  // 近くにいるユーザを保持する配列
+  const nearUserArray = [];
 
-    // リクエストのペイロードを取得
-    const id = new URL(req.url).searchParams.get("id");
-    // JSONの中から欲しい情報を取り出す
-    const userID = Number(id); //useridの取得
+  // リクエストのペイロードを取得
+  const id = new URL(req.url).searchParams.get("id");
+  // JSONの中から欲しい情報を取り出す
+  const userID = Number(id); //useridの取得
 
-    // 自分自身を取得
-    const getMyself = await kv.get(["user", userID]);
-    const user = getMyself.value;
+  // 自分自身を取得
+  const getMyself = await kv.get(["user", userID]);
+  const user = getMyself.value;
 
-    // データを全取得するためのイテレーターを作成する
-    const userIterator = await kv.list({
-        prefix: ["user"],
-    });
+  // データを全取得するためのイテレーターを作成する
+  const userIterator = await kv.list({
+    prefix: ["user"],
+  });
 
-    // 自分自身の緯度経度
-    const Mylatitude = Number(user.latitude);
-    const Mylongitude = Number(user.longitude);
+  // 自分自身の緯度経度
+  const MyLatitude = Number(user.latitude);
+  const MyLongitude = Number(user.longitude);
 
-    // 自分自身とユーザー一覧の緯度と経度を取得して一致したものだけを抽出する
-    for await (const userItem of userIterator) {
-        if(userItem.value.latitude === undefined) {
-             continue;
-        }
+  // 自分自身とユーザー一覧の緯度と経度を取得して一致したものだけを抽出する
+  for await (const userItem of userIterator) {
+    if (userItem.value.latitude === undefined) {
+      continue;
+    }
 
-        console.log(userItem.value.latitude)
-        console.log(userItem.value.longitude)
+    const latitudeDiff = Math.abs(Number(userItem.value.latitude) - MyLatitude);
+    const longitudeDiff = Math.abs(
+      Number(userItem.value.longitude) - MyLongitude,
+    );
 
-        const latitidediff = Math.abs(Number(userItem.value.latitude) - Mylatitude) 
-        const longitudedediff = Math.abs(Number(userItem.value.longitude) - Mylongitude) 
-        
+    if (latitudeDiff < 0.0005000 && longitudeDiff < 0.001000) {
+      nearUserArray.push(userItem);
+    }
+  }
 
-        if(latitidediff < 0.0005000 && longitudedediff < 0.001000) {
-            nearuserArray.push(userItem)
-        }
-    }    
-
-    
-    return new Response(JSON.stringify(nearuserArray));
+  return new Response(JSON.stringify(nearUserArray));
 }
 
-  
-export { get_around_people };
+export { getAroundPeople };

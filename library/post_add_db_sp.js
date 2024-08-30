@@ -1,8 +1,7 @@
 //SPの送信(データベースに追加)
 
-import { GetNowTime } from "./get_time.js";
-import { Status } from "https://deno.land/std@0.151.0/http/http_status.ts";
-async function POST_add_DB_SP(req, kv) {
+import { getNowTime } from "./get_time.js";
+async function postAddDbSp(req, kv) {
   // リクエストのペイロードを取得
   const requestJson = await req.json();
   // JSONの中からnextWordを取得
@@ -21,7 +20,7 @@ async function POST_add_DB_SP(req, kv) {
     return new Response(result, { status: 400 });
   }
 
-  const sendTime = await GetNowTime(); //送信時間をサーバーが自動で取得するようにする。
+  const sendTime = await getNowTime(); //送信時間をサーバーが自動で取得するようにする。
 
   //ユーザーデータ取得と送信数更新
   const dataKey = ["user", Number(fromID)];
@@ -48,9 +47,7 @@ async function POST_add_DB_SP(req, kv) {
   newitemValue.SPcount = Number(newitemValue.SPcount) + 1;
   await kv.set(itemKey, newitemValue);
 
-  //console.log(result);
-
   return new Response(result);
 }
 
-export { POST_add_DB_SP };
+export { postAddDbSp };

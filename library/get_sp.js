@@ -1,5 +1,5 @@
 //さわやかポイントをIDから検索して配列で返す
-async function POST_get_DB_SP(req, kv) {
+async function postDbSp(req, kv) {
   // リクエストのペイロードを取得
   const id = new URL(req.url).searchParams.get("id");
 
@@ -18,4 +18,4 @@ async function POST_get_DB_SP(req, kv) {
 
   return new Response(JSON.stringify(result));
 }
-export { POST_get_DB_SP };
+export { postDbSp };
