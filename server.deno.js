@@ -1,5 +1,6 @@
 import { serveDir } from "https://deno.land/std@0.151.0/http/file_server.ts";
 import "https://deno.land/std@0.224.0/dotenv/load.ts"; //.envの読み込み用
+import { distilledUserWithin24Hours } from "./library/distilled_user_within_24hour.js"; // 定期的にユーザーの位置情報をdbに保存する
 import { getGrade } from "./library/get_grade.js";
 import { getMySticker } from "./library/get_mySticker.js"; //ステッカーの確認
 import { getAroundPeople } from "./library/get_near_people.js"; // 定期的に周りのユーザをデータベースから取ってくる
@@ -13,7 +14,6 @@ import { getMyPoint, postBuySticker } from "./library/post_sticker_buy.js"; //�
 import { postStickerCp } from "./library/post_sticker_cp.js"; //ステッカーの移動
 import { questCompleted } from "./library/quest_completed.js"; //クエスト完了
 import { getSaleItemsList } from "./library/saleItems_list.js"; //販売商品の確認
-impdistilledUserWithin24Hours4hours } from "./library/distilled_user_within_24hour.js"; // 定期的にユーザーの位置情報をdbに保存する
 
 let kv;
 
