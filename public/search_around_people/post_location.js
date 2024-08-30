@@ -23,4 +23,4 @@ setInterval(() => {
   } else {
       console.log("This browser does not support geolocation.");
   }
-  }, 30000); // 30秒ごとに送信する
+  }, 5000); // 5秒ごとに送信する

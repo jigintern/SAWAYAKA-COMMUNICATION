@@ -32,4 +32,4 @@ const getUsers = async () => {
 
 globalThis.addEventListener("load", () => getUsers());
 
-setInterval(() => getUsers(), 30000); // 30秒ごとに取得する
+setInterval(() => getUsers(), 5000); // 5秒ごとに取得する
