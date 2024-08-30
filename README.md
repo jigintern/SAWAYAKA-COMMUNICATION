@@ -17,6 +17,6 @@ Denoコマンドで実行します。
 
 ## アプリ
 
-![プロフィール](./screenshots/profile.png)
+<https://sawa-communication.deno.dev/>
 
-- <https://sawa-communication.deno.dev/>
+<img src="./screenshots/profile.png" width="250">
