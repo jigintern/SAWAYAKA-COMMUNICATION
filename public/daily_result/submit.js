@@ -1,4 +1,3 @@
-
 window.onload = async (event) => {
   const current_user_profile = await JSON.parse(
     localStorage.getItem("current_user"),
