@@ -22,9 +22,7 @@ Deno.serve(async (req) => {
   if (kv === undefined) {
     // リクエストに応じて環境変数を設定する
     // Deno KVの読み込み
-    kv = await Deno.openKv(
-      Deno.env.get("URL"),
-    );
+    kv = await Deno.openKv(Deno.env.get("URL"));
   }
 
   if (req.method === "GET" && pathname === "/welcome-message") {
@@ -69,7 +67,8 @@ Deno.serve(async (req) => {
 
   // 24時間以内にコンタクトしたユーザーをデータベースから抽出する
   if (req.method === "GET" && pathname === "/distilled_user") {
-    return distilledUserWithin24Hours(req, kv);
+    const id = new URL(req.url).searchParams.get("id"); //送信者自身のID
+    return distilledUserWithin24Hours(id, kv);
   }
 
   //自身のポイント確認(戻り値数値)

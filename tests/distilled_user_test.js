@@ -3,7 +3,6 @@ import { distilledUserWithin24Hours } from "../library/distilled_user_within_24h
 import { getNowTime } from "../library/get_time.js";
 
 Deno.test("24時間以内に交流したユーザだけ取得できる", async () => {
-  const request = new Request("https://example.com/?id=1");
   const user1 = {
     key: ["SP", 1, 2],
     value: {
@@ -25,7 +24,7 @@ Deno.test("24時間以内に交流したユーザだけ取得できる", async (
     },
   };
 
-  const response = await distilledUserWithin24Hours(request, kv);
+  const response = await distilledUserWithin24Hours(1, kv);
 
   const data = await response.json();
   assertEquals(data, [user1]);

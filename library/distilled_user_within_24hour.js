@@ -1,9 +1,8 @@
 import { getNowTime } from "./get_time.js";
 
 // この関数が走るたびに24時間以内に自分と交流があったユーザーが抽出される
-async function distilledUserWithin24Hours(req, kv) {
+async function distilledUserWithin24Hours(id, kv) {
   const distilledUserArray = []; // 交流があった(=条件に合致した)ユーザーを全て格納するための配列
-  const id = new URL(req.url).searchParams.get("id"); //送信者自身のID
 
   // データを全取得するためのイテレーターを作成する
   const spIterator = kv.list({ prefix: ["SP"] });
