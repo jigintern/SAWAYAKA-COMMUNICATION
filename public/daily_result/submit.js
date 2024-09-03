@@ -18,11 +18,11 @@ window.onload = async (event) => {
     const ID = Number(JSON.parse(myData).id); //自身のID取得
 
     // 各イテレーションで配列の要素セット
-    let currentIterateUsername = data[step].key[1];
-    if (ID === data[step].key[1]) {
-      currentIterateUsername = data[step].value.User;
+    let currentIterateUsername = data[step].sourceId;
+    if (ID === data[step].sourceId) {
+      currentIterateUsername = data[step].destinationId;
     } //自身の送信したものなら送信先を見る
-    const currentIterateContactTime = data[step].value.time;
+    const currentIterateContactTime = data[step].time;
 
     // 新しいdiv要素を作成
     const outDiv = document.createElement("div");

@@ -3,29 +3,20 @@ import { distilledUserWithin24Hours } from "../library/distilled_user_within_24h
 import { getNowTime } from "../library/get_time.js";
 
 Deno.test("24時間以内に交流したユーザだけ取得できる", async () => {
-  const user1 = {
-    key: ["SP", 1, 2],
-    value: {
-      User: 2,
-      time: getNowTime(),
-    },
-  };
-  const user2 = {
-    key: ["SP", 2, 3],
-    value: {
-      User: 3,
-      time: getNowTime(),
-    },
-  };
-  const kv = {
-    list: async function* () {
-      yield user1;
-      yield user2;
-    },
-  };
+  const kv = await Deno.openKv();
+  const user1 = { User: 2, time: getNowTime() };
+  const user2 = { User: 3, time: getNowTime() };
+  kv.set(["SP", 1, 2], user1);
+  kv.set(["SP", 2, 3], user2);
 
   const response = await distilledUserWithin24Hours(1, kv);
 
   const data = await response.json();
-  assertEquals(data, [user1]);
+  assertEquals(data, [{
+    sourceId: 1,
+    destinationId: 2,
+    time: user1.time,
+  }]);
+
+  await kv.close();
 });

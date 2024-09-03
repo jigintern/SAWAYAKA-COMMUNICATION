@@ -9,12 +9,23 @@ async function distilledUserWithin24Hours(id, kv) {
   const nowTime = await getNowTime(); //今現在の時間
 
   for await (const element of spIterator) {
-    if (new Date(nowTime) - new Date(element.value.time) < 86400 * 1000) { //24時間以内の場合
+    const sourceId = element.key[1];
+    const destinationId = element.value.User;
+    const time = element.value.time;
+
+    if (new Date(nowTime) - new Date(time) < 86400 * 1000) { //24時間以内の場合
       if (
-        element.key[1] === Number(id) ||
-        Number(element.value.User) === Number(id)
-      ) { //自身に送られたまたは自身が送ったなら
-        distilledUserArray.push(element);
+        sourceId === Number(id) ||
+        Number(destinationId) === Number(id)
+      ) {
+        //自身に送られたまたは自身が送ったなら
+        const result = {
+          sourceId,
+          destinationId,
+          time,
+        };
+
+        distilledUserArray.push(result);
       }
     }
   }
