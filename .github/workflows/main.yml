@@ -18,4 +18,4 @@ jobs:
           deno lint
       - name: Run tests
         run: |
-          deno test -A ./tests
+          deno test -A --unstable ./tests
