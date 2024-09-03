@@ -9,10 +9,9 @@ Deno.test("24時間以内に交流したユーザだけ取得できる", async (
   kv.set(["SP", 1, 2], user1);
   kv.set(["SP", 2, 3], user2);
 
-  const response = await distilledUserWithin24Hours(1, kv);
+  const userList = await distilledUserWithin24Hours(1, kv);
 
-  const data = await response.json();
-  assertEquals(data, [{
+  assertEquals(userList, [{
     sourceId: 1,
     destinationId: 2,
     time: user1.time,

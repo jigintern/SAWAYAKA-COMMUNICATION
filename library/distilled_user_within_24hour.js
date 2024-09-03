@@ -6,7 +6,7 @@ async function distilledUserWithin24Hours(id, kv) {
 
   // データを全取得するためのイテレーターを作成する
   const spIterator = kv.list({ prefix: ["SP"] });
-  const nowTime = await getNowTime(); //今現在の時間
+  const nowTime = getNowTime(); //今現在の時間
 
   for await (const element of spIterator) {
     const sourceId = element.key[1];
@@ -30,7 +30,7 @@ async function distilledUserWithin24Hours(id, kv) {
     }
   }
 
-  return new Response(JSON.stringify(distilledUserArray));
+  return distilledUserArray;
 }
 
 export { distilledUserWithin24Hours };
