@@ -17,26 +17,24 @@ globalThis.onload = async (event) => {
       const myData = await localStorage.getItem('current_user');
       const ID = Number(JSON.parse(myData).id);//自身のID取得
 
-        // 各イテレーションで配列の要素セット
-        let current_iterate_username = data[step].key[1];
-        if(ID === data[step].key[1]){current_iterate_username = data[step].value.User;}//自身の送信したものなら送信先を見る
-        const current_iterate_contact_time = data[step].value.time;
-        
-        // 新しいdiv要素を作成
-        /**
-         * @type {HTMLDivElement}
-         */
-        const outDiv = document.createElement('div');
-        const idDiv = document.createElement('div');
-        const timeDiv = document.createElement('div');
+      // 各イテレーションで配列の要素セット
+      let current_iterate_username = data[step].key[1];
+      if(ID === data[step].key[1]){current_iterate_username = data[step].value.User;}//自身の送信したものなら送信先を見る
+      const current_iterate_contact_time = data[step].value.time;
+      
+      // 新しいdiv要素を作成
+      /**
+       * @type {HTMLDivElement}
+       */
+      const outDiv = document.createElement('div');
 
-        outDiv.id = "content_container";
-        outDiv.classList.add("item")
-        // コンテナに追加する
-        usr_name_content.appendChild(outDiv);
+      outDiv.id = "content_container";
+      outDiv.classList.add("item")
+      // コンテナに追加する
+      usr_name_content.appendChild(outDiv);
 
-        
-        outDiv.innerHTML = `
+      
+      outDiv.innerHTML = `
         <div class="user_link_outer">
           <a href="/profile?id=${current_iterate_username}">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -57,18 +55,6 @@ globalThis.onload = async (event) => {
             ${formatDateTime(current_iterate_contact_time)}</p>
         </div>
         `
-
-        // 生成されたdivにidと送られたテキストを設定する
-        // idDiv.textContent = `交流した相手のID:${current_iterate_username}`;
-        // timeDiv.textContent = `交流した時間：${formatDateTime(current_iterate_contact_time)}`;
-
-        // 生成したdivタグにidやclass名を与える
-        idDiv.className = `user_card_container`;
-        idDiv.id = `user_card_container_${step}`;
-
-        // コンテナに追加する
-        outDiv.appendChild(idDiv);
-        outDiv.appendChild(timeDiv);
     }
 }
 
