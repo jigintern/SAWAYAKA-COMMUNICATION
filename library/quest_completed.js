@@ -1,7 +1,7 @@
 //クエストを完了にする。
 
-import { GetNowTime } from "./get_time.js";
-async function Quest_completed(req, kv) {
+import { getNowTime } from "./get_time.js";
+async function questCompleted(req, kv) {
   //クエストの完了日を更新。または本日クエストが完了しているかどうかをサーバーに問い合わせることが出来る。
   //完了日更新は1、完了の確認は0(kye='mode')
   //または戻り値はクエストをすでに完了しているなら1、まだ完了していないなら0
@@ -17,13 +17,16 @@ async function Quest_completed(req, kv) {
   const newValue = data.value;
   if (Number(mode) === 1) {
     console.log(newValue.quest_completed_time);
-    newValue.quest_completed_time = await GetNowTime(); //クエスト完了日時をサーバーが自動で取得するようにする。
+    newValue.quest_completed_time = await getNowTime(); //クエスト完了日時をサーバーが自動で取得するようにする。
     await kv.set(dataKey, newValue);
     return new Response(1);
   } else {
     //if (newValue.quest_completed_time === getCurrentDateDay()) {
     //クエストの間隔を調整できます。/public/lib/sessionChecker.js Line9も確認
-    if ((new Date(await GetNowTime()) - new Date(newValue.quest_completed_time)) <= 300000) {//300000ミリ秒は五分
+    if (
+      (new Date(await getNowTime()) -
+        new Date(newValue.quest_completed_time)) <= 300000
+    ) { //300000ミリ秒は五分
       return new Response(1);
     } else {
       return new Response(0);
@@ -31,5 +34,4 @@ async function Quest_completed(req, kv) {
   }
 }
 
-export { Quest_completed };
-
+export { questCompleted };
