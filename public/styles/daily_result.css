@@ -1,0 +1,66 @@
+h1,
+h2 {
+  display: block;
+  font-size: 2.4rem;
+  line-height: 1.3;
+  background-image: linear-gradient(45deg, #3b56dc, #f768d3 30%, #f2bc5f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: h1grad_always 3s ease-in-out infinite both;
+  animation-direction: alternate;
+  background-size: 300% 300%;
+  text-align: center;
+}
+
+h2 {
+  background-image: linear-gradient(-45deg, #3b56dc, #f768d3 30%, #f2bc5f);
+  font-size: 1.8rem;
+}
+
+@keyframes h1grad_always {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+.main_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1rem;
+  padding-inline: 1.75rem;
+  margin-top: 2rem;
+}
+
+.results_form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user {
+  width: 5rem;
+  position: relative;
+}
+
+.user svg {
+  position: relative;
+  fill: #7ae09e;
+  transform: rotateY(0);
+  -webkit-transform: rotateY(0);
+  -moz-transform: rotateY(0);
+  -ms-transform: rotateY(0);
+  -o-transform: rotateY(0);
+}
+
+.user:hover svg {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+}
