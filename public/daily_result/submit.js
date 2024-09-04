@@ -1,38 +1,37 @@
 globalThis.onload = async (event) => {
-  const current_user_profile = await JSON.parse(localStorage.getItem("current_user"))
+  const current_user_profile = await JSON.parse(
+    localStorage.getItem("current_user"),
+  );
   const id = current_user_profile.id;
 
   const userResponse = await fetch(`/distilled_user?id=${id}`, {
     method: "GET",
-  })
+  });
 
   const data = await userResponse.json();
 
-
   const usr_name_content = document.getElementById("itemList");
-
 
   for (let step = 0; step < data.length; step++) {
     //ローカルストレージ
-    const myData = await localStorage.getItem('current_user');
-    const ID = Number(JSON.parse(myData).id);//自身のID取得
+    const myData = await localStorage.getItem("current_user");
+    const ID = Number(JSON.parse(myData).id); //自身のID取得
 
     // 各イテレーションで配列の要素セット
-    let current_iterate_username = data[step].key[1];
-    if (ID === data[step].key[1]) { current_iterate_username = data[step].value.User; }//自身の送信したものなら送信先を見る
-    const current_iterate_contact_time = data[step].value.time;
+    let current_iterate_username = data[step]["sourceId"];
+    if (ID === data[step]["sourceId"]) {
+      current_iterate_username = data[step]["destinationId"];
+    } //自身の送信したものなら送信先を見る
+    const current_iterate_contact_time = String(data[step]["time"]);
 
     // 新しいdiv要素を作成
     /**
      * @type {HTMLDivElement}
      */
-    const outDiv = document.createElement('div');
+    const outDiv = document.createElement("div");
 
     outDiv.id = "content_container";
-    outDiv.classList.add("item")
-    // コンテナに追加する
-    usr_name_content.appendChild(outDiv);
-
+    outDiv.classList.add("item");
 
     outDiv.innerHTML = `
       <div class="user_link_outer">
@@ -54,20 +53,24 @@ globalThis.onload = async (event) => {
           </span>
           ${formatDateTime(current_iterate_contact_time)}</p>
       </div>
-      `
+      `;
+    // コンテナに追加する
+    usr_name_content.appendChild(outDiv);
   }
-}
+};
 
 //時間を表示
 function formatDateTime(dateTimeString) {
   // 正規表現を使用して分割
-  const regex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/;
+  const regex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d{3})Z$/;
   const match = dateTimeString.match(regex);
 
   if (match) {
     const [, year, month, day, hour, minute] = match;
-    return `${year}年${parseInt(month)}月${parseInt(day)}日${hour}時${minute}分`;
+    return `${year}年${parseInt(month)}月${
+      parseInt(day)
+    }日${hour}時${minute}分`;
   } else {
-    throw new Error('Invalid ISO string format');
+    throw new Error("Invalid ISO string format");
   }
 }
