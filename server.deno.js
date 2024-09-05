@@ -68,7 +68,7 @@ Deno.serve(async (req) => {
   // 24時間以内にコンタクトしたユーザーをデータベースから抽出する
   if (req.method === "GET" && pathname === "/distilled_user") {
     const id = new URL(req.url).searchParams.get("id"); //送信者自身のID
-    const userList = distilledUserWithin24Hours(id, kv);
+    const userList = await distilledUserWithin24Hours(id, kv);
 
     return new Response(JSON.stringify(userList));
   }

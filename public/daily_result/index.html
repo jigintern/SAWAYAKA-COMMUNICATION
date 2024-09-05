@@ -2,24 +2,26 @@
 <html lang="ja">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="/styles/components.css">
-  <link href="https://use.fontawesome.com/releases/v62.0/css/all.css" rel="stylesheet">
-  <link rel="stylesheet" href="/daily_result/daily_result.css">
-  <script src="/search_around_people/post_location.js"></script>
+  <script src="/lib/metaPlacer.js"></script>
+  <script>
+    metaPlacer("最近交流したユーザー")
+  </script>
   <script src="/lib/sessionChecker.js"></script>
-  <title>daily_result</title>
+  <script src="/search_around_people/post_location.js"></script>
+  <link rel="stylesheet" href="/styles/daily_result.css">
 </head>
 
 <body>
   <div id="header"></div>
   <main>
-    <div id="main_title_container">
-      <span id="page_title">24時間以内に交流したユーザー</span>
-    </div>
-    <div id="content_container2">
-      <!-- ここに自動的にdivタグが生成される -->
+    <div class="main_form">
+      <h1>
+        <span>24時間以内の</span>
+        <span>交流済みユーザー</span>
+      </h1>
+      <div class="user_list" id="itemList">
+        <!-- ここに自動的にdivタグが生成される -->
+      </div>
     </div>
   </main>
 
@@ -32,10 +34,6 @@
     fetch("/components/footer.html")
       .then((response) => response.text())
       .then((data) => document.querySelector("#footer").innerHTML = data);
-    // document.getElementById('Search_id_submit_button').addEventListener('click', () => {
-    //   const rawid = document.getElementById("Search_id_Input_form");
-
-    // });
   </script>
   <script src="/daily_result/submit.js"></script>
   <script src="/lib/footerLinkModifier.js"></script>
