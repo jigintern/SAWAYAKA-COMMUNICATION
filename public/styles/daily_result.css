@@ -48,13 +48,23 @@ h2 {
 }
 
 .item {
-    display: flex;
-    background-color: #c8f7f4;
-    column-gap: 1rem;
-    align-items: center;
-    border-radius: .5rem;
-    color: #155857;
-    overflow: hidden;
+  display: flex;
+  background-color: #c8f7f4;
+  column-gap: 1rem;
+  align-items: center;
+  border-radius: .5rem;
+  color: #155857;
+  overflow: hidden;
+}
+
+.item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .user_link_outer {
@@ -62,23 +72,18 @@ h2 {
   padding: .5rem 1rem;
   align-items: center;
   justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .user_link_outer:hover {
   background-color: #206e6c;
 }
 
-.user_link_outer a {
-  color: whitesmoke;
-  text-decoration: none;
-  font-size: 1.35rem;
-  line-height: 1;
-  font-weight: bold;
-}
-
 .item .user_link_outer svg {
-    width: 1.35rem;
-    fill: whitesmoke;
+  width: 1.35rem;
+  fill: whitesmoke;
+  margin-right: .5rem;
 }
 
 .item .user_time_outer svg {
