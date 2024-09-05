@@ -1,3 +1,5 @@
+@import url(common.css);
+
 .main_form {
   display: flex;
   flex-direction: column;

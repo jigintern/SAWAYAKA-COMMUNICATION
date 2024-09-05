@@ -1,5 +1,4 @@
-/* 各divタグのheightはautoにしているのでいい感じの設定に変えてください　*/
-/* font-colorも見やすいように#whiteにしていたりするのでさわやかな感じに変えてください 　*/
+@import url(common.css);
 
 #user_content_card {
   height: auto;
